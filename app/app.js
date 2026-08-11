@@ -1,5 +1,5 @@
 /**
- * AI NID — AUTONOMOUS AI NETWORK INTELLIGENCE PLATFORM
+ * NETWORK INTRUSION DETECTION — MACHINE LEARNING SECURITY SYSTEM
  * Ambient Particle Background Canvas, Metric Observer, Stepper, Chart.js Analytics & Real FastAPI Inference
  * Visual Identity: Obsidian + Pearl White + Electric Violet + Warm Amber
  */
@@ -133,6 +133,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     let activePayload = { ...PRESETS.sample };
+    let activeDatasetSample = null;
     let lastPredictionResult = null;
     let confidenceThreshold = 0.80;
 
@@ -144,6 +145,7 @@ document.addEventListener("DOMContentLoaded", () => {
     setupScenarioCards();
     setupCsvUpload();
     setupFormSubmission();
+    setupDatasetSampleLoader();
     setupBannerClose();
     setupCountUpObserver();
     setupSliderControl();
@@ -153,6 +155,7 @@ document.addEventListener("DOMContentLoaded", () => {
     initThreatCategoriesUpgrade();
     setupScrollspy();
     initPipelineSequenceCycle();
+    resetPredictionCardState();
 
     setInterval(checkApiHealth, 10000);
 
@@ -416,33 +419,38 @@ document.addEventListener("DOMContentLoaded", () => {
         const containerCsv = document.getElementById("mode-container-csv");
         const containerAdvanced = document.getElementById("mode-container-advanced");
 
-        modeBtnSample.addEventListener("click", () => switchMode("sample"));
-        modeBtnCsv.addEventListener("click", () => switchMode("csv"));
-        modeBtnAdvanced.addEventListener("click", () => switchMode("advanced"));
-
-        function switchMode(mode) {
-            hideErrorBanner();
-            [modeBtnSample, modeBtnCsv, modeBtnAdvanced].forEach((b) => {
-                b.classList.remove("active");
-                b.setAttribute("aria-selected", "false");
-            });
-            [containerSample, containerCsv, containerAdvanced].forEach((c) => c.classList.add("hidden"));
-
-            if (mode === "sample") {
-                modeBtnSample.classList.add("active");
-                modeBtnSample.setAttribute("aria-selected", "true");
-                containerSample.classList.remove("hidden");
-            } else if (mode === "csv") {
-                modeBtnCsv.classList.add("active");
-                modeBtnCsv.setAttribute("aria-selected", "true");
-                containerCsv.classList.remove("hidden");
-            } else if (mode === "advanced") {
-                modeBtnAdvanced.classList.add("active");
-                modeBtnAdvanced.setAttribute("aria-selected", "true");
-                containerAdvanced.classList.remove("hidden");
-                updateFormInputsFromPayload(activePayload);
-            }
+        // This page no longer uses the legacy tabbed mode-switch layout, so the older
+        // IDs may not exist. Guard against nulls so initialization does not crash.
+        if (!modeBtnSample && !modeBtnCsv && !modeBtnAdvanced && !containerSample && !containerCsv && !containerAdvanced) {
+            return;
         }
+
+        [
+            { btn: modeBtnSample, mode: "sample", container: containerSample },
+            { btn: modeBtnCsv, mode: "csv", container: containerCsv },
+            { btn: modeBtnAdvanced, mode: "advanced", container: containerAdvanced }
+        ].forEach(({ btn, mode, container }) => {
+            if (!btn || !container) return;
+            btn.addEventListener("click", () => {
+                hideErrorBanner();
+                [modeBtnSample, modeBtnCsv, modeBtnAdvanced].forEach((button) => {
+                    if (!button) return;
+                    button.classList.remove("active");
+                    button.setAttribute("aria-selected", "false");
+                });
+                [containerSample, containerCsv, containerAdvanced].forEach((section) => {
+                    if (section) section.classList.add("hidden");
+                });
+
+                btn.classList.add("active");
+                btn.setAttribute("aria-selected", "true");
+                container.classList.remove("hidden");
+
+                if (mode === "advanced") {
+                    updateFormInputsFromPayload(activePayload);
+                }
+            });
+        });
     }
 
     function setupScenarioCards() {
@@ -548,37 +556,45 @@ document.addEventListener("DOMContentLoaded", () => {
     // ==========================================================================
     function setupCsvUpload() {
         const fileInput = document.getElementById("csv-file-input");
-        const dropZone = document.getElementById("csv-drop-zone");
+        const dropZone = document.getElementById("drop-zone") || document.getElementById("csv-drop-zone");
         const infoBox = document.getElementById("csv-info-box");
         const filenameEl = document.getElementById("csv-filename");
         const rowsCountEl = document.getElementById("csv-rows-count");
         const submitCsvBtn = document.getElementById("btn-submit-csv");
         const downloadCsvReportBtn = document.getElementById("btn-download-csv-report");
 
+        if (!fileInput && !dropZone && !submitCsvBtn && !downloadCsvReportBtn) {
+            return;
+        }
+
         let parsedCsvPayloads = [];
 
-        dropZone.addEventListener("dragover", (e) => {
-            e.preventDefault();
-            dropZone.classList.add("dragover");
-        });
+        if (dropZone) {
+            dropZone.addEventListener("dragover", (e) => {
+                e.preventDefault();
+                dropZone.classList.add("dragover");
+            });
 
-        dropZone.addEventListener("dragleave", () => {
-            dropZone.classList.remove("dragover");
-        });
+            dropZone.addEventListener("dragleave", () => {
+                dropZone.classList.remove("dragover");
+            });
 
-        dropZone.addEventListener("drop", (e) => {
-            e.preventDefault();
-            dropZone.classList.remove("dragover");
-            if (e.dataTransfer.files.length > 0) {
-                handleCsvFile(e.dataTransfer.files[0]);
-            }
-        });
+            dropZone.addEventListener("drop", (e) => {
+                e.preventDefault();
+                dropZone.classList.remove("dragover");
+                if (e.dataTransfer && e.dataTransfer.files.length > 0) {
+                    handleCsvFile(e.dataTransfer.files[0]);
+                }
+            });
+        }
 
-        fileInput.addEventListener("change", () => {
-            if (fileInput.files.length > 0) {
-                handleCsvFile(fileInput.files[0]);
-            }
-        });
+        if (fileInput) {
+            fileInput.addEventListener("change", () => {
+                if (fileInput.files.length > 0) {
+                    handleCsvFile(fileInput.files[0]);
+                }
+            });
+        }
 
         function handleCsvFile(file) {
             hideErrorBanner();
@@ -614,9 +630,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (missingHeaders.length > 5) {
                 showErrorBanner("Schema Mismatch", `CSV missing ${missingHeaders.length} required flow features (e.g. '${missingHeaders[0]}'). Ensure CSV matches CIC-IDS2017 schema.`);
-                submitCsvBtn.disabled = true;
+                if (submitCsvBtn) submitCsvBtn.disabled = true;
                 if (downloadCsvReportBtn) downloadCsvReportBtn.disabled = true;
-                infoBox.classList.add("hidden");
+                if (infoBox) infoBox.classList.add("hidden");
                 return;
             }
 
@@ -644,25 +660,27 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (parsedCsvPayloads.length === 0) {
                 showErrorBanner("CSV Error", "No valid data rows found in uploaded CSV file.");
-                submitCsvBtn.disabled = true;
+                if (submitCsvBtn) submitCsvBtn.disabled = true;
                 if (downloadCsvReportBtn) downloadCsvReportBtn.disabled = true;
-                infoBox.classList.add("hidden");
+                if (infoBox) infoBox.classList.add("hidden");
                 return;
             }
 
-            filenameEl.textContent = filename;
-            rowsCountEl.textContent = parsedCsvPayloads.length;
-            infoBox.classList.remove("hidden");
-            submitCsvBtn.disabled = false;
+            if (filenameEl) filenameEl.textContent = filename;
+            if (rowsCountEl) rowsCountEl.textContent = parsedCsvPayloads.length;
+            if (infoBox) infoBox.classList.remove("hidden");
+            if (submitCsvBtn) submitCsvBtn.disabled = false;
             if (downloadCsvReportBtn) downloadCsvReportBtn.disabled = false;
 
             activePayload = { ...parsedCsvPayloads[0] };
         }
 
-        submitCsvBtn.addEventListener("click", async () => {
-            if (parsedCsvPayloads.length === 0) return;
-            executeInference(parsedCsvPayloads[0]);
-        });
+        if (submitCsvBtn) {
+            submitCsvBtn.addEventListener("click", async () => {
+                if (parsedCsvPayloads.length === 0) return;
+                executeInference(parsedCsvPayloads[0]);
+            });
+        }
 
         if (downloadCsvReportBtn) {
             downloadCsvReportBtn.addEventListener("click", () => {
@@ -686,7 +704,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const encodedUri = encodeURI(csvContent);
         const link = document.createElement("a");
         link.setAttribute("href", encodedUri);
-        link.setAttribute("download", "ai_nid_threat_report.csv");
+        link.setAttribute("download", "network_intrusion_detection_report.csv");
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
@@ -734,6 +752,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
 
                 executeInference(payload);
+            });
+        }
+
+        const runBtn = document.getElementById("btn-run-prediction");
+        if (runBtn) {
+            runBtn.addEventListener("click", () => {
+                executeInference(activePayload);
             });
         }
     }
@@ -787,11 +812,145 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
+    function setupDatasetSampleLoader() {
+        const sampleButtons = document.querySelectorAll("[data-sample-cat]");
+        sampleButtons.forEach((btn) => {
+            btn.addEventListener("click", () => {
+                sampleButtons.forEach((b) => b.classList.remove("active"));
+                btn.classList.add("active");
+                const cat = btn.getAttribute("data-sample-cat");
+                loadDatasetSample(cat);
+            });
+        });
+
+        const btnLoadSample = document.getElementById("btn-load-dataset-sample");
+        if (btnLoadSample) {
+            btnLoadSample.addEventListener("click", () => {
+                const activeBtn = document.querySelector("[data-sample-cat].active");
+                const cat = activeBtn ? activeBtn.getAttribute("data-sample-cat") : "BENIGN";
+                loadDatasetSample(cat);
+            });
+        }
+
+        const presetOpts = document.querySelectorAll(".btn-preset-opt");
+        presetOpts.forEach((btn) => {
+            btn.addEventListener("click", () => {
+                const key = btn.getAttribute("data-preset");
+                if (PRESETS[key]) {
+                    activePayload = { ...PRESETS[key] };
+                    activeDatasetSample = null;
+                    updateFormInputsFromPayload(activePayload);
+                    const inputSummary = document.getElementById("res-input-summary");
+                    if (inputSummary) inputSummary.innerHTML = `Loaded Preset: <strong>${key.toUpperCase()}</strong>`;
+                    const gtLabelEl = document.getElementById("res-ground-truth-label");
+                    if (gtLabelEl) gtLabelEl.textContent = "Preset Example";
+                    const runBtn = document.getElementById("btn-run-prediction");
+                    if (runBtn) runBtn.disabled = false;
+                }
+            });
+        });
+    }
+
+    async function loadDatasetSample(categoryKey) {
+        hideErrorBanner();
+        try {
+            const response = await fetch(`${API_BASE_URL}/dataset/sample/${encodeURIComponent(categoryKey)}`);
+            if (!response.ok) {
+                throw new Error(`Failed to load dataset sample for '${categoryKey}'`);
+            }
+            const sample = await response.json();
+            activeDatasetSample = sample;
+            activePayload = { ...sample.features };
+
+            updateFormInputsFromPayload(activePayload);
+
+            const previewCard = document.getElementById("sample-preview-card");
+            if (previewCard) previewCard.style.display = "block";
+
+            const srcEl = document.getElementById("spc-source");
+            if (srcEl) srcEl.textContent = `File: ${sample.source_file} (Row #${sample.row_index})`;
+
+            const labelEl = document.getElementById("spc-dataset-label");
+            if (labelEl) labelEl.textContent = sample.dataset_label;
+
+            const featViewEl = document.getElementById("spc-features-view");
+            if (featViewEl) {
+                const featText = Object.entries(sample.features)
+                    .map(([k, v]) => `"${k}": ${v}`)
+                    .join(", ");
+                featViewEl.innerHTML = `<code>{ ${featText} }</code>`;
+            }
+
+            const runBtn = document.getElementById("btn-run-prediction");
+            if (runBtn) runBtn.disabled = false;
+
+            const inputSummary = document.getElementById("res-input-summary");
+            if (inputSummary) {
+                inputSummary.innerHTML = `Record: <strong>${sample.source_file} (Row #${sample.row_index})</strong> | Ground Truth: <span class="gold-text">${sample.dataset_label}</span>`;
+            }
+
+            const gtLabelEl = document.getElementById("res-ground-truth-label");
+            if (gtLabelEl) gtLabelEl.textContent = sample.dataset_label;
+
+            const statusBadge = document.getElementById("res-status-badge");
+            if (statusBadge) {
+                statusBadge.className = "badge-test-set";
+                statusBadge.innerHTML = `<i class="fa-solid fa-vial"></i> READY — SAMPLE LOADED FROM TEST SET`;
+            }
+
+            document.getElementById("res-prediction-label").textContent = "—";
+            document.getElementById("res-confidence").textContent = "—";
+            const compBlock = document.getElementById("comparison-block");
+            if (compBlock) compBlock.style.display = "none";
+        } catch (err) {
+            showErrorBanner("Dataset Load Error", err.message || "Failed to load sample from dataset.");
+        }
+    }
+
+    function resetPredictionCardState() {
+        const resultCard = document.getElementById("prediction-result-card") || document.getElementById("result-card");
+        const inputSummary = document.getElementById("res-input-summary");
+        const predictionLabel = document.getElementById("res-prediction-label");
+        const confidenceEl = document.getElementById("res-confidence");
+        const meaningBox = document.getElementById("res-meaning-box");
+        const gtLabelEl = document.getElementById("res-ground-truth-label");
+        const statusBadge = document.getElementById("res-status-badge");
+
+        if (resultCard) {
+            resultCard.className = "result-card ready-state";
+        }
+        if (statusBadge) {
+            statusBadge.className = "badge-awaiting";
+            statusBadge.innerHTML = `<i class="fa-solid fa-circle-pause"></i> NO DATASET SAMPLE SELECTED`;
+        }
+        if (inputSummary) {
+            inputSummary.textContent = "Load a real dataset sample to begin.";
+        }
+        if (gtLabelEl) {
+            gtLabelEl.textContent = "—";
+        }
+        if (predictionLabel) {
+            predictionLabel.textContent = "—";
+        }
+        if (confidenceEl) {
+            confidenceEl.textContent = "—";
+        }
+        if (meaningBox) {
+            meaningBox.textContent = 'Click "LOAD REAL DATASET SAMPLE" then "RUN LIVE PREDICTION" to see the trained model classify a real network flow.';
+        }
+
+        const progressBars = ["bar-confidence", "bar-attack-prob", "bar-normal-prob"];
+        progressBars.forEach((id) => {
+            const el = document.getElementById(id);
+            if (el) el.style.width = "0%";
+        });
+    }
+
     // ==========================================================================
     // 7. RESULT RENDERING & 3D TOPOLOGY REACTION
     // ==========================================================================
     function displayPredictionResult(result) {
-        const resultCard = document.getElementById("result-card");
+        const resultCard = document.getElementById("prediction-result-card") || document.getElementById("result-card");
         const threatStatusBox = document.getElementById("threat-status-box");
         const statusNameEl = document.getElementById("result-threat-status");
         const statusSubEl = document.getElementById("result-threat-subdetail");
@@ -804,38 +963,64 @@ document.addEventListener("DOMContentLoaded", () => {
 
         document.getElementById("res-prediction-label").textContent = predLabel;
 
+        // Ground Truth vs Prediction Comparison
+        const groundTruth = activeDatasetSample ? activeDatasetSample.dataset_label : "Preset";
+        const compBlock = document.getElementById("comparison-block");
+        const compBox = document.getElementById("res-comparison-box");
+
+        if (compBlock && compBox) {
+            compBlock.style.display = "block";
+            const gtClean = groundTruth.trim().toUpperCase();
+            const predClean = predLabel.trim().toUpperCase();
+            const isMatch = gtClean === predClean || (gtClean.includes("BENIGN") && predClean.includes("BENIGN")) || (gtClean.includes(predClean) || predClean.includes(gtClean));
+
+            if (isMatch) {
+                compBox.className = "comparison-result-box comparison-match";
+                compBox.innerHTML = `<i class="fa-solid fa-circle-check green-text"></i> <strong>MATCH:</strong> Model prediction matches the ground-truth dataset label! (Known: <strong>${groundTruth}</strong> | Predicted: <strong>${predLabel}</strong>)`;
+            } else {
+                compBox.className = "comparison-result-box comparison-mismatch";
+                compBox.innerHTML = `<i class="fa-solid fa-triangle-exclamation amber-text"></i> <strong>MISMATCH:</strong> Prediction differs from the dataset label. (Ground-Truth: <strong>${groundTruth}</strong> | Model Prediction: <strong>${predLabel}</strong>)`;
+            }
+        }
+
         const meetsThreshold = confVal >= confidenceThreshold;
 
         if (isNormal) {
             resultCard.className = "result-card success-state";
-            threatStatusBox.className = "threat-status-box normal-status";
-            statusNameEl.textContent = "NORMAL";
-            statusSubEl.textContent = `No intrusion detected. Confidence ${(confVal * 100).toFixed(1)}% >= Threshold ${(confidenceThreshold * 100).toFixed(0)}%.`;
+            if (threatStatusBox) threatStatusBox.className = "threat-status-box normal-status";
+            if (statusNameEl) statusNameEl.textContent = "NORMAL";
+            if (statusSubEl) statusSubEl.textContent = `No intrusion detected. Confidence ${(confVal * 100).toFixed(1)}%.`;
 
-            document.getElementById("res-attack-type").textContent = "None (BENIGN)";
-            document.getElementById("res-security-action").textContent = "Flow Normal — No Action Required";
-            document.getElementById("res-security-action").style.color = "var(--accent-emerald)";
+            if (document.getElementById("res-attack-type")) document.getElementById("res-attack-type").textContent = "None (BENIGN)";
+            if (document.getElementById("res-security-action")) {
+                document.getElementById("res-security-action").textContent = "Flow Normal — No Action Required";
+                document.getElementById("res-security-action").style.color = "var(--accent-emerald)";
+            }
 
-            iconWrapper.style.borderColor = "var(--accent-emerald)";
-            iconWrapper.style.background = "rgba(16, 185, 129, 0.15)";
-            icon.className = "fa-solid fa-shield-check result-icon";
-            icon.style.color = "var(--accent-emerald)";
+            if (iconWrapper && icon) {
+                iconWrapper.style.borderColor = "var(--accent-emerald)";
+                iconWrapper.style.background = "rgba(16, 185, 129, 0.15)";
+                icon.className = "fa-solid fa-shield-check result-icon";
+                icon.style.color = "var(--accent-emerald)";
+            }
         } else {
             resultCard.className = "result-card threat-state";
-            threatStatusBox.className = "threat-status-box attack-status";
-            statusNameEl.textContent = meetsThreshold ? "THREAT DETECTED" : "SUSPICIOUS FLOW";
-            statusSubEl.textContent = meetsThreshold 
-                ? `High-confidence threat detected (${predLabel}). Immediate action recommended.`
-                : `Threat label (${predLabel}) below threshold (${(confidenceThreshold * 100).toFixed(0)}%). Flagged for manual review.`;
+            if (threatStatusBox) threatStatusBox.className = "threat-status-box attack-status";
+            if (statusNameEl) statusNameEl.textContent = meetsThreshold ? "THREAT DETECTED" : "SUSPICIOUS FLOW";
+            if (statusSubEl) statusSubEl.textContent = `Threat detected (${predLabel}).`;
 
-            document.getElementById("res-attack-type").textContent = predLabel;
-            document.getElementById("res-security-action").textContent = meetsThreshold ? `Quarantine & Block Flow (${predLabel})` : `Flagged for Review (${predLabel})`;
-            document.getElementById("res-security-action").style.color = "var(--accent-red)";
+            if (document.getElementById("res-attack-type")) document.getElementById("res-attack-type").textContent = predLabel;
+            if (document.getElementById("res-security-action")) {
+                document.getElementById("res-security-action").textContent = `Quarantine & Block Flow (${predLabel})`;
+                document.getElementById("res-security-action").style.color = "var(--accent-red)";
+            }
 
-            iconWrapper.style.borderColor = "var(--accent-red)";
-            iconWrapper.style.background = "rgba(244, 63, 94, 0.15)";
-            icon.className = "fa-solid fa-triangle-exclamation result-icon";
-            icon.style.color = "var(--accent-red)";
+            if (iconWrapper && icon) {
+                iconWrapper.style.borderColor = "var(--accent-red)";
+                iconWrapper.style.background = "rgba(244, 63, 94, 0.15)";
+                icon.className = "fa-solid fa-triangle-exclamation result-icon";
+                icon.style.color = "var(--accent-red)";
+            }
         }
 
         const confidencePct = (confVal * 100).toFixed(2);
@@ -843,30 +1028,21 @@ document.addEventListener("DOMContentLoaded", () => {
         const normalProbPct = (result.normal_probability * 100).toFixed(2);
 
         document.getElementById("res-confidence").textContent = `${confidencePct}%`;
-        document.getElementById("res-attack-prob").textContent = `${attackProbPct}%`;
-        document.getElementById("res-normal-prob").textContent = `${normalProbPct}%`;
+        if (document.getElementById("res-attack-prob")) document.getElementById("res-attack-prob").textContent = `${attackProbPct}%`;
+        if (document.getElementById("res-normal-prob")) document.getElementById("res-normal-prob").textContent = `${normalProbPct}%`;
 
-        document.getElementById("bar-confidence").style.width = `${confidencePct}%`;
-        document.getElementById("bar-attack-prob").style.width = `${attackProbPct}%`;
-        document.getElementById("bar-normal-prob").style.width = `${normalProbPct}%`;
+        if (document.getElementById("bar-confidence")) document.getElementById("bar-confidence").style.width = `${confidencePct}%`;
+        if (document.getElementById("bar-attack-prob")) document.getElementById("bar-attack-prob").style.width = `${attackProbPct}%`;
+        if (document.getElementById("bar-normal-prob")) document.getElementById("bar-normal-prob").style.width = `${normalProbPct}%`;
 
-        // Update Live Threat Intelligence Workspace Card & Event Stream
-        const decStatus = document.getElementById("dec-val-status");
-        const decConf = document.getElementById("dec-val-conf");
-        const decAction = document.getElementById("dec-val-action");
-
-        if (decStatus) {
-            decStatus.textContent = isNormal ? "NORMAL" : "THREAT DETECTED";
-            decStatus.className = isNormal ? "green-text" : "red-text";
-        }
-        if (decConf) decConf.textContent = `${confidencePct}%`;
-        if (decAction) {
-            decAction.textContent = isNormal ? "CONTINUE" : "QUARANTINE";
-            decAction.className = isNormal ? "violet-text" : "red-text";
+        // Update "WHAT JUST HAPPENED?" text
+        const meaningBox = document.getElementById("res-meaning-box");
+        if (meaningBox) {
+            const fileInfo = activeDatasetSample ? `from record <strong>${activeDatasetSample.source_file} (Row #${activeDatasetSample.row_index})</strong> in our test set` : "from our dataset";
+            meaningBox.innerHTML = `We selected a real network-flow record ${fileInfo}. Its 78 traffic measurements were passed through the same prediction pipeline used by the application. The trained XGBoost model analyzed the learned traffic patterns and returned the predicted class (<strong>${predLabel}</strong>).`;
         }
 
         prependLtiStreamEvent(predLabel, isNormal, confVal);
-
         updateAiExplanationAndAction(activePayload, isNormal, predLabel, confVal);
 
         if (typeof window.update3DTopologyState === "function") {
@@ -1130,8 +1306,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Utilities & Error Banner
     function showAnalysisStepper() {
-        document.getElementById("analysis-stepper").classList.remove("hidden");
-        document.getElementById("result-card").classList.add("hidden");
+        const analysisStepper = document.getElementById("analysis-stepper");
+        const resultCard = document.getElementById("prediction-result-card") || document.getElementById("result-card");
+        if (analysisStepper) analysisStepper.classList.remove("hidden");
+        if (resultCard) resultCard.classList.add("hidden");
         const btnSubSample = document.getElementById("btn-submit-sample");
         const btnSubAdvanced = document.getElementById("btn-submit-advanced");
         if (btnSubSample) btnSubSample.disabled = true;
@@ -1139,8 +1317,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function hideAnalysisStepper() {
-        document.getElementById("analysis-stepper").classList.add("hidden");
-        document.getElementById("result-card").classList.remove("hidden");
+        const analysisStepper = document.getElementById("analysis-stepper");
+        const resultCard = document.getElementById("prediction-result-card") || document.getElementById("result-card");
+        if (analysisStepper) analysisStepper.classList.add("hidden");
+        if (resultCard) resultCard.classList.remove("hidden");
         const btnSubSample = document.getElementById("btn-submit-sample");
         const btnSubAdvanced = document.getElementById("btn-submit-advanced");
         if (btnSubSample) btnSubSample.disabled = false;
@@ -1181,13 +1361,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function showErrorBanner(title, msg) {
         const banner = document.getElementById("error-banner");
-        document.getElementById("error-title").textContent = title;
-        document.getElementById("error-message").textContent = msg;
+        const titleEl = document.getElementById("error-title");
+        const messageEl = document.getElementById("error-message");
+        if (!banner || !titleEl || !messageEl) return;
+        titleEl.textContent = title;
+        messageEl.textContent = msg;
         banner.classList.remove("hidden");
     }
 
     function hideErrorBanner() {
-        document.getElementById("error-banner").classList.add("hidden");
+        const banner = document.getElementById("error-banner");
+        if (banner) {
+            banner.classList.add("hidden");
+        }
     }
 
     function delay(ms) {

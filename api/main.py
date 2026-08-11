@@ -11,6 +11,8 @@ Exposes the final trained XGBoost model through a clean REST API:
 - Canonical frontend dashboard mounted at /dashboard/
 """
 
+import json
+import random
 from contextlib import asynccontextmanager
 from typing import Dict, Any, List
 from pathlib import Path
@@ -161,6 +163,74 @@ async def health_check():
         "features_expected": len(FEATURE_NAMES),
         "audit_status": "VALID WITH CAUTION",
     }
+
+
+@app.get("/dataset/samples", tags=["Dataset"])
+async def list_dataset_samples():
+    """List available real test-set samples extracted from CIC-IDS2017 dataset."""
+    samples_file = Path(__file__).resolve().parent.parent / "dataset" / "real_test_samples.json"
+    if not samples_file.exists():
+        raise HTTPException(status_code=404, detail="Real dataset samples file not found.")
+
+    with open(samples_file, "r") as fp:
+        data = json.load(fp)
+
+    categories = list(data.keys())
+    total_samples = sum(len(v) for v in data.values())
+    return {
+        "dataset_name": "CIC-IDS2017",
+        "split_type": "TEST-SET SAMPLE (80/20 Stratified Split, Unseen during model training)",
+        "total_categories": len(categories),
+        "total_samples": total_samples,
+        "categories": categories,
+        "samples": data,
+    }
+
+
+@app.get("/dataset/sample/{key}", tags=["Dataset"])
+async def get_dataset_sample(key: str):
+    """
+    Get an actual test-set sample record by category name (e.g. benign, ddos, portscan, bot, ssh-patator)
+    or specific sample ID. Returns ground-truth dataset label, source file, row index,
+    and 78 model features.
+    """
+    samples_file = Path(__file__).resolve().parent.parent / "dataset" / "real_test_samples.json"
+    if not samples_file.exists():
+        raise HTTPException(status_code=404, detail="Real dataset samples file not found.")
+
+    with open(samples_file, "r") as fp:
+        data = json.load(fp)
+
+    key_clean = "".join(ch for ch in key.lower() if ch.isalnum())
+
+    # Check exact sample ID
+    for cat_name, items in data.items():
+        for item in items:
+            if item.get("id", "").lower() == key.lower():
+                return item
+
+    # Check exact normalized category match
+    for cat_name, items in data.items():
+        cat_norm = "".join(ch for ch in cat_name.lower() if ch.isalnum())
+        if key_clean == cat_norm:
+            return random.choice(items)
+
+    # Check substring match
+    matched_items = []
+    for cat_name, items in data.items():
+        cat_norm = "".join(ch for ch in cat_name.lower() if ch.isalnum())
+        if key_clean in cat_norm or cat_norm in key_clean:
+            matched_items.extend(items)
+
+    if matched_items:
+        return random.choice(matched_items)
+
+    # Fallback to any random item
+    all_items = [item for items in data.values() for item in items]
+    if all_items:
+        return random.choice(all_items)
+
+    raise HTTPException(status_code=404, detail=f"No dataset sample found for '{key}'.")
 
 
 @app.get("/model-info", response_model=ModelInfoResponse, tags=["Model Info"])

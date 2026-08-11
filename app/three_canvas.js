@@ -1,5 +1,5 @@
 /**
- * AI NID — AUTONOMOUS AI NETWORK INTELLIGENCE PLATFORM
+ * NETWORK INTRUSION DETECTION — MACHINE LEARNING SECURITY SYSTEM
  * Three.js 3D Visualizer: Translucent Glass AI Core & Interactive Network Topology
  * Visual Palette: Pearl White, Electric Violet, Magenta & Warm Amber
  */

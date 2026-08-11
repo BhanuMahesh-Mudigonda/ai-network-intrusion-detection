@@ -3,1787 +3,630 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI NID | Autonomous AI Network Intelligence Platform</title>
-    <!-- SEO Meta Tags -->
-    <meta name="description" content="AI NID — Next-Generation Autonomous Network Intrusion Detection & Intelligence System powered by XGBoost and FastAPI backend.">
-    <meta name="keywords" content="AI NID, AI Cybersecurity, Network Intrusion Detection, XGBoost Machine Learning, FastAPI, Threat Intelligence, 3D WebGL Visualization">
-    
-    <!-- Google Fonts: Outfit & Inter & JetBrains Mono -->
+    <title>Network Intrusion Detection | Machine Learning Security System</title>
+    <meta name="description" content="AI-Powered Network Intrusion Detection System — Detect and classify suspicious network traffic using Machine Learning, XGBoost, and FastAPI.">
+    <meta name="keywords" content="Network Intrusion Detection, Machine Learning Security, XGBoost, FastAPI, CIC-IDS2017, Cyber Security">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    
-    <!-- FontAwesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Custom Stylesheet -->
     <link rel="stylesheet" href="style.css">
-    
-    <!-- Three.js 3D WebGL Engine & Chart.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 </head>
 <body>
-    <!-- MULTI-LAYER AMBIENT BACKGROUND CANVAS LAYER -->
-    <canvas id="bg-network-canvas" class="bg-canvas-layer" aria-hidden="true"></canvas>
-
-    <!-- TOP NAVIGATION HEADER -->
+    <!-- TOP NAV -->
     <header class="navbar" id="navbar" role="banner">
         <div class="nav-container">
             <div class="brand" id="nav-brand">
-                <div class="brand-logo-glow" aria-hidden="true">
-                    <i class="fa-solid fa-atom brand-icon"></i>
-                </div>
+                <div class="brand-logo-icon" aria-hidden="true"><i class="fa-solid fa-shield-halved brand-icon"></i></div>
                 <div class="brand-text">
-                    <div class="brand-top-row">
-                        <span class="brand-title">AI NID</span>
-                    </div>
-                    <span class="brand-sub">AUTONOMOUS INTELLIGENCE</span>
+                    <div class="brand-top-row"><span class="brand-title">NETWORK INTRUSION DETECTION</span></div>
+                    <span class="brand-sub">MACHINE LEARNING SECURITY SYSTEM</span>
                 </div>
             </div>
-            
             <nav class="nav-links" id="main-nav" role="navigation" aria-label="Main Navigation">
                 <a href="#hero" class="nav-link active" id="nav-overview">Overview</a>
-                <a href="#pipeline" class="nav-link" id="nav-pipeline">Pipeline</a>
-                <a href="#analyzer" class="nav-link" id="nav-detection">Detection</a>
-                <a href="#analytics" class="nav-link" id="nav-analytics">Analytics</a>
-                <a href="#topology" class="nav-link" id="nav-network">Network</a>
-                <a href="#metrics" class="nav-link" id="nav-model">AI Model</a>
-                <a href="#status" class="nav-link" id="nav-status">Reports</a>
+                <a href="#section-dataset" class="nav-link" id="nav-dataset">1. Dataset</a>
+                <a href="#section-pipeline" class="nav-link" id="nav-pipeline">2. Pipeline</a>
+                <a href="#section-model-comparison" class="nav-link" id="nav-models">3. Models</a>
+                <a href="#section-prediction-flow" class="nav-link" id="nav-prediction">4. Prediction</a>
+                <a href="#analyzer" class="nav-link" id="nav-detection">5. Live Demo</a>
+                <a href="#section-attacks" class="nav-link" id="nav-attacks">6. Results</a>
+                <a href="#section-fastapi" class="nav-link" id="nav-specs">7. Architecture</a>
             </nav>
-
             <div class="api-status-badge" id="api-status-badge" aria-live="polite">
                 <span class="status-dot online" id="status-dot"></span>
-                <span class="status-text" id="status-text">API CONNECTED</span>
+                <span class="status-text" id="status-text">SYSTEM ONLINE</span>
             </div>
         </div>
     </header>
 
     <main role="main">
-        <!-- 1. HERO — PROMINENT INTEGRATED AI CORE ORB WITH COMPACT 360-DEGREE TELEMETRY -->
+        <!-- HERO -->
         <section id="hero" class="hero hero-section">
-            <!-- Deep Obsidian & Atmospheric Radial Glows -->
-            <div class="hero-bg-glow-violet" aria-hidden="true"></div>
-            <div class="hero-bg-glow-amber" aria-hidden="true"></div>
-
             <div class="hero-asymmetric-container">
-                <!-- LEFT COLUMN (~40%): PROTECTED HERO TEXT CONTENT ZONE -->
                 <div class="hero-content hero-text-column">
-                    <div class="sys-eyebrow-tag" id="hero-badge">
-                        <span class="sys-badge-code">AI NID</span>
-                        <span class="sys-badge-sub">// AUTONOMOUS NETWORK INTELLIGENCE</span>
-                    </div>
-                    
-                    <h1 class="hero-title" id="hero-title">
-                        AUTONOMOUS<br>
-                        NETWORK<br>
-                        <span class="gradient-text">INTELLIGENCE</span>
-                    </h1>
-                    
-                    <p class="hero-tagline" id="hero-tagline">
-                        Real-Time Intelligent Network Threat Detection
-                    </p>
-                    
-                    <p class="hero-description" id="hero-desc">
-                        Monitor, analyze and classify multi-vector network intrusion flows using a validated XGBoost engine connected to live FastAPI infrastructure.
-                    </p>
-                    
+                    <div class="sys-eyebrow-tag" id="hero-badge"><span class="sys-badge-code">MACHINE LEARNING SECURITY SYSTEM</span></div>
+                    <h1 class="hero-title" id="hero-title">AI-Powered Network<br><span class="gradient-text">Intrusion Detection</span></h1>
+                    <p class="hero-tagline" id="hero-tagline">Detect and classify suspicious network traffic using Machine Learning</p>
+                    <p class="hero-description" id="hero-desc">Our system analyzes network traffic patterns and predicts whether a network flow is normal (BENIGN) or belongs to a known attack category such as DDoS, PortScan, Bot, or Web Attack.</p>
                     <div class="hero-cta">
-                        <a href="#analyzer" class="btn btn-primary" id="btn-hero-analyze">
-                            <i class="fa-solid fa-bolt"></i> ANALYZE NETWORK TRAFFIC
-                        </a>
-                        <a href="#pipeline" class="btn btn-secondary" id="btn-hero-system">
-                            <i class="fa-solid fa-compass"></i> ENTER INTELLIGENCE CENTER
-                        </a>
+                        <a href="#analyzer" class="btn btn-primary" id="btn-hero-analyze"><i class="fa-solid fa-bolt"></i> TEST LIVE PREDICTION</a>
+                        <a href="#section-dataset" class="btn btn-secondary" id="btn-hero-system"><i class="fa-solid fa-book-open"></i> EXPLORE PROJECT STORY</a>
                     </div>
                 </div>
-
-                <!-- RIGHT COLUMN (~60%): INTEGRATED AI CORE SPHERE WITH COMPACT NON-OVERLAPPING ORBITAL SYSTEM -->
                 <div class="hero-core hero-visual-column" id="hero-visual-column">
-                    <div class="hero-ai-core-backdrop-wrapper" id="hero-orb-wrapper" aria-hidden="true">
-                        <img src="assets/hero_ai_core.png" alt="Autonomous AI Intelligence Core Reactor" class="hero-ai-core-img" id="hero-orb-img">
-                        
-                        <!-- DYNAMIC CONTINUOUS 3D ORBITAL RINGS & ENERGY PARTICLES -->
-                        <div class="orb-3d-rings-container">
-                            <!-- Ring 1: Primary Bright White/Pearl Ring (Clockwise, 14s) -->
-                            <div class="orb-ring ring-1">
-                                <span class="orbit-particle p1"></span>
-                                <span class="orbit-particle p2"></span>
-                            </div>
-                            <!-- Ring 2: Electric Violet Ring (Counter-Clockwise, 18s) -->
-                            <div class="orb-ring ring-2">
-                                <span class="orbit-particle p3"></span>
-                                <span class="orbit-particle p4"></span>
-                            </div>
-                            <!-- Ring 3: Warm Gold/Amber Ring (Clockwise, 22s) -->
-                            <div class="orb-ring ring-3">
-                                <span class="orbit-particle p5"></span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 360-DEGREE CURVED NEURAL CONNECTION LINES ROUTED BEHIND CARDS -->
-                    <svg class="neural-lines-overlay" viewBox="0 0 700 600" fill="none" aria-hidden="true">
-                        <!-- Upper Left Line -->
-                        <path class="neural-path-dash" d="M 350 300 Q 220 120 70 90" stroke="url(#violetGlowGrad)" stroke-width="1.2" stroke-dasharray="6 6"/>
-                        <!-- Upper Right Line -->
-                        <path class="neural-path-dash" d="M 350 300 Q 500 80 620 40" stroke="url(#emeraldGlowGrad)" stroke-width="1.2" stroke-dasharray="4 6"/>
-                        <!-- Middle Left Line -->
-                        <path class="neural-path-dash" d="M 350 300 Q 200 320 20 300" stroke="url(#violetGlowGrad)" stroke-width="1.2" stroke-dasharray="6 6"/>
-                        <!-- Middle Right Line -->
-                        <path class="neural-path-dash" d="M 350 300 Q 520 280 630 270" stroke="url(#cyanGlowGrad)" stroke-width="1.2" stroke-dasharray="5 5"/>
-                        <!-- Lower Right Line -->
-                        <path class="neural-path-dash" d="M 350 300 Q 510 420 620 420" stroke="url(#violetGlowGrad)" stroke-width="1.2" stroke-dasharray="6 6"/>
-                        <!-- Lower Left-Center Line -->
-                        <path class="neural-path-dash" d="M 350 300 Q 280 480 200 540" stroke="url(#amberGlowGrad)" stroke-width="1.2" stroke-dasharray="6 6"/>
-
-                        <defs>
-                            <linearGradient id="violetGlowGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop offset="0%" stop-color="#8b5cf6" stop-opacity="0.5"/>
-                                <stop offset="100%" stop-color="#d946ef" stop-opacity="0.08"/>
-                            </linearGradient>
-                            <linearGradient id="amberGlowGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.5"/>
-                                <stop offset="100%" stop-color="#fbbf24" stop-opacity="0.08"/>
-                            </linearGradient>
-                            <linearGradient id="emeraldGlowGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop offset="0%" stop-color="#10b981" stop-opacity="0.6"/>
-                                <stop offset="100%" stop-color="#10b981" stop-opacity="0.08"/>
-                            </linearGradient>
-                            <linearGradient id="cyanGlowGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.6"/>
-                                <stop offset="100%" stop-color="#38bdf8" stop-opacity="0.08"/>
-                            </linearGradient>
-                        </defs>
-                    </svg>
-
-                    <!-- COMPACT 360-DEGREE ORBITAL TELEMETRY DISTRIBUTION -->
-                    <!-- 1. TOP CENTER: DATA FLOW -->
-                    <div class="micro-hud-label label-top-flow" id="hud-label-flow">
-                        <span class="micro-tech-tag">STREAM 01</span>
-                        <span class="micro-tech-text">DATA FLOW <i class="fa-solid fa-angle-right"></i></span>
-                        <div class="live-bars-anim" aria-hidden="true">
-                            <span class="bar-b b1"></span><span class="bar-b b2"></span><span class="bar-b b3"></span><span class="bar-b b4"></span><span class="bar-b b5"></span>
-                        </div>
-                    </div>
-
-                    <!-- 2. UPPER LEFT: 78 FEATURE SPACE -->
-                    <div class="floating-telemetry hud-pos-card-1" id="hud-card-1">
-                        <div class="tele-icon-box violet-icon"><i class="fa-solid fa-cube"></i></div>
-                        <div class="tele-text-group">
-                            <span class="t-val violet-text">78</span>
-                            <span class="t-lbl">FEATURE SPACE</span>
-                            <span class="t-sub">Extracted & Validated</span>
-                        </div>
-                    </div>
-
-                    <!-- 3. MIDDLE LEFT: 99.85% ACCURACY -->
-                    <div class="floating-telemetry hud-pos-card-3" id="hud-card-3">
-                        <div class="tele-icon-box gold-icon"><i class="fa-solid fa-chart-line"></i></div>
-                        <div class="tele-text-group">
-                            <span class="t-val gold-text">99.85%</span>
-                            <span class="t-lbl">ACCURACY</span>
-                            <span class="t-sub">Validated Model</span>
-                            <div class="hud-sparkline" aria-hidden="true">
-                                <svg width="70" height="14" viewBox="0 0 70 14" fill="none">
-                                    <path d="M0 10 L12 8 L24 11 L36 4 L48 7 L60 2 L70 5" stroke="#fbbf24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 4. UPPER RIGHT: THREAT SIGNAL -->
-                    <div class="holographic-threat-signal label-top-signal" id="hud-label-signal">
-                        <div class="holo-signal-header">
-                            <span class="holo-signal-dot"></span>
-                            <span class="holo-signal-title">THREAT SIGNAL</span>
-                        </div>
-                        <span class="holo-signal-status">99.8% SECURE</span>
-                        <div class="holo-signal-waveform" aria-hidden="true">
-                            <svg width="76" height="12" viewBox="0 0 76 12" fill="none">
-                                <path class="holo-wave-path" d="M0 6 L12 6 L18 2 L24 10 L30 4 L36 8 L42 6 L76 6" stroke="#10b981" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                        </div>
-                    </div>
-
-                    <!-- 5. RIGHT UPPER: 15 TARGET CLASSES -->
-                    <div class="floating-telemetry hud-pos-card-2" id="hud-card-2">
-                        <div class="tele-icon-box amber-icon"><i class="fa-solid fa-crosshairs"></i></div>
-                        <div class="tele-text-group">
-                            <span class="t-val amber-text">15</span>
-                            <span class="t-lbl">TARGET CLASSES</span>
-                            <span class="t-sub">Multi-Class Detection</span>
-                        </div>
-                    </div>
-
-                    <!-- 6. RIGHT MIDDLE: PACKET STREAM -->
-                    <div class="micro-hud-label label-right-stream" id="hud-label-stream">
-                        <span class="micro-tech-tag">PKT // SCAN</span>
-                        <span class="micro-tech-text">PACKET STREAM <span class="pkt-dots-anim">● ● ●</span></span>
-                        <span class="micro-tech-val">5.24 M/s</span>
-                    </div>
-
-                    <!-- 7. LOWER RIGHT: XGBOOST AI ENGINE -->
-                    <div class="floating-telemetry hud-pos-card-4" id="hud-card-4">
-                        <div class="tele-icon-box violet-icon"><i class="fa-solid fa-microchip"></i></div>
-                        <div class="tele-text-group">
-                            <span class="t-val violet-text">XGBOOST</span>
-                            <span class="t-lbl">AI ENGINE</span>
-                            <span class="t-sub">High Performance</span>
-                            <div class="hud-sparkline" aria-hidden="true">
-                                <svg width="70" height="14" viewBox="0 0 70 14" fill="none">
-                                    <path d="M0 12 L10 9 L22 11 L34 3 L46 6 L58 1 L70 4" stroke="#8b5cf6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 8. BOTTOM RIGHT: FASTAPI BACKEND -->
-                    <div class="floating-telemetry hud-pos-card-5" id="hud-card-5">
-                        <div class="tele-icon-box magenta-icon"><i class="fa-solid fa-code"></i></div>
-                        <div class="tele-text-group">
-                            <span class="t-val magenta-text">FASTAPI</span>
-                            <span class="t-lbl">BACKEND</span>
-                            <span class="t-sub">Live & Secure</span>
-                        </div>
-                    </div>
-
-                    <!-- 9. LOWER LEFT-CENTER: AI INFERENCE -->
-                    <div class="micro-hud-label label-bottom-inference" id="hud-label-inference">
-                        <span class="micro-tech-tag">INFERENCE // CORE</span>
-                        <span class="micro-tech-text"><i class="fa-solid fa-microchip latency-pulse-icon"></i> AI INFERENCE</span>
-                        <span class="micro-tech-val">LATENCY 1.2ms</span>
+                    <div class="hero-concepts-flow">
+                        <div class="concept-card concept-1"><div class="concept-icon green-icon"><i class="fa-solid fa-network-wired"></i></div><div class="concept-text"><span class="concept-step-num">STEP 1</span><strong class="concept-title">NETWORK TRAFFIC</strong><span class="concept-desc">Incoming network-flow data</span></div></div>
+                        <div class="concept-flow-arrow"><i class="fa-solid fa-arrow-down"></i></div>
+                        <div class="concept-card concept-2"><div class="concept-icon violet-icon"><i class="fa-solid fa-brain"></i></div><div class="concept-text"><span class="concept-step-num">STEP 2</span><strong class="concept-title">MACHINE LEARNING</strong><span class="concept-desc">Learned traffic patterns</span></div></div>
+                        <div class="concept-flow-arrow"><i class="fa-solid fa-arrow-down"></i></div>
+                        <div class="concept-card concept-3"><div class="concept-icon amber-icon"><i class="fa-solid fa-shield-halved"></i></div><div class="concept-text"><span class="concept-step-num">STEP 3</span><strong class="concept-title">PREDICTION</strong><span class="concept-desc">BENIGN or Attack Category</span></div></div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- 2. LIVE COMPACT STATUS STRIP -->
+        <!-- STATUS STRIP -->
         <div class="live-status-strip">
             <div class="section-container strip-flex">
-                <div class="strip-item">
-                    <span class="strip-dot green-dot"></span>
-                    <div class="strip-text">
-                        <strong>LIVE ANALYSIS</strong>
-                        <span>Real-time monitoring</span>
-                    </div>
-                </div>
+                <div class="strip-item"><span class="strip-dot green-dot"></span><div class="strip-text"><strong>DATASET</strong><span>CIC-IDS2017</span></div></div>
                 <div class="strip-divider">|</div>
-                <div class="strip-item">
-                    <span class="strip-dot violet-dot"></span>
-                    <div class="strip-text">
-                        <strong>AI ENGINE</strong>
-                        <span>XGBoost Ready</span>
-                    </div>
-                </div>
+                <div class="strip-item"><span class="strip-dot cyan-dot"></span><div class="strip-text"><strong>FEATURES</strong><span>78 Metrics</span></div></div>
                 <div class="strip-divider">|</div>
-                <div class="strip-item">
-                    <span class="strip-dot amber-dot"></span>
-                    <div class="strip-text">
-                        <strong>MODEL STATUS</strong>
-                        <span>Validated & Active</span>
-                    </div>
-                </div>
+                <div class="strip-item"><span class="strip-dot violet-dot"></span><div class="strip-text"><strong>FINAL MODEL</strong><span>XGBoost</span></div></div>
                 <div class="strip-divider">|</div>
-                <div class="strip-item">
-                    <span class="strip-dot emerald-dot"></span>
-                    <div class="strip-text">
-                        <strong>SYSTEM HEALTH</strong>
-                        <span>Optimal Performance</span>
-                    </div>
-                </div>
-                
-                <div class="strip-scroll-prompt">
-                    <span>SCROLL TO EXPLORE</span>
-                    <i class="fa-solid fa-chevron-down scroll-arrow-icon"></i>
-                </div>
+                <div class="strip-item"><span class="strip-dot amber-dot"></span><div class="strip-text"><strong>BACKEND</strong><span>FastAPI</span></div></div>
+                <div class="strip-divider">|</div>
+                <div class="strip-item"><span class="strip-dot emerald-dot"></span><div class="strip-text"><strong>TEST ACCURACY</strong><span>99.89% Verified</span></div></div>
             </div>
         </div>
 
-        <!-- 3. EXECUTIVE TELEMETRY 4-CARD DASHBOARD GRID -->
-        <section id="quick-telemetry" class="quick-telemetry-section">
+        <!-- ============================================================ -->
+        <!-- SECTION 1: OUR DATASET                                      -->
+        <!-- ============================================================ -->
+        <section id="section-dataset" class="academic-section">
             <div class="section-container">
-                <div class="telemetry-4grid">
-                    <!-- Card 1: Live Network Topology -->
-                    <div class="t-card">
-                        <div class="t-card-header">
-                            <span class="dot-indicator dot-violet"></span>
-                            <h3>LIVE NETWORK TOPOLOGY</h3>
-                        </div>
-                        <div class="t-card-body">
-                            <div class="mini-map-graphic">
-                                <i class="fa-solid fa-earth-americas map-bg-icon"></i>
-                                <div class="map-flow-line"></div>
-                                <div class="map-legend-overlay">
-                                    <span class="m-leg leg-norm"><i class="fa-solid fa-circle"></i> Normal Traffic</span>
-                                    <span class="m-leg leg-susp"><i class="fa-solid fa-circle"></i> Suspicious</span>
-                                    <span class="m-leg leg-mali"><i class="fa-solid fa-circle"></i> Malicious</span>
-                                </div>
-                            </div>
-                            <div class="t-card-stats-row">
-                                <div class="t-stat"><strong>5.24 M</strong><span>PACKETS / S</span></div>
-                                <div class="t-stat"><strong>1.63 G</strong><span>TRAFFIC</span></div>
-                                <div class="t-stat"><strong>98</strong><span>COUNTRIES</span></div>
-                            </div>
-                        </div>
+                <div class="section-badge-header text-center">
+                    <span class="section-sys-tag">SECTION 1</span>
+                    <h2 class="section-title text-center">OUR DATASET</h2>
+                    <p class="section-subtitle">The real-world network traffic data used to train our model</p>
+                </div>
+
+                <div class="academic-card full-width-card">
+                    <div class="ac-header">
+                        <span class="ac-tag">DATA SOURCE</span>
+                        <h3><i class="fa-solid fa-database cyan-text"></i> CIC-IDS2017 &mdash; Canadian Institute for Cybersecurity</h3>
+                    </div>
+                    <p class="ac-desc">We use labelled network-traffic data containing normal and attack-related network flows. Each row represents a network flow described by traffic measurements and a corresponding class label.</p>
+
+                    <!-- REAL DATASET STATISTICS -->
+                    <div class="dataset-stats-grid">
+                        <div class="ds-stat-card"><i class="fa-solid fa-table-list cyan-text"></i><span class="ds-stat-val">2,830,743</span><span class="ds-stat-label">Total Records</span></div>
+                        <div class="ds-stat-card"><i class="fa-solid fa-list-ol violet-text"></i><span class="ds-stat-val">79</span><span class="ds-stat-label">Columns (78 Features + 1 Label)</span></div>
+                        <div class="ds-stat-card"><i class="fa-solid fa-tags amber-text"></i><span class="ds-stat-val">15</span><span class="ds-stat-label">Traffic Classes</span></div>
+                        <div class="ds-stat-card"><i class="fa-solid fa-file-csv green-text"></i><span class="ds-stat-val">8</span><span class="ds-stat-label">CSV Files (by Day)</span></div>
                     </div>
 
-                    <!-- Card 2: Threat Detection -->
-                    <div class="t-card">
-                        <div class="t-card-header">
-                            <span class="dot-indicator dot-red"></span>
-                            <h3>THREAT DETECTION</h3>
-                        </div>
-                        <div class="t-card-body">
-                            <div class="threat-list">
-                                <div class="threat-item">
-                                    <span><i class="fa-solid fa-skull red-icon"></i> DDoS Attack</span>
-                                    <div class="threat-sparkline-row"><strong>23</strong> <span class="sev-badge badge-high">High</span></div>
-                                </div>
-                                <div class="threat-item">
-                                    <span><i class="fa-solid fa-radar amber-icon"></i> Port Scan</span>
-                                    <div class="threat-sparkline-row"><strong>15</strong> <span class="sev-badge badge-med">Medium</span></div>
-                                </div>
-                                <div class="threat-item">
-                                    <span><i class="fa-solid fa-user-secret amber-icon"></i> Infiltration</span>
-                                    <div class="threat-sparkline-row"><strong>07</strong> <span class="sev-badge badge-med">Medium</span></div>
-                                </div>
-                                <div class="threat-item">
-                                    <span><i class="fa-solid fa-key violet-icon"></i> Brute Force</span>
-                                    <div class="threat-sparkline-row"><strong>12</strong> <span class="sev-badge badge-low">Low</span></div>
-                                </div>
-                                <div class="threat-item">
-                                    <span><i class="fa-solid fa-globe cyan-icon"></i> Web Attack</span>
-                                    <div class="threat-sparkline-row"><strong>09</strong> <span class="sev-badge badge-low">Low</span></div>
-                                </div>
-                            </div>
-                        </div>
+                    <!-- REAL CLASS DISTRIBUTION TABLE -->
+                    <div class="ac-header mt-2">
+                        <span class="ac-tag">REAL CLASS DISTRIBUTION</span>
+                        <h3><i class="fa-solid fa-chart-pie amber-text"></i> What traffic classes are in the dataset?</h3>
+                    </div>
+                    <p class="ac-desc">The dataset is heavily imbalanced &mdash; most traffic is BENIGN (normal), with attack categories forming a small but critical portion.</p>
+                    <div class="data-table-wrapper">
+                        <table class="data-table">
+                            <thead><tr><th>Class Label</th><th>Type</th><th>Count</th><th>Percentage</th></tr></thead>
+                            <tbody>
+                                <tr class="benign-row"><td><i class="fa-solid fa-shield-check green-text"></i> BENIGN</td><td>Normal</td><td>2,273,097</td><td>80.30%</td></tr>
+                                <tr><td><i class="fa-solid fa-bomb red-text"></i> DoS Hulk</td><td>Attack</td><td>231,073</td><td>8.16%</td></tr>
+                                <tr><td><i class="fa-solid fa-crosshairs amber-text"></i> PortScan</td><td>Attack</td><td>158,930</td><td>5.61%</td></tr>
+                                <tr><td><i class="fa-solid fa-bomb red-text"></i> DDoS</td><td>Attack</td><td>128,027</td><td>4.52%</td></tr>
+                                <tr><td><i class="fa-solid fa-bolt red-text"></i> DoS GoldenEye</td><td>Attack</td><td>10,293</td><td>0.36%</td></tr>
+                                <tr><td><i class="fa-solid fa-key orange-text"></i> FTP-Patator</td><td>Attack</td><td>7,938</td><td>0.28%</td></tr>
+                                <tr><td><i class="fa-solid fa-key orange-text"></i> SSH-Patator</td><td>Attack</td><td>5,897</td><td>0.21%</td></tr>
+                                <tr><td><i class="fa-solid fa-bolt red-text"></i> DoS slowloris</td><td>Attack</td><td>5,796</td><td>0.20%</td></tr>
+                                <tr><td><i class="fa-solid fa-bolt red-text"></i> DoS Slowhttptest</td><td>Attack</td><td>5,499</td><td>0.19%</td></tr>
+                                <tr><td><i class="fa-solid fa-robot violet-text"></i> Bot</td><td>Attack</td><td>1,966</td><td>0.07%</td></tr>
+                                <tr><td><i class="fa-solid fa-globe cyan-text"></i> Web Attack &ndash; Brute Force</td><td>Attack</td><td>1,507</td><td>0.05%</td></tr>
+                                <tr><td><i class="fa-solid fa-globe cyan-text"></i> Web Attack &ndash; XSS</td><td>Attack</td><td>652</td><td>0.02%</td></tr>
+                                <tr><td><i class="fa-solid fa-user-ninja magenta-text"></i> Infiltration</td><td>Attack</td><td>36</td><td>&lt;0.01%</td></tr>
+                                <tr><td><i class="fa-solid fa-globe cyan-text"></i> Web Attack &ndash; SQL Injection</td><td>Attack</td><td>21</td><td>&lt;0.01%</td></tr>
+                                <tr><td><i class="fa-solid fa-heart-crack pink-text"></i> Heartbleed</td><td>Attack</td><td>11</td><td>&lt;0.01%</td></tr>
+                            </tbody>
+                        </table>
                     </div>
 
-                    <!-- Card 3: System Status -->
-                    <div class="t-card">
-                        <div class="t-card-header">
-                            <span class="dot-indicator dot-green"></span>
-                            <h3>SYSTEM STATUS</h3>
+                    <!-- SAMPLE ROWS PREVIEW -->
+                    <div class="ac-header mt-2">
+                        <span class="ac-tag">DATA PREVIEW</span>
+                        <h3><i class="fa-solid fa-eye violet-text"></i> Sample rows from the actual dataset</h3>
+                    </div>
+                    <p class="ac-desc">Below are 5 real rows from the dataset showing selected key columns.</p>
+                    <div class="data-table-wrapper">
+                        <table class="data-table sample-table">
+                            <thead><tr><th>Dest Port</th><th>Flow Duration</th><th>Fwd Packets</th><th>Bwd Packets</th><th>Flow Bytes/s</th><th>Label</th></tr></thead>
+                            <tbody>
+                                <tr><td>22</td><td>166</td><td>1</td><td>1</td><td>0.00</td><td class="green-text"><strong>BENIGN</strong></td></tr>
+                                <tr><td>60148</td><td>83</td><td>1</td><td>2</td><td>0.00</td><td class="green-text"><strong>BENIGN</strong></td></tr>
+                                <tr><td>123</td><td>99947</td><td>1</td><td>1</td><td>960.51</td><td class="green-text"><strong>BENIGN</strong></td></tr>
+                                <tr><td>123</td><td>37017</td><td>1</td><td>1</td><td>2593.40</td><td class="green-text"><strong>BENIGN</strong></td></tr>
+                                <tr><td>0</td><td>111161336</td><td>147</td><td>0</td><td>0.00</td><td class="green-text"><strong>BENIGN</strong></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- WHAT DOES ONE ROW MEAN? -->
+                <div class="academic-card full-width-card mt-2">
+                    <div class="ac-header">
+                        <span class="ac-tag">UNDERSTANDING THE DATA</span>
+                        <h3><i class="fa-solid fa-magnifying-glass green-text"></i> WHAT DOES ONE ROW MEAN?</h3>
+                    </div>
+                    <p class="ac-desc">One row represents one network flow. The numerical values describe how that network communication behaved, and the Label represents the known traffic class.</p>
+                    <div class="one-row-visual">
+                        <div class="orv-box orv-main"><i class="fa-solid fa-ethernet cyan-text"></i><strong>ONE NETWORK FLOW</strong><span>A single communication between two computers</span></div>
+                        <div class="orv-arrow"><i class="fa-solid fa-arrow-down"></i></div>
+                        <div class="orv-box"><i class="fa-solid fa-ruler-combined violet-text"></i><strong>78 TRAFFIC MEASUREMENTS</strong><span>Duration, packet counts, byte sizes, timing, flags...</span></div>
+                        <div class="orv-arrow"><i class="fa-solid fa-arrow-down"></i></div>
+                        <div class="orv-box orv-highlight"><i class="fa-solid fa-tag amber-text"></i><strong>LABEL</strong><span>BENIGN (normal) or attack category name</span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================ -->
+        <!-- SECTION 2: WHAT DID WE DO WITH THE DATA?                    -->
+        <!-- ============================================================ -->
+        <section id="section-pipeline" class="academic-section bg-darker">
+            <div class="section-container">
+                <div class="section-badge-header text-center">
+                    <span class="section-sys-tag">SECTION 2</span>
+                    <h2 class="section-title text-center">WHAT DID WE DO WITH THE DATA?</h2>
+                    <p class="section-subtitle">Our complete data processing and model training pipeline</p>
+                </div>
+                <div class="academic-card full-width-card mb-2">
+                    <div class="ac-header"><span class="ac-tag">THE PROBLEM</span><h3><i class="fa-solid fa-triangle-exclamation amber-text"></i> WHY DO WE NEED THIS?</h3></div>
+                    <p class="ac-desc-large">Modern networks generate a large number of network connections. Manually checking every connection for malicious activity is difficult and time-consuming. Our system automatically analyzes network traffic and identifies potentially suspicious activity.</p>
+                    <div class="problem-flow-visual">
+                        <div class="p-box"><i class="fa-solid fa-globe amber-text"></i><strong>THOUSANDS OF NETWORK FLOWS</strong><span>High-volume raw connection traffic</span></div>
+                        <div class="p-arrow"><i class="fa-solid fa-angles-right"></i></div>
+                        <div class="p-box"><i class="fa-solid fa-user-slash red-text"></i><strong>DIFFICULT TO CHECK MANUALLY</strong><span>Human inspection cannot scale</span></div>
+                        <div class="p-arrow"><i class="fa-solid fa-angles-right"></i></div>
+                        <div class="p-box highlight-p-box"><i class="fa-solid fa-robot green-text"></i><strong>NEED AUTOMATIC SCREENING</strong><span>Machine Learning classifies flows instantly</span></div>
+                    </div>
+                </div>
+                <div class="academic-card full-width-card">
+                    <div class="ac-header"><span class="ac-tag">OUR IMPLEMENTATION PIPELINE</span><h3><i class="fa-solid fa-diagram-project violet-text"></i> DATA &rarr; MODEL PIPELINE</h3></div>
+                    <div class="pipeline-grid-6">
+                        <div class="pipe-step-card"><span class="ps-num">01</span><h4>RAW NETWORK DATA</h4><p>CIC-IDS2017 CSV files containing 2.8M+ network flow records from real infrastructure.</p></div>
+                        <div class="pipe-step-card"><span class="ps-num">02</span><h4>DATA ANALYSIS</h4><p>We inspect the dataset structure, label distribution, missing values and duplicates.</p></div>
+                        <div class="pipe-step-card"><span class="ps-num">03</span><h4>DATA CLEANING</h4><p>We handle invalid, missing, infinite and duplicate data before training.</p></div>
+                        <div class="pipe-step-card"><span class="ps-num">04</span><h4>FEATURE PREPARATION</h4><p>We prepare 78 network-flow measurements in the format required by the model.</p></div>
+                        <div class="pipe-step-card"><span class="ps-num">05</span><h4>TRAIN / TEST SPLIT</h4><p>Stratified 80% train (2,017,889 rows) / 20% test (504,473 rows) &mdash; no data leakage.</p></div>
+                        <div class="pipe-step-card highlight-ps"><span class="ps-num">06</span><h4>MODEL TRAINING</h4><p>We train 5 ML algorithms and compare performance to select the best classifier.</p></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================ -->
+        <!-- SECTION 3: WHAT DOES THE MODEL SEE? (FEATURES)              -->
+        <!-- ============================================================ -->
+        <section id="section-features" class="academic-section">
+            <div class="section-container">
+                <div class="section-badge-header text-center">
+                    <span class="section-sys-tag">SECTION 3</span>
+                    <h2 class="section-title text-center">WHAT DOES THE MODEL SEE?</h2>
+                    <p class="section-subtitle">Understanding the 78 numerical flow features used for prediction</p>
+                </div>
+                <div class="academic-card full-width-card">
+                    <p class="ac-desc-large text-center">The model does not look at a network connection like a human does. It receives 78 numerical measurements that describe how the connection behaved.</p>
+                    <div class="flow-to-features-banner">
+                        <div class="ftf-box">ONE NETWORK FLOW</div>
+                        <div class="ftf-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                        <div class="ftf-box">TRAFFIC MEASUREMENTS</div>
+                        <div class="ftf-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                        <div class="ftf-box ftf-highlight">78 NUMERICAL FEATURES</div>
+                    </div>
+                    <div class="feature-groups-7-grid">
+                        <div class="fg-card"><div class="fg-head"><i class="fa-solid fa-plug cyan-text"></i> Connection Information</div><p>Basic connection metadata</p><span class="fg-ex">Examples: Destination Port, Flow Duration</span></div>
+                        <div class="fg-card"><div class="fg-head"><i class="fa-solid fa-cubes violet-text"></i> Packet Counts</div><p>Number of packets sent</p><span class="fg-ex">Examples: Total Fwd Packets, Total Backward Packets</span></div>
+                        <div class="fg-card"><div class="fg-head"><i class="fa-solid fa-ruler-combined green-text"></i> Packet Sizes</div><p>Byte payload dimensions</p><span class="fg-ex">Examples: Fwd Packet Length Max, Packet Length Mean</span></div>
+                        <div class="fg-card"><div class="fg-head"><i class="fa-solid fa-gauge-high amber-text"></i> Traffic Rates</div><p>Transmission speeds</p><span class="fg-ex">Examples: Flow Bytes/s, Flow Packets/s</span></div>
+                        <div class="fg-card"><div class="fg-head"><i class="fa-solid fa-stopwatch magenta-text"></i> Timing &amp; Flow Info</div><p>Inter-arrival time statistics</p><span class="fg-ex">Examples: Flow IAT Mean, Fwd IAT Min, Bwd IAT Max</span></div>
+                        <div class="fg-card"><div class="fg-head"><i class="fa-solid fa-flag red-text"></i> TCP Flags</div><p>Network control signals</p><span class="fg-ex">Examples: SYN Flag Count, ACK Flag Count, FIN Flag Count</span></div>
+                        <div class="fg-card"><div class="fg-head"><i class="fa-solid fa-bed blue-text"></i> Active &amp; Idle Behavior</div><p>Connection state periods</p><span class="fg-ex">Examples: Active Mean, Idle Max</span></div>
+                    </div>
+                    <details class="all-78-accordion">
+                        <summary class="all-78-summary"><span><i class="fa-solid fa-list-ul"></i> View all 78 feature names extracted from CIC-IDS2017</span><i class="fa-solid fa-chevron-down"></i></summary>
+                        <div class="all-78-content"><code>Destination Port, Flow Duration, Total Fwd Packets, Total Backward Packets, Total Length of Fwd Packets, Total Length of Bwd Packets, Fwd Packet Length Max, Fwd Packet Length Min, Fwd Packet Length Mean, Fwd Packet Length Std, Bwd Packet Length Max, Bwd Packet Length Min, Bwd Packet Length Mean, Bwd Packet Length Std, Flow Bytes/s, Flow Packets/s, Flow IAT Mean, Flow IAT Std, Flow IAT Max, Flow IAT Min, Fwd IAT Total, Fwd IAT Mean, Fwd IAT Std, Fwd IAT Max, Fwd IAT Min, Bwd IAT Total, Bwd IAT Mean, Bwd IAT Std, Bwd IAT Max, Bwd IAT Min, Fwd PSH Flags, Bwd PSH Flags, Fwd URG Flags, Bwd URG Flags, Fwd Header Length, Bwd Header Length, Fwd Packets/s, Bwd Packets/s, Min Packet Length, Max Packet Length, Packet Length Mean, Packet Length Std, Packet Length Variance, FIN Flag Count, SYN Flag Count, RST Flag Count, PSH Flag Count, ACK Flag Count, URG Flag Count, CWE Flag Count, ECE Flag Count, Down/Up Ratio, Average Packet Size, Avg Fwd Segment Size, Avg Bwd Segment Size, Fwd Header Length.1, Fwd Avg Bytes/Bulk, Fwd Avg Packets/Bulk, Fwd Avg Bulk Rate, Bwd Avg Bytes/Bulk, Bwd Avg Packets/Bulk, Bwd Avg Bulk Rate, Subflow Fwd Packets, Subflow Fwd Bytes, Subflow Bwd Packets, Subflow Bwd Bytes, Init_Win_bytes_forward, Init_Win_bytes_backward, act_data_pkt_fwd, min_seg_size_forward, Active Mean, Active Std, Active Max, Active Min, Idle Mean, Idle Std, Idle Max, Idle Min.</code></div>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================ -->
+        <!-- SECTION 4: MODEL COMPARISON                                 -->
+        <!-- ============================================================ -->
+        <section id="section-model-comparison" class="academic-section bg-darker">
+            <div class="section-container">
+                <div class="section-badge-header text-center">
+                    <span class="section-sys-tag">SECTION 4</span>
+                    <h2 class="section-title text-center">MODEL COMPARISON</h2>
+                    <p class="section-subtitle">We compare multiple Machine Learning classifiers to determine which performs best</p>
+                </div>
+                <div class="academic-card full-width-card">
+                    <div class="ac-header"><span class="ac-tag">EXPERIMENT RESULTS</span><h3><i class="fa-solid fa-ranking-star amber-text"></i> Actual Model Comparison Results</h3></div>
+                    <p class="ac-desc">We trained 5 different Machine Learning classifiers on the same CIC-IDS2017 dataset and compared their performance.</p>
+                    <div class="data-table-wrapper">
+                        <table class="data-table model-comparison-table">
+                            <thead><tr><th>Model</th><th>Accuracy</th><th>Macro F1</th><th>Minority Recall</th><th>ROC-AUC</th><th>Winner?</th></tr></thead>
+                            <tbody>
+                                <tr class="winner-row"><td><strong><i class="fa-solid fa-trophy amber-text"></i> XGBoost</strong></td><td><strong>99.89%</strong></td><td><strong>91.70%</strong></td><td><strong>80.38%</strong></td><td><strong>0.9998</strong></td><td><span class="winner-badge"><i class="fa-solid fa-check"></i> BEST</span></td></tr>
+                                <tr><td>Random Forest</td><td>99.84%</td><td>80.72%</td><td>56.16%</td><td>0.9971</td><td>&mdash;</td></tr>
+                                <tr><td>Decision Tree</td><td>99.82%</td><td>80.11%</td><td>55.34%</td><td>0.9812</td><td>&mdash;</td></tr>
+                                <tr><td>Gradient Boosting</td><td>99.19%</td><td>67.33%</td><td>39.49%</td><td>0.7265</td><td>&mdash;</td></tr>
+                                <tr><td>Logistic Regression</td><td>97.81%</td><td>64.10%</td><td>29.50%</td><td>0.9908</td><td>&mdash;</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p class="ac-subtext mt-1"><strong>Why XGBoost won:</strong> XGBoost achieved the highest Minority-Class Recall (80.38%), meaning it correctly identified the most rare attack types. This is critical because missing an attack is more dangerous than a false alarm.</p>
+                </div>
+                <div class="academic-card full-width-card mt-2">
+                    <div class="ac-header"><span class="ac-tag">FINAL INFERENCE MODEL</span><h3><i class="fa-solid fa-microchip violet-text"></i> WHICH MODEL MAKES THE PREDICTION?</h3></div>
+                    <div class="xgb-spotlight"><span class="xgb-title">XGBOOST</span><span class="xgb-sub">Gradient Boosted Decision Trees Classifier</span></div>
+                    <p class="ac-desc">XGBoost is the trained Machine Learning classifier used by the final prediction service. It was selected because it best identifies both common and rare attack types.</p>
+                    <div class="model-pipeline-strip"><span>DATA</span> <i class="fa-solid fa-chevron-right"></i> <span>LEARNING</span> <i class="fa-solid fa-chevron-right"></i> <strong class="violet-text">MODEL</strong> <i class="fa-solid fa-chevron-right"></i> <strong class="green-text">PREDICTION</strong></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================ -->
+        <!-- SECTION 5: HOW DOES OUR AI PREDICT?                         -->
+        <!-- ============================================================ -->
+        <section id="section-prediction-flow" class="academic-section centerpiece-section">
+            <div class="section-container">
+                <div class="section-badge-header text-center">
+                    <span class="section-sys-tag highlight-tag">MOST IMPORTANT SECTION</span>
+                    <h2 class="section-title text-center">HOW DOES OUR AI PREDICT?</h2>
+                    <p class="section-subtitle">Step-by-step real prediction pipeline from incoming network flow to final result</p>
+                </div>
+                <div class="centerpiece-pipeline-card">
+                    <div class="c-pipeline-grid-8">
+                        <div class="cp-step"><span class="cp-num">01</span><strong>NEW NETWORK FLOW</strong><p>New network activity that we want to analyze.</p></div>
+                        <div class="cp-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                        <div class="cp-step"><span class="cp-num">02</span><strong>78 TRAFFIC FEATURES</strong><p>Numerical measurements describing how the connection behaved.</p></div>
+                        <div class="cp-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                        <div class="cp-step"><span class="cp-num">03</span><strong>INPUT VALIDATION</strong><p>Checks that the required values are present and valid.</p></div>
+                        <div class="cp-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                        <div class="cp-step"><span class="cp-num">04</span><strong>FEATURE ORDERING</strong><p>Arranges values in the exact model column sequence.</p></div>
+                        <div class="cp-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                        <div class="cp-step"><span class="cp-num">05</span><strong>PREPROCESSING / SCALING</strong><p>Prepares the values in the same format used during model training.</p></div>
+                        <div class="cp-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                        <div class="cp-step"><span class="cp-num">06</span><strong>TRAINED XGBOOST</strong><p>Uses patterns learned from previously labelled network traffic.</p></div>
+                        <div class="cp-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                        <div class="cp-step"><span class="cp-num">07</span><strong>PREDICTED CLASS</strong><p>Returns the class that the model considers most likely.</p></div>
+                        <div class="cp-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                        <div class="cp-step cp-final"><span class="cp-num">08</span><strong>CONFIDENCE / PROBABILITY</strong><p>Shows the model's confidence in the predicted class.</p></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================ -->
+        <!-- SECTION 6: LIVE NETWORK TRAFFIC PREDICTION (DEMO)           -->
+        <!-- ============================================================ -->
+        <section id="analyzer" class="academic-section bg-darker">
+            <div class="section-container">
+                <div class="section-badge-header text-center">
+                    <span class="section-sys-tag highlight-tag">LIVE DEMO</span>
+                    <h2 class="section-title text-center">LIVE NETWORK TRAFFIC PREDICTION</h2>
+                    <p class="section-subtitle">Load an actual test-set sample record from our dataset and pass its 78 features through our FastAPI + XGBoost pipeline</p>
+                </div>
+
+                <div class="live-demo-container">
+                    <!-- LEFT COLUMN: DATASET SAMPLE SELECTOR & INPUT PANEL -->
+                    <div class="demo-card input-demo-card">
+                        <div class="dc-header">
+                            <h3><i class="fa-solid fa-database cyan-text"></i> STEP 1: LOAD REAL DATASET SAMPLE</h3>
                         </div>
-                        <div class="t-card-body">
-                            <div class="status-items-list">
-                                <div class="s-item"><span><i class="fa-solid fa-signal"></i> API STATUS</span><strong class="green-text">CONNECTED</strong></div>
-                                <div class="s-item"><span><i class="fa-solid fa-brain"></i> MODEL STATUS</span><strong class="green-text">READY</strong></div>
-                                <div class="s-item"><span><i class="fa-solid fa-bolt"></i> INFERENCE ENGINE</span><strong class="green-text">ONLINE</strong></div>
-                                <div class="s-item"><span><i class="fa-solid fa-network-wired"></i> DATA PIPELINE</span><strong class="green-text">ACTIVE</strong></div>
-                                <div class="s-item"><span><i class="fa-solid fa-rss"></i> THREAT FEED</span><strong class="green-text">LIVE</strong></div>
-                                <div class="s-item"><span><i class="fa-solid fa-heart-pulse"></i> SYSTEM HEALTH</span><strong class="green-text">OPTIMAL</strong></div>
+                        <p class="dc-sub">Select a target traffic category from our CIC-IDS2017 test-set records:</p>
+
+                        <!-- DATASET SAMPLE CATEGORY SELECTOR -->
+                        <div class="preset-buttons-grid" id="dataset-sample-buttons">
+                            <button type="button" class="btn btn-preset active" data-sample-cat="BENIGN" id="btn-sample-benign">
+                                <i class="fa-solid fa-shield-check green-text"></i>
+                                <span>BENIGN (Normal)</span>
+                            </button>
+                            <button type="button" class="btn btn-preset" data-sample-cat="DDoS" id="btn-sample-ddos">
+                                <i class="fa-solid fa-bomb red-text"></i>
+                                <span>DDoS Attack</span>
+                            </button>
+                            <button type="button" class="btn btn-preset" data-sample-cat="PortScan" id="btn-sample-portscan">
+                                <i class="fa-solid fa-crosshairs amber-text"></i>
+                                <span>PortScan Attack</span>
+                            </button>
+                            <button type="button" class="btn btn-preset" data-sample-cat="Bot" id="btn-sample-bot">
+                                <i class="fa-solid fa-robot violet-text"></i>
+                                <span>Botnet Attack</span>
+                            </button>
+                            <button type="button" class="btn btn-preset" data-sample-cat="SSH-Patator" id="btn-sample-ssh">
+                                <i class="fa-solid fa-key orange-text"></i>
+                                <span>SSH Patator</span>
+                            </button>
+                            <button type="button" class="btn btn-preset" data-sample-cat="Heartbleed" id="btn-sample-heartbleed">
+                                <i class="fa-solid fa-heart-crack pink-text"></i>
+                                <span>Heartbleed</span>
+                            </button>
+                        </div>
+
+                        <!-- LOAD REAL DATASET SAMPLE BUTTON -->
+                        <div class="demo-action-box text-center mt-2">
+                            <button type="button" class="btn btn-secondary btn-large-run" id="btn-load-dataset-sample">
+                                <i class="fa-solid fa-file-import"></i> LOAD REAL DATASET SAMPLE
+                            </button>
+                        </div>
+
+                        <!-- SAMPLE PREVIEW CARD (Populated when sample loaded) -->
+                        <div class="sample-preview-card mt-2" id="sample-preview-card" style="display:none;">
+                            <div class="spc-header">
+                                <span class="badge-test-set" id="spc-badge"><i class="fa-solid fa-vial"></i> TEST-SET SAMPLE</span>
+                                <span class="spc-source" id="spc-source">File: Friday-WorkingHours-Afternoon-DDos.pcap_ISCX.csv (Row #10000)</span>
+                            </div>
+                            <div class="spc-body">
+                                <div class="spc-field">
+                                    <span class="spc-label">KNOWN DATASET LABEL (Ground Truth):</span>
+                                    <strong class="spc-val amber-text" id="spc-dataset-label">BENIGN</strong>
+                                </div>
+                                <div class="spc-field mt-1">
+                                    <span class="spc-label">MODEL INPUT:</span>
+                                    <span class="spc-sub">78 Numerical Features Extracted from Selected Row</span>
+                                </div>
+                                <details class="all-78-accordion mt-1">
+                                    <summary class="all-78-summary">
+                                        <span><i class="fa-solid fa-list-ul"></i> View 78 Feature Values Extracted from Row</span>
+                                        <i class="fa-solid fa-chevron-down"></i>
+                                    </summary>
+                                    <div class="all-78-content" id="spc-features-view"><code>Select a sample to view feature array</code></div>
+                                </details>
                             </div>
                         </div>
+
+                        <!-- RUN LIVE PREDICTION BUTTON -->
+                        <div class="demo-action-box text-center mt-2">
+                            <button type="button" class="btn btn-primary btn-large-run" id="btn-run-prediction" disabled>
+                                <i class="fa-solid fa-play"></i> RUN LIVE PREDICTION
+                            </button>
+                        </div>
+
+                        <!-- OPTIONAL PRESETS & CUSTOM INPUTS -->
+                        <details class="manual-input-accordion mt-2">
+                            <summary class="manual-summary">Optional Example Presets &amp; Custom Inputs</summary>
+                            <div class="manual-content">
+                                <p class="dc-sub">Example presets for quick manual testing:</p>
+                                <div class="preset-buttons-grid">
+                                    <button type="button" class="btn btn-preset-opt" data-preset="sample">Sample Baseline</button>
+                                    <button type="button" class="btn btn-preset-opt" data-preset="benign">Benign Preset</button>
+                                    <button type="button" class="btn btn-preset-opt" data-preset="ddos">DDoS Preset</button>
+                                    <button type="button" class="btn btn-preset-opt" data-preset="portscan">PortScan Preset</button>
+                                </div>
+                                <div class="file-drop-area mt-1" id="drop-zone"><i class="fa-solid fa-file-csv"></i><span>Drop Custom CIC-IDS2017 CSV File Here</span><input type="file" id="csv-file-input" accept=".csv"></div>
+                                <div id="feature-inputs-grid" class="feature-inputs-grid"></div>
+                            </div>
+                        </details>
                     </div>
 
-                    <!-- Card 4: AI Model Performance -->
-                    <div class="t-card">
-                        <div class="t-card-header">
-                            <span class="dot-indicator dot-violet"></span>
-                            <h3>MODEL PERFORMANCE</h3>
+                    <!-- RIGHT COLUMN: REAL MODEL PREDICTION DISPLAY PANEL -->
+                    <div class="demo-card output-demo-card">
+                        <div class="dc-header">
+                            <h3><i class="fa-solid fa-square-poll-vertical green-text"></i> STEP 2: REAL PREDICTION RESULT</h3>
                         </div>
-                        <div class="t-card-body">
-                            <div class="perf-stats-grid">
-                                <div class="p-stat"><strong>99.85%</strong><span>ACCURACY</span></div>
-                                <div class="p-stat"><strong>82.26%</strong><span>MACRO F1</span></div>
-                                <div class="p-stat"><strong>70.26%</strong><span>MINORITY RECALL</span></div>
-                                <div class="p-stat"><strong>68.10%</strong><span>MINORITY F1</span></div>
+
+                        <!-- INITIAL LOAD STATE: NO SAMPLE SELECTED -->
+                        <div class="result-card ready-state" id="prediction-result-card">
+                            <div class="res-block" id="res-status-banner">
+                                <span class="badge-awaiting" id="res-status-badge"><i class="fa-solid fa-circle-pause"></i> NO DATASET SAMPLE SELECTED</span>
+                                <div class="res-val-box mt-1" id="res-input-summary">Load a real dataset sample to begin.</div>
                             </div>
-                            <div class="perf-progress-bars">
-                                <div class="p-bar-row">
-                                    <span>0.9669 ROC-AUC</span>
-                                    <div class="p-bar-track"><div class="p-bar-fill fill-violet" style="width:96.69%"></div></div>
-                                </div>
-                                <div class="p-bar-row">
-                                    <span>0.8142 PR-AUC</span>
-                                    <div class="p-bar-track"><div class="p-bar-fill fill-amber" style="width:81.42%"></div></div>
+
+                            <!-- PIPELINE ANIMATION STRIP -->
+                            <div class="prediction-pipeline-strip mt-1" id="pred-pipeline-strip" style="display:none;">
+                                <div class="pps-step pps-active" id="pps-1"><span>1. ROW</span></div>
+                                <div class="pps-arrow">&rarr;</div>
+                                <div class="pps-step" id="pps-2"><span>2. 78 FEATS</span></div>
+                                <div class="pps-arrow">&rarr;</div>
+                                <div class="pps-step" id="pps-3"><span>3. VALIDATE</span></div>
+                                <div class="pps-arrow">&rarr;</div>
+                                <div class="pps-step" id="pps-4"><span>4. SCALER</span></div>
+                                <div class="pps-arrow">&rarr;</div>
+                                <div class="pps-step" id="pps-5"><span>5. XGBOOST</span></div>
+                                <div class="pps-arrow">&rarr;</div>
+                                <div class="pps-step" id="pps-6"><span>6. RESULT</span></div>
+                            </div>
+
+                            <!-- GROUND TRUTH DATASET LABEL -->
+                            <div class="res-block mt-1">
+                                <span class="res-label">KNOWN DATASET LABEL:</span>
+                                <div class="res-val-box gold-text font-bold" id="res-ground-truth-label">—</div>
+                            </div>
+
+                            <!-- MODEL PREDICTED CLASS -->
+                            <div class="res-block mt-1">
+                                <span class="res-label">MODEL PREDICTION:</span>
+                                <div class="res-prediction-big" id="res-prediction-label">—</div>
+                            </div>
+
+                            <!-- PREDICTION VS DATASET LABEL COMPARISON -->
+                            <div class="res-block mt-1" id="comparison-block" style="display:none;">
+                                <span class="res-label">PREDICTION VS DATASET LABEL:</span>
+                                <div class="comparison-result-box" id="res-comparison-box">—</div>
+                            </div>
+
+                            <!-- CONFIDENCE & PROBABILITY BARS -->
+                            <div class="res-block mt-1">
+                                <span class="res-label">CONFIDENCE / PROBABILITY:</span>
+                                <div class="res-val-box gold-text" id="res-confidence">—</div>
+                                <div class="prob-bars-flex mt-1">
+                                    <div class="prob-line"><span class="pl-label">Confidence:</span> <div class="pl-track"><div class="pl-fill fill-green" id="bar-confidence" style="width:0%;"></div></div></div>
+                                    <div class="prob-line"><span class="pl-label">Attack Prob:</span> <div class="pl-track"><div class="pl-fill fill-red" id="bar-attack-prob" style="width:0%;"></div></div></div>
+                                    <div class="prob-line"><span class="pl-label">Normal Prob:</span> <div class="pl-track"><div class="pl-fill fill-green" id="bar-normal-prob" style="width:0%;"></div></div></div>
                                 </div>
                             </div>
+
+                            <!-- WHAT JUST HAPPENED EXPLANATION -->
+                            <div class="res-block mt-1">
+                                <span class="res-label">WHAT JUST HAPPENED?</span>
+                                <div class="res-explanation-box" id="res-meaning-box">
+                                    Click "LOAD REAL DATASET SAMPLE" then "RUN LIVE PREDICTION" to see the trained model classify a real network flow.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- HIDDEN TELEMETRY BINDINGS FOR COMPATIBILITY -->
+                        <div class="hidden-telemetry-bindings" style="display:none;">
+                            <span id="threat-status-box"></span><span id="status-name"></span><span id="status-sub"></span><span id="res-attack-type"></span><span id="res-security-action"></span><span id="result-icon-wrapper"></span><i id="result-icon"></i>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- 4. SECTION 4 — THE INTELLIGENCE ENGINE (RESEARCH PIPELINE TRANSITION) -->
-        <section id="pipeline" class="pipeline-section">
+        <!-- ============================================================ -->
+        <!-- SECTION 7: WHAT DOES THE RESULT MEAN?                       -->
+        <!-- ============================================================ -->
+        <section id="section-attacks" class="academic-section">
             <div class="section-container">
-                <!-- PIPELINE HERO HEADER BLOCK -->
-                <div class="section-header text-center">
-                    <div class="pipeline-status-bar-top">
-                        <span class="section-sys-tag">INTELLIGENCE PIPELINE</span>
-                        <span class="pipe-live-status-badge"><i class="fa-solid fa-circle pulse-emerald-dot"></i> INTELLIGENCE FLOW ACTIVE</span>
-                        <span class="pipe-model-tag"><i class="fa-solid fa-brain"></i> MODEL: XGBOOST ONLINE</span>
-                    </div>
-                    <h2 class="section-title text-center">FROM RAW TRAFFIC<br><span class="gradient-text">TO THREAT DECISION</span></h2>
-                    <div class="pipeline-progress-indicator">
-                        <span class="pipe-progress-tag" id="pipe-progress-tag">01 / 05 — NETWORK TRAFFIC</span>
-                    </div>
-                    <p class="section-subtitle">Real-time transformation of network telemetry into machine-learning threat intelligence.</p>
+                <div class="section-badge-header text-center">
+                    <span class="section-sys-tag">SECTION 7</span>
+                    <h2 class="section-title text-center">WHAT DOES THE RESULT MEAN?</h2>
+                    <p class="section-subtitle">Understanding the attack classes supported by our trained model</p>
                 </div>
-
-                <!-- 5 CONNECTED PIPELINE STAGES -->
-                <div class="pipeline-nodes-grid">
-                    <div class="pipe-card" id="pipe-step-1" data-title="01 / 05 — NETWORK TRAFFIC">
-                        <div class="pipe-step-num">01</div>
-                        <div class="pipe-icon pulse-icon-1"><i class="fa-solid fa-network-wired"></i></div>
-                        <h4 class="pipe-title">NETWORK TRAFFIC</h4>
-                        <p class="pipe-desc">Packet flow telemetry captured from client/server sessions.</p>
-                        <span class="pipe-tag">TCP / IP FLOW</span>
-                    </div>
-
-                    <div class="pipe-connector">
-                        <div class="connector-pulse-line"><span class="c-pulse c1"></span></div>
-                        <i class="fa-solid fa-arrow-right-long"></i>
-                    </div>
-
-                    <div class="pipe-card" id="pipe-step-2" data-title="02 / 05 — 78 FEATURES">
-                        <div class="pipe-step-num">02</div>
-                        <div class="pipe-icon pulse-icon-2"><i class="fa-solid fa-list-check"></i></div>
-                        <h4 class="pipe-title">78 FEATURES</h4>
-                        <p class="pipe-desc">Duration, packets, rates and window-size features extracted.</p>
-                        <span class="pipe-tag">PYDANTIC VALIDATED</span>
-                    </div>
-
-                    <div class="pipe-connector">
-                        <div class="connector-pulse-line"><span class="c-pulse c2"></span></div>
-                        <i class="fa-solid fa-arrow-right-long"></i>
-                    </div>
-
-                    <div class="pipe-card" id="pipe-step-3" data-title="03 / 05 — PREPROCESSING">
-                        <div class="pipe-step-num">03</div>
-                        <div class="pipe-icon pulse-icon-3"><i class="fa-solid fa-sliders"></i></div>
-                        <h4 class="pipe-title">PREPROCESSING</h4>
-                        <p class="pipe-desc">StandardScaler normalizes inputs against training distribution.</p>
-                        <span class="pipe-tag">NO LEAKAGE</span>
-                    </div>
-
-                    <div class="pipe-connector">
-                        <div class="connector-pulse-line"><span class="c-pulse c3"></span></div>
-                        <i class="fa-solid fa-arrow-right-long"></i>
-                    </div>
-
-                    <div class="pipe-card" id="pipe-step-4" data-title="04 / 05 — XGBOOST INFERENCE">
-                        <div class="pipe-step-num">04</div>
-                        <div class="pipe-icon pulse-icon-4"><i class="fa-solid fa-brain"></i></div>
-                        <h4 class="pipe-title">XGBOOST INFERENCE</h4>
-                        <p class="pipe-desc">Gradient boosted decision engine for multi-class classification.</p>
-                        <span class="pipe-tag">INFERENCE MODEL</span>
-                    </div>
-
-                    <div class="pipe-connector">
-                        <div class="connector-pulse-line"><span class="c-pulse c4"></span></div>
-                        <i class="fa-solid fa-arrow-right-long"></i>
-                    </div>
-
-                    <div class="pipe-card" id="pipe-step-5" data-title="05 / 05 — THREAT DECISION">
-                        <div class="pipe-step-num">05</div>
-                        <div class="pipe-icon pulse-icon-5"><i class="fa-solid fa-shield-check"></i></div>
-                        <h4 class="pipe-title">THREAT DECISION</h4>
-                        <p class="pipe-desc">Classifies traffic into Normal or threat attack classes.</p>
-                        <span class="pipe-tag">15 TARGET CLASSES</span>
-                    </div>
+                <div class="attack-cards-grid">
+                    <div class="ac-class-card benign-class"><div class="acc-head"><i class="fa-solid fa-shield-check green-text"></i> BENIGN</div><p>Normal, safe network traffic flow. No security concern detected.</p></div>
+                    <div class="ac-class-card attack-class"><div class="acc-head"><i class="fa-solid fa-bomb red-text"></i> DDoS</div><p>Traffic associated with a distributed denial-of-service attack attempting to exhaust server resources.</p></div>
+                    <div class="ac-class-card attack-class"><div class="acc-head"><i class="fa-solid fa-crosshairs amber-text"></i> PortScan</div><p>Traffic associated with scanning network ports/services to find open entry points.</p></div>
+                    <div class="ac-class-card attack-class"><div class="acc-head"><i class="fa-solid fa-robot violet-text"></i> Bot</div><p>Traffic generated by compromised devices controlled remotely as part of a botnet.</p></div>
+                    <div class="ac-class-card attack-class"><div class="acc-head"><i class="fa-solid fa-user-ninja magenta-text"></i> Infiltration</div><p>Traffic resulting from internal network breach or unauthorized access attempt.</p></div>
+                    <div class="ac-class-card attack-class"><div class="acc-head"><i class="fa-solid fa-globe cyan-text"></i> Web Attack</div><p>Traffic targeting web application vulnerabilities such as SQL Injection, XSS, or Brute Force.</p></div>
+                    <div class="ac-class-card attack-class"><div class="acc-head"><i class="fa-solid fa-key orange-text"></i> Brute Force</div><p>Traffic associated with automated password-guessing attacks against network authentication.</p></div>
+                    <div class="ac-class-card attack-class"><div class="acc-head"><i class="fa-solid fa-heart-crack pink-text"></i> Heartbleed</div><p>Traffic exploiting the OpenSSL Heartbleed vulnerability to extract server memory.</p></div>
                 </div>
+            </div>
+        </section>
 
-                <!-- SYSTEM ARCHITECTURE CONTAINER & XGBOOST MODEL INFERENCE DUAL ROW -->
-                <div class="pipeline-dual-row">
-                    <!-- System Architecture Visual Container (Full-Width High-Impact Architecture Space) -->
-                    <div class="pipeline-arch-card">
-                        <div class="arch-card-header">
-                            <div class="arch-header-left">
-                                <span class="arch-tag">SYSTEM ARCHITECTURE</span>
-                                <strong class="arch-title">LIVE INTELLIGENCE FLOW DIAGRAM</strong>
-                            </div>
-                            <div class="arch-header-badges">
-                                <span class="pipe-live-status-badge"><i class="fa-solid fa-circle pulse-emerald-dot"></i> LIVE STREAM ACTIVE</span>
-                            </div>
-                        </div>
-
-                        <!-- Full-Width High Resolution Diagram Wrapper -->
-                        <div class="pipeline-banner-img-wrapper">
-                            <img src="assets/ai_threat_pipeline.png" alt="AI Research Pipeline Architecture" class="pipeline-graphic-img">
-                            <div class="pipeline-scan-beam" aria-hidden="true"></div>
-                            <div class="pipeline-stream-particles" aria-hidden="true">
-                                <span class="ps-dot ps1"></span>
-                                <span class="ps-dot ps2"></span>
-                                <span class="ps-dot ps3"></span>
-                            </div>
-                        </div>
-
-                        <!-- Technical "What is What" Stage Breakdown Legend -->
-                        <div class="arch-legend-bar">
-                            <div class="legend-item">
-                                <span class="leg-step">STAGE 01</span>
-                                <strong class="leg-title"><i class="fa-solid fa-network-wired green-text"></i> Network Ingestion</strong>
-                                <span class="leg-sub">Raw TCP/IP flow telemetry</span>
-                            </div>
-                            <div class="legend-arrow"><i class="fa-solid fa-angles-right"></i></div>
-                            <div class="legend-item">
-                                <span class="leg-step">STAGE 02</span>
-                                <strong class="leg-title"><i class="fa-solid fa-list-check violet-text"></i> 78 Features</strong>
-                                <span class="leg-sub">Duration, Bytes & Packets</span>
-                            </div>
-                            <div class="legend-arrow"><i class="fa-solid fa-angles-right"></i></div>
-                            <div class="legend-item">
-                                <span class="leg-step">STAGE 03</span>
-                                <strong class="leg-title"><i class="fa-solid fa-sliders amber-text"></i> Preprocessing</strong>
-                                <span class="leg-sub">StandardScaler (No Leakage)</span>
-                            </div>
-                            <div class="legend-arrow"><i class="fa-solid fa-angles-right"></i></div>
-                            <div class="legend-item">
-                                <span class="leg-step">STAGE 04 & 05</span>
-                                <strong class="leg-title"><i class="fa-solid fa-brain violet-text"></i> XGBoost Engine</strong>
-                                <span class="leg-sub">15-Class Threat Classification</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- XGBoost Model Inference Container -->
-                    <div class="pipeline-model-card">
-                        <div class="model-card-header">
-                            <span class="arch-tag">MODEL INFERENCE</span>
-                            <div class="model-badge-row">
-                                <span class="pipe-step-num">04</span>
-                                <h3 class="model-card-title">XGBOOST ENGINE</h3>
-                            </div>
-                            <p class="model-card-desc">Gradient-boosted decision engine for real-time multi-class threat classification across 78 telemetry features.</p>
-                        </div>
-
-                        <div class="model-metrics-grid">
-                            <div class="mm-stat-box">
-                                <strong class="mm-val">78</strong>
-                                <span class="mm-lbl">FEATURES</span>
-                            </div>
-                            <div class="mm-stat-box">
-                                <strong class="mm-val amber-text">15</strong>
-                                <span class="mm-lbl">CLASSES</span>
-                            </div>
-                            <div class="mm-stat-box">
-                                <strong class="mm-val green-text">REAL-TIME</strong>
-                                <span class="mm-lbl">INFERENCE</span>
-                            </div>
-                        </div>
-
-                        <div class="model-card-actions">
-                            <a href="#analyzer" class="btn btn-secondary btn-sm" id="btn-pipeline-view-model">
-                                VIEW MODEL <i class="fa-solid fa-arrow-right"></i>
-                            </a>
-                        </div>
+        <!-- ============================================================ -->
+        <!-- SECTION 8: WHY IS THIS USEFUL?                              -->
+        <!-- ============================================================ -->
+        <section id="section-utility" class="academic-section bg-darker">
+            <div class="section-container">
+                <div class="section-badge-header text-center"><span class="section-sys-tag">SECTION 8</span><h2 class="section-title text-center">WHY IS THIS USEFUL?</h2><p class="section-subtitle">How automated network screening assists security operations</p></div>
+                <div class="academic-card full-width-card">
+                    <p class="ac-desc-large text-center">Large networks generate many connections that are difficult to inspect manually. Our system automatically screens network traffic and identifies potentially suspicious activity, helping security teams investigate possible intrusions faster.</p>
+                    <div class="utility-flow-visual mt-2">
+                        <div class="uf-box"><i class="fa-solid fa-network-wired"></i><strong>MANY NETWORK CONNECTIONS</strong><span>High volume traffic stream</span></div>
+                        <div class="uf-arrow"><i class="fa-solid fa-angles-right"></i></div>
+                        <div class="uf-box"><i class="fa-solid fa-brain violet-text"></i><strong>AUTOMATIC AI SCREENING</strong><span>FastAPI + XGBoost model</span></div>
+                        <div class="uf-arrow"><i class="fa-solid fa-angles-right"></i></div>
+                        <div class="uf-box"><i class="fa-solid fa-filter amber-text"></i><strong>NORMAL / SUSPICIOUS</strong><span>Flagged with probability score</span></div>
+                        <div class="uf-arrow"><i class="fa-solid fa-angles-right"></i></div>
+                        <div class="uf-box uf-highlight"><i class="fa-solid fa-user-shield green-text"></i><strong>SECURITY TEAM INVESTIGATION</strong><span>Faster threat response</span></div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- 5. SECTION 5 — THREAT ANALYSIS CENTER (REAL-TIME DETECTION WORKFLOW) -->
-        <section id="analyzer" class="analyzer-section">
+        <!-- ============================================================ -->
+        <!-- SECTION 9: WHERE DOES FASTAPI FIT?                          -->
+        <!-- ============================================================ -->
+        <section id="section-fastapi" class="academic-section">
             <div class="section-container">
-                <div class="section-header">
-                    <span class="section-sys-tag">INFERENCE // REAL-TIME ANALYSIS</span>
-                    <h2 class="section-title"><i class="fa-solid fa-microchip"></i> Analyze Network Traffic</h2>
-                    <p class="section-subtitle">Execute real-time prediction using scenario presets, CSV file upload, or technical feature form</p>
-                </div>
-
-                <!-- TRAFFIC SOURCE MODE SELECTOR -->
-                <div class="traffic-source-bar" role="tablist">
-                    <span class="source-bar-label">TRAFFIC SOURCE:</span>
-                    <div class="mode-buttons-group">
-                        <button type="button" class="mode-btn active" id="mode-btn-sample" role="tab" aria-selected="true">
-                            <i class="fa-solid fa-bolt"></i> Sample Scenarios
-                        </button>
-                        <button type="button" class="mode-btn" id="mode-btn-csv" role="tab" aria-selected="false">
-                            <i class="fa-solid fa-file-csv"></i> Upload CSV Flow
-                        </button>
-                        <button type="button" class="mode-btn" id="mode-btn-advanced" role="tab" aria-selected="false">
-                            <i class="fa-solid fa-sliders"></i> Advanced (78 Features)
-                        </button>
+                <div class="section-badge-header text-center"><span class="section-sys-tag">SECTION 9</span><h2 class="section-title text-center">WHERE DOES FASTAPI FIT?</h2><p class="section-subtitle">Understanding the backend architecture</p></div>
+                <div class="academic-dual-grid">
+                    <div class="academic-card">
+                        <div class="ac-header"><span class="ac-tag">BACKEND API</span><h3><i class="fa-solid fa-server cyan-text"></i> HOW FASTAPI CONNECTS EVERYTHING</h3></div>
+                        <div class="fastapi-diagram"><span class="fd-node">DASHBOARD</span> <i class="fa-solid fa-arrow-right"></i> <span class="fd-node fd-fast">FASTAPI</span> <i class="fa-solid fa-arrow-right"></i> <span class="fd-node fd-model">TRAINED MODEL</span> <i class="fa-solid fa-arrow-right"></i> <span class="fd-node fd-pred">PREDICTION</span> <i class="fa-solid fa-arrow-right"></i> <span class="fd-node fd-fast">FASTAPI</span> <i class="fa-solid fa-arrow-right"></i> <span class="fd-node">DASHBOARD</span></div>
+                        <p class="ac-desc mt-1">FastAPI provides the backend API that receives network-flow data, sends it to the trained model, and returns the prediction to the application.</p>
+                        <div class="notice-box-important"><i class="fa-solid fa-circle-exclamation amber-text"></i><span><strong>Important:</strong> FastAPI does NOT perform the Machine Learning prediction. The trained model performs the prediction.</span></div>
                     </div>
-
-                    <!-- CONFIDENCE THRESHOLD SLIDER CONTROL -->
-                    <div class="threshold-slider-control">
-                        <label for="confidence-threshold-slider">Confidence Threshold: <strong id="threshold-val-text">80%</strong></label>
-                        <input type="range" id="confidence-threshold-slider" min="50" max="98" value="80" class="threshold-slider">
-                    </div>
-                </div>
-
-                <!-- Validation Error Alert Banner -->
-                <div class="alert-banner error-banner hidden" id="error-banner" role="alert">
-                    <i class="fa-solid fa-triangle-exclamation"></i>
-                    <div class="alert-content">
-                        <strong id="error-title">Validation Error</strong>
-                        <span id="error-message">Invalid input or missing fields detected.</span>
-                    </div>
-                    <button type="button" class="close-banner-btn" id="close-error-banner" aria-label="Close error banner">&times;</button>
-                </div>
-
-                <div class="analyzer-grid">
-                    <div class="input-controls-column">
-                        <!-- MODE 1: SAMPLE TRAFFIC SCENARIOS (PRIMARY EASY DEMO) -->
-                        <div class="mode-container" id="mode-container-sample">
-                            <div class="mode-card-header">
-                                <h3><i class="fa-solid fa-list-check"></i> Select Traffic Scenario</h3>
-                                <p>Choose a verified flow scenario to load the internal 78-feature payload instantly</p>
-                            </div>
-
-                            <div class="scenario-cards-grid">
-                                <button type="button" class="scenario-card active" id="scenario-btn-sample" data-preset="sample">
-                                    <div class="scenario-icon violet-icon"><i class="fa-solid fa-vial"></i></div>
-                                    <div class="scenario-info">
-                                        <span class="scenario-title">Sample Traffic</span>
-                                        <span class="scenario-sub">Standard validation benchmark flow</span>
-                                    </div>
-                                    <span class="scenario-badge badge-violet">DEFAULT</span>
-                                </button>
-
-                                <button type="button" class="scenario-card" id="scenario-btn-benign" data-preset="benign">
-                                    <div class="scenario-icon green-icon"><i class="fa-solid fa-shield-check"></i></div>
-                                    <div class="scenario-info">
-                                        <span class="scenario-title">Normal Traffic</span>
-                                        <span class="scenario-sub">Clean BENIGN web traffic flow</span>
-                                    </div>
-                                    <span class="scenario-badge badge-green">SAFE</span>
-                                </button>
-
-                                <button type="button" class="scenario-card" id="scenario-btn-ddos" data-preset="ddos">
-                                    <div class="scenario-icon red-icon"><i class="fa-solid fa-skull-crossbones"></i></div>
-                                    <div class="scenario-info">
-                                        <span class="scenario-title">DDoS Attack</span>
-                                        <span class="scenario-sub">High-volume flood intrusion attack</span>
-                                    </div>
-                                    <span class="scenario-badge badge-red">THREAT</span>
-                                </button>
-
-                                <button type="button" class="scenario-card" id="scenario-btn-portscan" data-preset="portscan">
-                                    <div class="scenario-icon amber-icon"><i class="fa-solid fa-radar"></i></div>
-                                    <div class="scenario-info">
-                                        <span class="scenario-title">PortScan Probe</span>
-                                        <span class="scenario-sub">Reconnaissance port scanning probe</span>
-                                    </div>
-                                    <span class="scenario-badge badge-amber">PROBE</span>
-                                </button>
-                            </div>
-
-                            <div class="primary-action-bar">
-                                <button type="button" class="btn btn-submit" id="btn-submit-sample">
-                                    <i class="fa-solid fa-magnifying-glass-chart"></i> ANALYZE NETWORK TRAFFIC
-                                </button>
-                            </div>
-                        </div>
-
-                        <!-- REAL-TIME TRAFFIC SIGNAL VISUALIZATION PANEL -->
-                        <div class="traffic-signal-panel" id="traffic-signal-panel">
-                            <div class="signal-panel-header">
-                                <div class="signal-header-left">
-                                    <span class="signal-live-dot pulse-violet" id="signal-status-dot"></span>
-                                    <strong class="signal-title">REAL-TIME TRAFFIC SIGNAL</strong>
-                                </div>
-                                <span class="signal-status-tag" id="signal-preset-tag">SAMPLE TRAFFIC</span>
-                            </div>
-
-                            <!-- Animated Horizontal Data Stream -->
-                            <div class="flow-pipeline-stream">
-                                <div class="flow-step-node">
-                                    <i class="fa-solid fa-desktop"></i>
-                                    <span>CLIENT</span>
-                                </div>
-                                <div class="flow-arrow-connector">
-                                    <div class="stream-particles-line">
-                                        <span class="p-dot dot-1"></span>
-                                        <span class="p-dot dot-2"></span>
-                                        <span class="p-dot dot-3"></span>
-                                    </div>
-                                    <i class="fa-solid fa-angles-right"></i>
-                                </div>
-                                <div class="flow-step-node">
-                                    <i class="fa-solid fa-network-wired"></i>
-                                    <span>PACKET FLOW</span>
-                                </div>
-                                <div class="flow-arrow-connector">
-                                    <div class="stream-particles-line">
-                                        <span class="p-dot dot-1"></span>
-                                        <span class="p-dot dot-2"></span>
-                                    </div>
-                                    <i class="fa-solid fa-angles-right"></i>
-                                </div>
-                                <div class="flow-step-node">
-                                    <i class="fa-solid fa-cube"></i>
-                                    <span>78 FEATURES</span>
-                                </div>
-                                <div class="flow-arrow-connector">
-                                    <div class="stream-particles-line">
-                                        <span class="p-dot dot-1"></span>
-                                        <span class="p-dot dot-3"></span>
-                                    </div>
-                                    <i class="fa-solid fa-angles-right"></i>
-                                </div>
-                                <div class="flow-step-node highlight-engine">
-                                    <i class="fa-solid fa-brain"></i>
-                                    <span>AI ENGINE</span>
-                                </div>
-                            </div>
-
-                            <!-- Live Telemetry Mini-Counters & Waveform -->
-                            <div class="signal-telemetry-row">
-                                <div class="sig-stat-item">
-                                    <span class="sig-lbl">PACKETS ANALYZED</span>
-                                    <span class="sig-val" id="sig-val-packets">5.24M</span>
-                                </div>
-                                <div class="sig-stat-item">
-                                    <span class="sig-lbl">CURRENT FLOW</span>
-                                    <span class="sig-val green-text" id="sig-val-status">ACTIVE</span>
-                                </div>
-                                <div class="sig-stat-item">
-                                    <span class="sig-lbl">ANALYSIS ENGINE</span>
-                                    <span class="sig-val violet-text">XGBOOST ONLINE</span>
-                                </div>
-                                <div class="sig-stat-item sig-waveform-item">
-                                    <span class="sig-lbl">THROUGHPUT SIGNAL</span>
-                                    <div class="sig-live-bars" aria-hidden="true">
-                                        <span class="s-bar b1"></span><span class="s-bar b2"></span><span class="s-bar b3"></span><span class="s-bar b4"></span><span class="s-bar b5"></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- PANEL 1: LIVE PACKET TELEMETRY -->
-                        <div class="telemetry-chart-panel" id="telemetry-chart-panel">
-                            <div class="tele-panel-header">
-                                <h3><i class="fa-solid fa-chart-area violet-text"></i> LIVE PACKET TELEMETRY</h3>
-                                <span class="tele-time-range"><i class="fa-solid fa-clock"></i> REAL-TIME 60s</span>
-                            </div>
-
-                            <div class="tele-metrics-strip">
-                                <div class="t-metric-item">
-                                    <span class="tm-lbl">PACKETS / SEC</span>
-                                    <strong class="tm-val" id="tm-val-rate">5.24M</strong>
-                                </div>
-                                <div class="t-metric-item">
-                                    <span class="tm-lbl">THROUGHPUT</span>
-                                    <strong class="tm-val amber-text" id="tm-val-throughput">1.63G</strong>
-                                </div>
-                                <div class="t-metric-item">
-                                    <span class="tm-lbl">ACTIVE FLOWS</span>
-                                    <strong class="tm-val violet-text" id="tm-val-flows">248</strong>
-                                </div>
-                                <div class="t-metric-item">
-                                    <span class="tm-lbl">ANOMALIES</span>
-                                    <strong class="tm-val green-text" id="tm-val-anomalies">03</strong>
-                                </div>
-                            </div>
-
-                            <!-- Animated Live Waveform SVG -->
-                            <div class="live-telemetry-svg-container" aria-hidden="true">
-                                <svg width="100%" height="80" viewBox="0 0 500 80" preserveAspectRatio="none">
-                                    <path id="telemetry-wave-path" d="M 0 50 Q 50 30 100 55 T 200 40 T 300 60 T 400 35 T 500 45" fill="none" stroke="url(#teleWaveGrad)" stroke-width="2.2" stroke-linecap="round"/>
-                                    <!-- Dynamic Anomaly Markers -->
-                                    <circle id="wave-anomaly-1" cx="200" cy="40" r="4" fill="#10b981" class="pulse-marker"/>
-                                    <circle id="wave-anomaly-2" cx="400" cy="35" r="4" fill="#8b5cf6" class="pulse-marker"/>
-                                    <defs>
-                                        <linearGradient id="teleWaveGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                                            <stop offset="0%" stop-color="#8b5cf6"/>
-                                            <stop offset="50%" stop-color="#f59e0b"/>
-                                            <stop offset="100%" stop-color="#10b981"/>
-                                        </linearGradient>
-                                    </defs>
-                                </svg>
-                            </div>
-                        </div>
-
-                        <!-- PANEL 2: TRAFFIC INTELLIGENCE -->
-                        <div class="traffic-intelligence-panel" id="traffic-intelligence-panel">
-                            <div class="intel-panel-header">
-                                <h3><i class="fa-solid fa-brain amber-text"></i> TRAFFIC INTELLIGENCE</h3>
-                                <div class="threat-level-badge level-low" id="threat-level-badge">
-                                    <span>THREAT LEVEL:</span> <strong id="threat-level-text">LOW</strong>
-                                </div>
-                            </div>
-
-                            <div class="intel-bars-group">
-                                <div class="intel-bar-item">
-                                    <div class="ibar-label-row">
-                                        <span class="ibar-lbl"><i class="fa-solid fa-circle safe-dot"></i> NORMAL TRAFFIC</span>
-                                        <span class="ibar-pct green-text" id="pct-val-normal">82%</span>
-                                    </div>
-                                    <div class="ibar-track"><div class="ibar-fill fill-normal" id="bar-fill-normal" style="width:82%"></div></div>
-                                </div>
-
-                                <div class="intel-bar-item">
-                                    <div class="ibar-label-row">
-                                        <span class="ibar-lbl"><i class="fa-solid fa-circle warn-dot"></i> SUSPICIOUS TRAFFIC</span>
-                                        <span class="ibar-pct amber-text" id="pct-val-suspicious">12%</span>
-                                    </div>
-                                    <div class="ibar-track"><div class="ibar-fill fill-suspicious" id="bar-fill-suspicious" style="width:12%"></div></div>
-                                </div>
-
-                                <div class="intel-bar-item">
-                                    <div class="ibar-label-row">
-                                        <span class="ibar-lbl"><i class="fa-solid fa-circle threat-dot"></i> MALICIOUS TRAFFIC</span>
-                                        <span class="ibar-pct red-text" id="pct-val-malicious">6%</span>
-                                    </div>
-                                    <div class="ibar-track"><div class="ibar-fill fill-malicious" id="bar-fill-malicious" style="width:6%"></div></div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- PANEL 3: AI PROCESSING STATUS SYSTEM STRIP -->
-                        <div class="ai-processing-strip" id="ai-processing-strip">
-                            <div class="proc-header">
-                                <span><i class="fa-solid fa-microchip violet-text"></i> AI PROCESSING STATUS</span>
-                                <span class="proc-live-badge"><i class="fa-solid fa-circle pulse-dot"></i> PIPELINE ONLINE</span>
-                            </div>
-
-                            <div class="proc-stages-grid">
-                                <div class="proc-stage-item active-stage" id="proc-stage-1">
-                                    <i class="fa-solid fa-network-wired"></i>
-                                    <span class="p-lbl">PACKET CAPTURE</span>
-                                    <strong class="p-status green-text" id="p-status-1">ACTIVE</strong>
-                                </div>
-                                <div class="proc-stage-item" id="proc-stage-2">
-                                    <i class="fa-solid fa-cube"></i>
-                                    <span class="p-lbl">FEATURE EXTRACTION</span>
-                                    <strong class="p-status violet-text" id="p-status-2">READY</strong>
-                                </div>
-                                <div class="proc-stage-item" id="proc-stage-3">
-                                    <i class="fa-solid fa-brain"></i>
-                                    <span class="p-lbl">XGBOOST</span>
-                                    <strong class="p-status violet-text" id="p-status-3">ONLINE</strong>
-                                </div>
-                                <div class="proc-stage-item" id="proc-stage-4">
-                                    <i class="fa-solid fa-shield-halved"></i>
-                                    <span class="p-lbl">THREAT DECISION</span>
-                                    <strong class="p-status amber-text" id="p-status-4">WAITING</strong>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- MODE 2: CSV UPLOAD MODE -->
-                        <div class="mode-container hidden" id="mode-container-csv">
-                            <div class="mode-card-header">
-                                <h3><i class="fa-solid fa-cloud-arrow-up"></i> Upload Network Flow CSV</h3>
-                                <p>Upload a CSV file containing 78 flow features for batch or single-flow classification</p>
-                            </div>
-
-                            <div class="csv-drop-zone" id="csv-drop-zone">
-                                <i class="fa-solid fa-file-csv drop-zone-icon"></i>
-                                <span class="drop-zone-title">Drag & Drop Network CSV here</span>
-                                <span class="drop-zone-sub">or click to browse local files</span>
-                                <input type="file" id="csv-file-input" accept=".csv" class="csv-file-input">
-                            </div>
-
-                            <div class="csv-info-box hidden" id="csv-info-box">
-                                <div class="csv-info-row">
-                                    <span><i class="fa-solid fa-file-lines"></i> File Name:</span>
-                                    <strong id="csv-filename">--</strong>
-                                </div>
-                                <div class="csv-info-row">
-                                    <span><i class="fa-solid fa-table-rows"></i> Valid Flow Rows:</span>
-                                    <strong id="csv-rows-count">0</strong>
-                                </div>
-                                <div class="csv-info-row">
-                                    <span><i class="fa-solid fa-check-double"></i> Features Validated:</span>
-                                    <strong id="csv-features-status">78/78 OK</strong>
-                                </div>
-                            </div>
-
-                            <div class="primary-action-bar flex-buttons-bar">
-                                <button type="button" class="btn btn-submit" id="btn-submit-csv" disabled>
-                                    <i class="fa-solid fa-magnifying-glass-chart"></i> ANALYZE CSV TRAFFIC FLOWS
-                                </button>
-                                <button type="button" class="btn btn-secondary" id="btn-download-csv-report" disabled>
-                                    <i class="fa-solid fa-download"></i> EXPORT REPORT (CSV)
-                                </button>
-                            </div>
-                        </div>
-
-                        <!-- MODE 3: ADVANCED 78-FEATURE FORM (COLLAPSIBLE / OPTIONAL) -->
-                        <div class="mode-container hidden" id="mode-container-advanced">
-                            <details class="advanced-details" id="advanced-details-accordion">
-                                <summary class="advanced-summary">
-                                    <span><i class="fa-solid fa-sliders"></i> Technical Feature Debugger (78 Model Features)</span>
-                                    <i class="fa-solid fa-chevron-down summary-arrow"></i>
-                                </summary>
-                                <p class="advanced-note">Directly edit raw 78 float feature inputs for technical demonstration and model debugging.</p>
-                                
-                                <form id="prediction-form" class="prediction-form" aria-label="Technical 78 Feature Input Form">
-                                    <div class="form-tabs" id="feature-form-tabs" role="tablist">
-                                        <button type="button" class="tab-btn active" data-tab="tab-timing" id="tab-btn-timing" role="tab" aria-selected="true">
-                                            <i class="fa-solid fa-clock"></i> TIMING (23)
-                                        </button>
-                                        <button type="button" class="tab-btn" data-tab="tab-packets" id="tab-btn-packets" role="tab" aria-selected="false">
-                                            <i class="fa-solid fa-box-archive"></i> PACKETS (26)
-                                        </button>
-                                        <button type="button" class="tab-btn" data-tab="tab-throughput" id="tab-btn-throughput" role="tab" aria-selected="false">
-                                            <i class="fa-solid fa-gauge-high"></i> RATES (14)
-                                        </button>
-                                        <button type="button" class="tab-btn" data-tab="tab-tcp" id="tab-btn-tcp" role="tab" aria-selected="false">
-                                            <i class="fa-solid fa-flag"></i> TCP (15)
-                                        </button>
-                                    </div>
-
-                                    <div class="tab-content active" id="tab-timing" role="tabpanel">
-                                        <div class="features-grid" id="grid-timing"></div>
-                                    </div>
-
-                                    <div class="tab-content" id="tab-packets" role="tabpanel">
-                                        <div class="features-grid" id="grid-packets"></div>
-                                    </div>
-
-                                    <div class="tab-content" id="tab-throughput" role="tabpanel">
-                                        <div class="features-grid" id="grid-throughput"></div>
-                                    </div>
-
-                                    <div class="tab-content" id="tab-tcp" role="tabpanel">
-                                        <div class="features-grid" id="grid-tcp"></div>
-                                    </div>
-
-                                    <div class="form-submit-bar">
-                                        <button type="submit" class="btn btn-submit" id="btn-submit-advanced">
-                                            <i class="fa-solid fa-magnifying-glass-chart"></i> ANALYZE NETWORK TRAFFIC
-                                        </button>
-                                    </div>
-                                </form>
-                            </details>
-                        </div>
-                    </div>
-
-                    <!-- REAL PREDICTION RESULT PANEL -->
-                    <div class="results-panel" id="results-panel">
-                        <!-- Analysis Progress Stepper -->
-                        <div class="analysis-stepper hidden" id="analysis-stepper" aria-live="polite">
-                            <div class="radar-spinner" aria-hidden="true">
-                                <div class="radar-sweep"></div>
-                                <i class="fa-solid fa-atom spinner-center-icon"></i>
-                            </div>
-                            <h3 class="stepper-title" id="stepper-status-title">Analyzing Network Traffic...</h3>
-                            <div class="step-list" id="stepper-sequence">
-                                <div class="step-item" id="step-1"><i class="fa-solid fa-circle-dot"></i> COLLECTING FLOW</div>
-                                <div class="step-arrow"><i class="fa-solid fa-chevron-down"></i></div>
-                                <div class="step-item" id="step-2"><i class="fa-solid fa-circle-dot"></i> VALIDATING 78 FEATURES</div>
-                                <div class="step-arrow"><i class="fa-solid fa-chevron-down"></i></div>
-                                <div class="step-item" id="step-3"><i class="fa-solid fa-circle-dot"></i> XGBOOST INFERENCE</div>
-                                <div class="step-arrow"><i class="fa-solid fa-chevron-down"></i></div>
-                                <div class="step-item" id="step-4"><i class="fa-solid fa-circle-dot"></i> THREAT CLASSIFICATION</div>
-                            </div>
-                        </div>
-
-                        <!-- Real Prediction Result Card -->
-                        <div class="result-card default-state" id="result-card">
-                            <div class="result-header">
-                                <div class="result-icon-wrapper" id="result-icon-wrapper">
-                                    <i class="fa-solid fa-atom result-icon" id="result-icon"></i>
-                                </div>
-                                <div class="result-title-group">
-                                    <h3>REAL PREDICTION RESULT</h3>
-                                    <span class="result-source-tag"><i class="fa-solid fa-server"></i> Source: FastAPI <code>POST /predict</code></span>
-                                </div>
-                            </div>
-
-                            <div class="result-body">
-                                <div class="threat-status-box" id="threat-status-box">
-                                    <div class="awaiting-scanner-wrapper" id="awaiting-scanner-wrapper">
-                                        <div class="mini-scanner-ring"></div>
-                                        <i class="fa-solid fa-brain pulsing-ai-icon"></i>
-                                    </div>
-                                    <span class="status-label">NETWORK STATUS</span>
-                                    <span class="status-name" id="result-threat-status">READY FOR ANALYSIS</span>
-                                    <span class="status-subdetail" id="result-threat-subdetail">Select traffic scenario or upload CSV flow to begin AI classification</span>
-                                </div>
-
-                                <div class="prediction-info-list" id="prediction-info-list">
-                                    <div class="info-row">
-                                        <span class="info-lbl">Attack Type:</span>
-                                        <span class="info-val" id="res-attack-type">--</span>
-                                    </div>
-                                    <div class="info-row">
-                                        <span class="info-lbl">Prediction Label:</span>
-                                        <span class="info-val" id="res-prediction-label">--</span>
-                                    </div>
-                                    <div class="info-row">
-                                        <span class="info-lbl">Security Action:</span>
-                                        <span class="info-val" id="res-security-action">--</span>
-                                    </div>
-                                </div>
-
-                                <div class="metrics-grid">
-                                    <div class="metric-card" id="card-confidence">
-                                        <div class="m-header">
-                                            <span class="m-label">Confidence Score</span>
-                                            <span class="m-val" id="res-confidence">0.00%</span>
-                                        </div>
-                                        <div class="m-bar"><div class="m-bar-fill" id="bar-confidence" style="width:0%"></div></div>
-                                    </div>
-
-                                    <div class="metric-card alert-card" id="card-attack-prob">
-                                        <div class="m-header">
-                                            <span class="m-label">Attack Probability</span>
-                                            <span class="m-val" id="res-attack-prob">0.00%</span>
-                                        </div>
-                                        <div class="m-bar"><div class="m-bar-fill attack-fill" id="bar-attack-prob" style="width:0%"></div></div>
-                                    </div>
-
-                                    <div class="metric-card success-card" id="card-normal-prob">
-                                        <div class="m-header">
-                                            <span class="m-label">Normal Probability</span>
-                                            <span class="m-val" id="res-normal-prob">0.00%</span>
-                                        </div>
-                                        <div class="m-bar"><div class="m-bar-fill normal-fill" id="bar-normal-prob" style="width:0%"></div></div>
-                                    </div>
-                                </div>
-
-                                <!-- FEATURE-BASED AI EXPLANATION SIGNALS -->
-                                <div class="ai-explanation-box" id="ai-explanation-box">
-                                    <div class="ai-explanation-header">
-                                        <i class="fa-solid fa-brain"></i>
-                                        <strong id="ai-explain-title">WHY AI FLAGGED THIS TRAFFIC</strong>
-                                    </div>
-                                    <ul class="explanation-signals-list" id="explanation-signals-list">
-                                        <li><i class="fa-solid fa-check green-check"></i> Standard flow duration & packet rate</li>
-                                        <li><i class="fa-solid fa-check green-check"></i> Clean TCP window & handshake flags</li>
-                                    </ul>
-                                </div>
-
-                                <!-- RECOMMENDED SECURITY ACTION -->
-                                <div class="rec-action-box" id="rec-action-box">
-                                    <div class="rec-action-header">
-                                        <i class="fa-solid fa-shield-halved"></i>
-                                        <strong>RECOMMENDED ACTION</strong>
-                                    </div>
-                                    <p id="rec-action-text">Continue monitoring flow telemetry. No immediate mitigation required.</p>
-                                </div>
-
-                                <!-- LIVE INCIDENT TIMELINE -->
-                                <div class="incident-timeline-box" id="incident-timeline-box">
-                                    <div class="timeline-header">
-                                        <i class="fa-solid fa-timeline"></i>
-                                        <strong>LIVE INCIDENT TIMELINE</strong>
-                                    </div>
-                                    <div class="timeline-events-list" id="timeline-events-list">
-                                        <div class="timeline-event-item">
-                                            <span class="event-time">System Initialized</span>
-                                            <span class="event-desc">Awaiting live traffic classification...</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="result-footer">
-                                <i class="fa-solid fa-lock"></i> Predictions generated in real time via FastAPI <code>POST /predict</code> using trained XGBoost model bundle.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- DEDICATED REAL-TIME THREAT INTELLIGENCE WORKSPACE PANEL -->
-                <div class="live-threat-intelligence-workspace" id="live-threat-intelligence-workspace">
-                    <div class="lti-workspace-connector" aria-hidden="true">
-                        <div class="lti-pulse-connector"><span class="lti-dot"></span></div>
-                    </div>
-
-                    <div class="lti-workspace-card">
-                        <div class="lti-header">
-                            <div class="lti-header-title">
-                                <span class="lti-live-badge"><i class="fa-solid fa-circle pulse-dot"></i> LIVE</span>
-                                <div>
-                                    <h3>LIVE THREAT INTELLIGENCE</h3>
-                                    <p>Real-time network behavior signals detected by the AI engine</p>
-                                </div>
-                            </div>
-                            <div class="lti-header-metrics">
-                                <span class="lti-tag"><i class="fa-solid fa-server"></i> ENGINE: XGBOOST</span>
-                            </div>
-                        </div>
-
-                        <div class="lti-inner-grid">
-                            <!-- LEFT COLUMN (55%): LIVE EVENT STREAM -->
-                            <div class="lti-col-left">
-                                <div class="lti-col-header">
-                                    <h4><i class="fa-solid fa-list-ol violet-text"></i> LIVE BEHAVIOR SIGNAL STREAM</h4>
-                                    <span class="lti-sub-tag">AUTO-STREAMING</span>
-                                </div>
-                                <div class="lti-stream-rows" id="lti-stream-rows">
-                                    <div class="lti-event-row row-benign">
-                                        <span class="e-time">19:11:42</span>
-                                        <span class="e-proto"><i class="fa-solid fa-network-wired green-text"></i> TCP FLOW</span>
-                                        <span class="e-risk badge-green">NORMAL</span>
-                                    </div>
-                                    <div class="lti-event-row row-probe">
-                                        <span class="e-time">19:11:44</span>
-                                        <span class="e-proto"><i class="fa-solid fa-radar amber-text"></i> PORT SCAN</span>
-                                        <span class="e-risk badge-amber">MEDIUM</span>
-                                    </div>
-                                    <div class="lti-event-row row-benign">
-                                        <span class="e-time">19:11:46</span>
-                                        <span class="e-proto"><i class="fa-solid fa-globe green-text"></i> HTTP FLOW</span>
-                                        <span class="e-risk badge-green">NORMAL</span>
-                                    </div>
-                                    <div class="lti-event-row row-threat">
-                                        <span class="e-time">19:11:48</span>
-                                        <span class="e-proto"><i class="fa-solid fa-skull-crossbones red-text"></i> DDoS SIGNAL</span>
-                                        <span class="e-risk badge-red">HIGH</span>
-                                    </div>
-                                    <div class="lti-event-row row-benign">
-                                        <span class="e-time">19:11:50</span>
-                                        <span class="e-proto"><i class="fa-solid fa-network-wired green-text"></i> TCP FLOW</span>
-                                        <span class="e-risk badge-green">NORMAL</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- RIGHT COLUMN (45%): NETWORK SIGNAL + THREAT LEVEL + AI DECISION -->
-                            <div class="lti-col-right">
-                                <!-- Network Activity Signal Graph -->
-                                <div class="lti-signal-box">
-                                    <div class="sig-box-header">
-                                        <span><i class="fa-solid fa-wave-square violet-text"></i> NETWORK ACTIVITY SIGNAL</span>
-                                        <span class="sig-status-text green-text" id="sig-status-indicator">NOMINAL</span>
-                                    </div>
-                                    <div class="sig-canvas-wrapper">
-                                        <svg width="100%" height="70" viewBox="0 0 350 70" preserveAspectRatio="none">
-                                            <path id="lti-signal-path" d="M 0 45 Q 35 30 70 45 T 140 25 T 210 50 T 280 20 T 350 40" fill="none" stroke="#8b5cf6" stroke-width="2"/>
-                                            <circle id="lti-anomaly-spike" cx="280" cy="20" r="5" fill="#f43f5e" class="pulse-spike"/>
-                                        </svg>
-                                        <span class="anomaly-marker-tag" id="anomaly-marker-tag">ANOMALY DETECTED</span>
-                                    </div>
-                                </div>
-
-                                <!-- Threat Ring & AI Decision Mini Grid -->
-                                <div class="lti-mini-grid">
-                                    <div class="lti-ring-card">
-                                        <span class="lrc-title">THREAT SCORE</span>
-                                        <div class="threat-ring-visual">
-                                            <div class="ring-circle">
-                                                <span class="ring-score-val green-text" id="ring-score-val">LOW</span>
-                                            </div>
-                                        </div>
-                                        <span class="ring-sub">82% Normal / 12% Susp / 6% Mal</span>
-                                    </div>
-
-                                    <div class="lti-decision-card">
-                                        <div class="dec-header">
-                                            <i class="fa-solid fa-microchip violet-text"></i>
-                                            <strong>AI DECISION</strong>
-                                        </div>
-                                        <div class="dec-body">
-                                            <div class="dec-row"><span>STATUS:</span> <strong class="green-text" id="dec-val-status">MONITORING</strong></div>
-                                            <div class="dec-row"><span>CONFIDENCE:</span> <strong id="dec-val-conf">99.85%</strong></div>
-                                            <div class="dec-row"><span>ACTION:</span> <strong class="violet-text" id="dec-val-action">CONTINUE</strong></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="academic-card">
+                        <div class="ac-header"><span class="ac-tag">VERIFIED SPECS</span><h3><i class="fa-solid fa-clipboard-check green-text"></i> TECHNICAL DETAILS</h3></div>
+                        <ul class="spec-list-clean">
+                            <li><span>Dataset:</span> <strong>CIC-IDS2017</strong></li>
+                            <li><span>Total Records:</span> <strong>2,830,743 (raw) &rarr; 2,522,362 (cleaned)</strong></li>
+                            <li><span>Features:</span> <strong>78 Numerical Flow Metrics</strong></li>
+                            <li><span>Classes:</span> <strong>15 Traffic Categories</strong></li>
+                            <li><span>Models Compared:</span> <strong>5 (LR, DT, RF, GB, XGBoost)</strong></li>
+                            <li><span>Final Model:</span> <strong>XGBoost Classifier</strong></li>
+                            <li><span>Backend:</span> <strong>FastAPI (Python)</strong></li>
+                            <li><span>Endpoint:</span> <strong>POST /predict</strong></li>
+                            <li><span>Test Accuracy:</span> <strong>99.89% Verified</strong></li>
+                        </ul>
+                        <div class="audit-summary-box mt-1"><strong>HOW DID WE CHECK THE MODEL?</strong><p>We checked whether information from the test data accidentally influenced training and whether evaluation could be misleading.</p><span class="audit-status-badge"><i class="fa-solid fa-shield-check green-text"></i> 10-Point Audit Verified Clean</span></div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- 6. SECTION 6 — REAL-TIME ANALYTICS SUITE -->
-        <section id="analytics" class="analytics-section">
+        <!-- ============================================================ -->
+        <!-- SECTION 10: IMPLEMENTATION TIMELINE                         -->
+        <!-- ============================================================ -->
+        <section id="section-timeline" class="academic-section bg-darker">
             <div class="section-container">
-                <div class="section-header">
-                    <span class="section-sys-tag">ANALYTICS // VISUALIZATIONS</span>
-                    <h2 class="section-title"><i class="fa-solid fa-chart-line"></i> Real-Time Analytics & Feature Importance</h2>
-                    <p class="section-subtitle">Live traffic throughput monitoring, top predictive network features, and multi-class distribution</p>
-                </div>
-
-                <div class="analytics-grid">
-                    <!-- Chart 1: Real-time Packet Flow Timeline -->
-                    <div class="chart-card">
-                        <div class="chart-header">
-                            <h3><i class="fa-solid fa-wave-square"></i> Traffic Throughput & Anomaly Timeline</h3>
-                            <span class="chart-tag"><i class="fa-solid fa-circle-dot live-dot"></i> LIVE STREAM</span>
-                        </div>
-                        <div class="chart-canvas-container">
-                            <canvas id="chart-throughput-timeline"></canvas>
-                        </div>
-                    </div>
-
-                    <!-- Chart 2: Top XGBoost Feature Importances -->
-                    <div class="chart-card">
-                        <div class="chart-header">
-                            <h3><i class="fa-solid fa-ranking-star"></i> Top Predictive Model Features</h3>
-                            <span class="chart-tag">XGBOOST IMPORTANCE</span>
-                        </div>
-                        <div class="chart-canvas-container">
-                            <canvas id="chart-feature-importance"></canvas>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Secondary Row: Threat Distribution Donut -->
-                <div class="analytics-subrow">
-                    <div class="chart-card full-width-card">
-                        <div class="chart-header">
-                            <h3><i class="fa-solid fa-chart-pie"></i> 15-Class Threat Category Distribution & Risk Spectrum</h3>
-                            <span class="chart-tag">CIC-IDS2017 SCHEMA</span>
-                        </div>
-                        <div class="chart-subgrid">
-                            <div class="donut-wrapper">
-                                <canvas id="chart-threat-distribution"></canvas>
-                            </div>
-                            <div class="donut-legend-info">
-                                <h4>Model Intelligence Summary</h4>
-                                <p>The XGBoost multi-class classifier prioritizes flow duration, packet length variance, and TCP window initial sizes to separate benign sessions from volumetric DDoS, PortScans, and stealthy Web Attacks.</p>
-                                <div class="top-features-list">
-                                    <div class="tf-item"><span>1. Flow Duration</span><strong>18.4% Weight</strong></div>
-                                    <div class="tf-item"><span>2. Total Fwd Packets</span><strong>14.2% Weight</strong></div>
-                                    <div class="tf-item"><span>3. Packet Length Std</span><strong>11.8% Weight</strong></div>
-                                    <div class="tf-item"><span>4. Init_Win_bytes_forward</span><strong>9.6% Weight</strong></div>
-                                    <div class="tf-item"><span>5. Destination Port</span><strong>8.1% Weight</strong></div>
-                                </div>
-                            </div>
-                        </div>
+                <div class="section-badge-header text-center"><span class="section-sys-tag">SECTION 10</span><h2 class="section-title text-center">WHAT EXACTLY DID WE IMPLEMENT?</h2><p class="section-subtitle">Complete 10-step implementation timeline</p></div>
+                <div class="academic-card full-width-card">
+                    <div class="timeline-10-grid mt-1">
+                        <div class="t10-step"><span>1</span> <strong>Dataset analysis</strong></div>
+                        <div class="t10-step"><span>2</span> <strong>Data cleaning</strong></div>
+                        <div class="t10-step"><span>3</span> <strong>Feature preparation</strong></div>
+                        <div class="t10-step"><span>4</span> <strong>Train/test split</strong></div>
+                        <div class="t10-step"><span>5</span> <strong>Machine Learning training</strong></div>
+                        <div class="t10-step"><span>6</span> <strong>Model comparison</strong></div>
+                        <div class="t10-step"><span>7</span> <strong>Model validation</strong></div>
+                        <div class="t10-step"><span>8</span> <strong>FastAPI integration</strong></div>
+                        <div class="t10-step"><span>9</span> <strong>Prediction API</strong></div>
+                        <div class="t10-step highlight-t10"><span>10</span> <strong>Dashboard UI</strong></div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- 7. SECTION 7 — LIVE 3D NETWORK TOPOLOGY (THREE.JS) -->
-        <section id="topology" class="topology-section">
+        <!-- ============================================================ -->
+        <!-- SECTION 11: FINAL DEMO SUMMARY                              -->
+        <!-- ============================================================ -->
+        <section id="final-summary" class="academic-section summary-banner-section">
             <div class="section-container">
-                <div class="section-header">
-                    <span class="section-sys-tag">VISUALIZATION // LIVE NETWORK TOPOLOGY</span>
-                    <h2 class="section-title"><i class="fa-solid fa-network-wired"></i> Interactive 3D Network Topology</h2>
-                    <p class="section-subtitle">Client Nodes &rrarr; Network Router &rrarr; Server Infrastructure &rrarr; AI Detection Engine</p>
-                </div>
+                <div class="section-badge-header text-center"><span class="section-sys-tag highlight-tag">PROJECT RECAP</span><h2 class="section-title text-center">FINAL DEMO SUMMARY</h2><p class="section-subtitle">Everything you need to know about our project</p></div>
                 
-                <div class="topology-canvas-wrapper" id="topology-wrapper">
-                    <div id="three-topology-container"></div>
-                    
-                    <!-- Dynamic Topology State Badge -->
-                    <div class="topology-state-badge secure-badge" id="topology-state-badge">
-                        <i class="fa-solid fa-shield-check" id="topo-badge-icon"></i>
-                        <span id="topo-badge-text">NETWORK SECURE</span>
-                    </div>
+                <div class="academic-card full-width-card mb-2">
+                    <div class="ac-header"><span class="ac-tag green-tag">REAL-WORLD IMPACT</span><h3><i class="fa-solid fa-shield-heart emerald-text"></i> WHY THIS MATTERS</h3></div>
+                    <p class="ac-desc" style="font-size: 1.05rem; line-height: 1.7; color: var(--text-primary);">Modern networks generate large volumes of traffic that are difficult to inspect manually. Our system uses Machine Learning to automatically classify network-flow patterns and flag potentially suspicious activity, helping security teams prioritize investigation.</p>
+                </div>
 
-                    <div class="topology-legend" id="topology-legend-box">
-                        <span class="legend-item"><i class="fa-solid fa-laptop client-node"></i> Client Nodes</span>
-                        <span class="legend-item"><i class="fa-solid fa-network-wired net-node"></i> Network Router</span>
-                        <span class="legend-item"><i class="fa-solid fa-server server-node"></i> Server Infrastructure</span>
-                        <span class="legend-item"><i class="fa-solid fa-microchip ai-node"></i> AI Detection Engine</span>
-                    </div>
+                <div class="summary-5-grid">
+                    <div class="sum-card"><span class="sum-tag">WHAT WE TOOK</span><strong>CIC-IDS2017 network traffic data</strong><p>2.8M+ labelled network flow records with 78 traffic features.</p></div>
+                    <div class="sum-card"><span class="sum-tag">WHAT WE DID</span><strong>Analyze, clean, prepare &amp; train ML models</strong><p>Compared 5 classifiers: Logistic Regression, Decision Tree, Random Forest, Gradient Boosting, XGBoost.</p></div>
+                    <div class="sum-card"><span class="sum-tag">WHAT MODEL WE USE</span><strong>XGBoost for final inference</strong><p>Selected for best minority-class recall (80.38%) and highest macro F1 score (91.70%).</p></div>
+                    <div class="sum-card"><span class="sum-tag">HOW IT PREDICTS</span><strong>New traffic &rarr; 78 features &rarr; validation &rarr; preprocessing &rarr; XGBoost &rarr; prediction</strong><p>BENIGN or an attack category + probability/confidence score.</p></div>
+                    <div class="sum-card highlight-sum-card"><span class="sum-tag">WHY IT IS USEFUL</span><strong>Helps security teams identify suspicious network activity faster</strong><p>Automatically screens high-volume traffic so security teams can focus on potential threats.</p></div>
                 </div>
             </div>
         </section>
 
-        <!-- 8. SECTION 8 — VALIDATED AI MODEL PERFORMANCE -->
-        <section id="metrics" class="metrics-section">
-            <div class="section-container">
-                <div class="section-header">
-                    <span class="section-sys-tag">RESEARCH EVALUATION // VALIDATED MODEL METRICS</span>
-                    <h2 class="section-title"><i class="fa-solid fa-chart-column"></i> Validated Model Performance</h2>
-                    <p class="section-subtitle">Evaluated performance parameters of the saved XGBoost classification model</p>
-                </div>
-
-                <div class="validation-grid" id="validation-metrics-grid">
-                    <div class="v-card">
-                        <span class="v-name">ACCURACY</span>
-                        <span class="v-value count-up-target" data-count="99.85" id="val-accuracy">99.85%</span>
-                        <span class="v-desc">Overall sample accuracy</span>
-                    </div>
-                    <div class="v-card">
-                        <span class="v-name">MACRO F1</span>
-                        <span class="v-value count-up-target" data-count="82.26" id="val-macro-f1">82.26%</span>
-                        <span class="v-desc">Unweighted class average</span>
-                    </div>
-                    <div class="v-card">
-                        <span class="v-name">MINORITY RECALL</span>
-                        <span class="v-value count-up-target" data-count="70.26" id="val-minority-rec">70.26%</span>
-                        <span class="v-desc">Rare attack detection rate</span>
-                    </div>
-                    <div class="v-card">
-                        <span class="v-name">MINORITY F1</span>
-                        <span class="v-value count-up-target" data-count="68.10" id="val-minority-f1">68.10%</span>
-                        <span class="v-desc">F1 across rare attacks</span>
-                    </div>
-                    <div class="v-card">
-                        <span class="v-name">ROC-AUC</span>
-                        <span class="v-value" id="val-roc-auc">0.9669</span>
-                        <span class="v-desc">Multi-class ROC area</span>
-                    </div>
-                    <div class="v-card">
-                        <span class="v-name">PR-AUC</span>
-                        <span class="v-value" id="val-pr-auc">0.8142</span>
-                        <span class="v-desc">Precision-Recall curve area</span>
-                    </div>
-                </div>
-
-                <div class="metric-audit-note" id="audit-explanation-note">
-                    <i class="fa-solid fa-circle-info info-icon"></i>
-                    <div class="audit-text">
-                        <p>
-                            <strong>Validation Note:</strong> The metrics displayed above represent <strong>Model Validation Metrics</strong> evaluated on independent test splits. Real-time predictions issue live inference calls to FastAPI <code>POST /predict</code>.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 9. SECTION 9 — SYSTEM STATUS & INFRASTRUCTURE TELEMETRY -->
-        <section id="status" class="status-section">
-            <div class="section-container">
-                <div class="section-header">
-                    <span class="section-sys-tag">INFRASTRUCTURE // TELEMETRY</span>
-                    <h2 class="section-title"><i class="fa-solid fa-server"></i> Intelligent System Status</h2>
-                    <p class="section-subtitle">Real-time infrastructure health & model readiness connected directly to FastAPI</p>
-                </div>
-
-                <!-- API Offline Warning Banner -->
-                <div class="offline-warning-banner hidden" id="offline-warning-banner">
-                    <i class="fa-solid fa-triangle-exclamation"></i>
-                    <span>Backend unavailable. Start the FastAPI server on port 8000.</span>
-                </div>
-
-                <div class="status-hero-card">
-                    <div class="status-card-grid">
-                        <div class="status-img-col">
-                            <img src="assets/system_status_datacenter.png" alt="Datacenter AI Infrastructure" class="datacenter-img">
-                        </div>
-                        
-                        <div class="status-metrics-col">
-                            <div class="status-grid" id="status-cards-grid">
-                                <div class="status-card" id="card-backend-status">
-                                    <div class="card-icon"><i class="fa-solid fa-signal"></i></div>
-                                    <div class="card-info">
-                                        <span class="card-label">API BACKEND STATUS</span>
-                                        <span class="card-value status-online-text" id="live-backend-status">CONNECTED</span>
-                                    </div>
-                                </div>
-
-                                <div class="status-card" id="card-model-type">
-                                    <div class="card-icon"><i class="fa-solid fa-brain"></i></div>
-                                    <div class="card-info">
-                                        <span class="card-label">AI MODEL STATUS</span>
-                                        <span class="card-value" id="live-model-name">XGBoost Loaded</span>
-                                    </div>
-                                </div>
-
-                                <div class="status-card" id="card-engine-state">
-                                    <div class="card-icon"><i class="fa-solid fa-bolt-lightning"></i></div>
-                                    <div class="card-info">
-                                        <span class="card-label">PREDICTION ENGINE</span>
-                                        <span class="card-value status-online-text" id="live-engine-status">ONLINE</span>
-                                    </div>
-                                </div>
-
-                                <div class="status-card" id="card-features-num">
-                                    <div class="card-icon"><i class="fa-solid fa-network-wired"></i></div>
-                                    <div class="card-info">
-                                        <span class="card-label">NETWORK MONITOR</span>
-                                        <span class="card-value status-online-text">ACTIVE SCAN</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 10. SECTION 10 — CLASSIFIABLE THREAT CATEGORIES GRID (INTELLIGENCE UPGRADE) -->
-        <section id="categories" class="categories-section">
-            <div class="section-container">
-                <div class="section-header">
-                    <span class="section-sys-tag">CLASSIFICATION // CATEGORIES</span>
-                    <h2 class="section-title"><i class="fa-solid fa-shield-virus"></i> <span class="glow-count-num">15</span> TARGET CLASSES DETECTED</h2>
-                    <p class="section-subtitle">15 Target classes monitored by the validated XGBoost multi-class intelligence engine</p>
-
-                    <!-- LIVE ONLINE STATUS TAG -->
-                    <div class="cat-online-status" id="cat-online-status">
-                        <span class="status-dot online pulse"></span>
-                        <span class="cat-status-text">AI THREAT CLASSIFIER ONLINE</span>
-                    </div>
-                </div>
-
-                <!-- CATEGORY FILTER & SEARCH TOOLBAR -->
-                <div class="categories-toolbar">
-                    <div class="cat-filter-group" role="tablist" aria-label="Filter Threat Categories">
-                        <button type="button" class="cat-filter-btn active" data-cat="all" role="tab" aria-selected="true">ALL</button>
-                        <button type="button" class="cat-filter-btn" data-cat="dos" role="tab" aria-selected="false">DOS</button>
-                        <button type="button" class="cat-filter-btn" data-cat="web" role="tab" aria-selected="false">WEB</button>
-                        <button type="button" class="cat-filter-btn" data-cat="brute" role="tab" aria-selected="false">BRUTE FORCE</button>
-                        <button type="button" class="cat-filter-btn" data-cat="other" role="tab" aria-selected="false">OTHER</button>
-                    </div>
-
-                    <div class="cat-search-box">
-                        <i class="fa-solid fa-magnifying-glass search-icon"></i>
-                        <input type="text" id="threat-search-input" placeholder="Search threat class..." aria-label="Search threat class">
-                    </div>
-                </div>
-
-                <!-- NO MATCHES FALLBACK -->
-                <div class="no-threat-matches hidden" id="no-threat-matches">
-                    <i class="fa-solid fa-shield-cat"></i>
-                    <span>No matching threat class found.</span>
-                </div>
-
-                <div class="threat-classes-grid" id="threat-classes-grid">
-                    <!-- 1. BENIGN -->
-                    <div class="threat-class-card benign-class" data-category="other" data-severity="SAFE" data-name="BENIGN" data-desc="Normal benign network traffic session" data-confidence="99.9%" data-action="Allow traffic flow through firewall">
-                        <div class="card-scan-line"></div>
-                        <div class="tc-header">
-                            <span><i class="fa-solid fa-shield-check"></i> BENIGN</span>
-                            <span class="tc-pulse-dot safe-pulse"></span>
-                        </div>
-                        <div class="tc-sub">Normal benign network traffic session</div>
-                        <div class="tc-meta-row">
-                            <span class="tc-sev-pill safe-pill">● SAFE</span>
-                            <div class="tc-sparkline" aria-hidden="true">
-                                <svg width="40" height="10" viewBox="0 0 40 10" fill="none">
-                                    <path d="M0 5 L8 5 L12 2 L16 8 L20 4 L24 6 L40 5" stroke="#10b981" stroke-width="1.2"/>
-                                </svg>
-                            </div>
-                        </div>
-                        <div class="tc-analyze-indicator">ANALYZE <i class="fa-solid fa-arrow-right"></i></div>
-                    </div>
-
-                    <!-- 2. DDoS -->
-                    <div class="threat-class-card attack-class" data-category="dos" data-severity="HIGH" data-name="DDoS" data-desc="Distributed Denial of Service flood" data-confidence="98.5%" data-action="Rate-limit & trigger BGP flowspec scrubbing">
-                        <div class="card-scan-line"></div>
-                        <div class="tc-header">
-                            <span><i class="fa-solid fa-skull"></i> DDoS</span>
-                            <span class="tc-pulse-dot red-pulse"></span>
-                        </div>
-                        <div class="tc-sub">Distributed Denial of Service flood</div>
-                        <div class="tc-meta-row">
-                            <span class="tc-sev-pill high-pill">● HIGH</span>
-                            <div class="tc-sparkline" aria-hidden="true">
-                                <svg width="40" height="10" viewBox="0 0 40 10" fill="none">
-                                    <path d="M0 8 L6 2 L12 9 L18 1 L24 8 L30 3 L40 7" stroke="#f43f5e" stroke-width="1.2"/>
-                                </svg>
-                            </div>
-                        </div>
-                        <div class="tc-analyze-indicator">ANALYZE <i class="fa-solid fa-arrow-right"></i></div>
-                    </div>
-
-                    <!-- 3. PortScan -->
-                    <div class="threat-class-card attack-class" data-category="other" data-severity="MEDIUM" data-name="PortScan" data-desc="Reconnaissance port scanning probe" data-confidence="96.2%" data-action="Block source IP address at border router">
-                        <div class="card-scan-line"></div>
-                        <div class="tc-header">
-                            <span><i class="fa-solid fa-radar"></i> PortScan</span>
-                            <span class="tc-pulse-dot amber-pulse"></span>
-                        </div>
-                        <div class="tc-sub">Reconnaissance port scanning probe</div>
-                        <div class="tc-meta-row">
-                            <span class="tc-sev-pill med-pill">● MEDIUM</span>
-                            <div class="tc-sparkline" aria-hidden="true">
-                                <svg width="40" height="10" viewBox="0 0 40 10" fill="none">
-                                    <path d="M0 6 L10 6 L14 1 L18 9 L22 5 L40 6" stroke="#f59e0b" stroke-width="1.2"/>
-                                </svg>
-                            </div>
-                        </div>
-                        <div class="tc-analyze-indicator">ANALYZE <i class="fa-solid fa-arrow-right"></i></div>
-                    </div>
-
-                    <!-- 4. Bot -->
-                    <div class="threat-class-card attack-class" data-category="other" data-severity="HIGH" data-name="Bot" data-desc="Automated botnet command traffic" data-confidence="97.8%" data-action="Isolate bot host & terminate C2 connections">
-                        <div class="card-scan-line"></div>
-                        <div class="tc-header">
-                            <span><i class="fa-solid fa-robot"></i> Bot</span>
-                            <span class="tc-pulse-dot red-pulse"></span>
-                        </div>
-                        <div class="tc-sub">Automated botnet command traffic</div>
-                        <div class="tc-meta-row">
-                            <span class="tc-sev-pill high-pill">● HIGH</span>
-                            <div class="tc-sparkline" aria-hidden="true">
-                                <svg width="40" height="10" viewBox="0 0 40 10" fill="none">
-                                    <path d="M0 5 L8 2 L14 8 L22 1 L30 7 L40 4" stroke="#f43f5e" stroke-width="1.2"/>
-                                </svg>
-                            </div>
-                        </div>
-                        <div class="tc-analyze-indicator">ANALYZE <i class="fa-solid fa-arrow-right"></i></div>
-                    </div>
-
-                    <!-- 5. Infiltration -->
-                    <div class="threat-class-card attack-class" data-category="other" data-severity="HIGH" data-name="Infiltration" data-desc="Internal network host infiltration" data-confidence="95.4%" data-action="Quarantine infected subnet & revoke tokens">
-                        <div class="card-scan-line"></div>
-                        <div class="tc-header">
-                            <span><i class="fa-solid fa-user-secret"></i> Infiltration</span>
-                            <span class="tc-pulse-dot red-pulse"></span>
-                        </div>
-                        <div class="tc-sub">Internal network host infiltration</div>
-                        <div class="tc-meta-row">
-                            <span class="tc-sev-pill high-pill">● HIGH</span>
-                            <div class="tc-sparkline" aria-hidden="true">
-                                <svg width="40" height="10" viewBox="0 0 40 10" fill="none">
-                                    <path d="M0 7 L10 2 L18 8 L26 3 L34 9 L40 4" stroke="#f43f5e" stroke-width="1.2"/>
-                                </svg>
-                            </div>
-                        </div>
-                        <div class="tc-analyze-indicator">ANALYZE <i class="fa-solid fa-arrow-right"></i></div>
-                    </div>
-
-                    <!-- 6. Web Attack - Brute Force -->
-                    <div class="threat-class-card attack-class" data-category="web" data-severity="HIGH" data-name="Web Attack - Brute Force" data-desc="Web application credential stuffing" data-confidence="98.1%" data-action="Trigger WAF IP ban & require CAPTCHA">
-                        <div class="card-scan-line"></div>
-                        <div class="tc-header">
-                            <span><i class="fa-solid fa-globe"></i> Web Attack - Brute Force</span>
-                            <span class="tc-pulse-dot red-pulse"></span>
-                        </div>
-                        <div class="tc-sub">Web application credential stuffing</div>
-                        <div class="tc-meta-row">
-                            <span class="tc-sev-pill high-pill">● HIGH</span>
-                            <div class="tc-sparkline" aria-hidden="true">
-                                <svg width="40" height="10" viewBox="0 0 40 10" fill="none">
-                                    <path d="M0 6 L8 1 L16 9 L24 2 L32 7 L40 4" stroke="#f43f5e" stroke-width="1.2"/>
-                                </svg>
-                            </div>
-                        </div>
-                        <div class="tc-analyze-indicator">ANALYZE <i class="fa-solid fa-arrow-right"></i></div>
-                    </div>
-
-                    <!-- 7. Web Attack - XSS -->
-                    <div class="threat-class-card attack-class" data-category="web" data-severity="HIGH" data-name="Web Attack - XSS" data-desc="Cross-site scripting injection" data-confidence="97.6%" data-action="Sanitize HTTP inputs & update WAF rules">
-                        <div class="card-scan-line"></div>
-                        <div class="tc-header">
-                            <span><i class="fa-solid fa-code"></i> Web Attack - XSS</span>
-                            <span class="tc-pulse-dot red-pulse"></span>
-                        </div>
-                        <div class="tc-sub">Cross-site scripting injection</div>
-                        <div class="tc-meta-row">
-                            <span class="tc-sev-pill high-pill">● HIGH</span>
-                            <div class="tc-sparkline" aria-hidden="true">
-                                <svg width="40" height="10" viewBox="0 0 40 10" fill="none">
-                                    <path d="M0 5 L10 2 L20 8 L30 1 L40 6" stroke="#f43f5e" stroke-width="1.2"/>
-                                </svg>
-                            </div>
-                        </div>
-                        <div class="tc-analyze-indicator">ANALYZE <i class="fa-solid fa-arrow-right"></i></div>
-                    </div>
-
-                    <!-- 8. Web Attack - Sql Injection -->
-                    <div class="threat-class-card attack-class" data-category="web" data-severity="HIGH" data-name="Web Attack - Sql Injection" data-desc="SQL database command injection" data-confidence="99.1%" data-action="Block payload & isolate database connection">
-                        <div class="card-scan-line"></div>
-                        <div class="tc-header">
-                            <span><i class="fa-solid fa-database"></i> Web Attack - Sql Injection</span>
-                            <span class="tc-pulse-dot red-pulse"></span>
-                        </div>
-                        <div class="tc-sub">SQL database command injection</div>
-                        <div class="tc-meta-row">
-                            <span class="tc-sev-pill high-pill">● HIGH</span>
-                            <div class="tc-sparkline" aria-hidden="true">
-                                <svg width="40" height="10" viewBox="0 0 40 10" fill="none">
-                                    <path d="M0 9 L8 1 L16 7 L24 2 L32 8 L40 3" stroke="#f43f5e" stroke-width="1.2"/>
-                                </svg>
-                            </div>
-                        </div>
-                        <div class="tc-analyze-indicator">ANALYZE <i class="fa-solid fa-arrow-right"></i></div>
-                    </div>
-
-                    <!-- 9. DoS GoldenEye -->
-                    <div class="threat-class-card attack-class" data-category="dos" data-severity="HIGH" data-name="DoS GoldenEye" data-desc="HTTP KeepAlive flood attack" data-confidence="98.3%" data-action="Drop HTTP Keep-Alive connections">
-                        <div class="card-scan-line"></div>
-                        <div class="tc-header">
-                            <span><i class="fa-solid fa-bolt"></i> DoS GoldenEye</span>
-                            <span class="tc-pulse-dot red-pulse"></span>
-                        </div>
-                        <div class="tc-sub">HTTP KeepAlive flood attack</div>
-                        <div class="tc-meta-row">
-                            <span class="tc-sev-pill high-pill">● HIGH</span>
-                            <div class="tc-sparkline" aria-hidden="true">
-                                <svg width="40" height="10" viewBox="0 0 40 10" fill="none">
-                                    <path d="M0 7 L10 1 L18 8 L28 2 L40 6" stroke="#f43f5e" stroke-width="1.2"/>
-                                </svg>
-                            </div>
-                        </div>
-                        <div class="tc-analyze-indicator">ANALYZE <i class="fa-solid fa-arrow-right"></i></div>
-                    </div>
-
-                    <!-- 10. DoS Hulk -->
-                    <div class="threat-class-card attack-class" data-category="dos" data-severity="HIGH" data-name="DoS Hulk" data-desc="HTTP GET flood denial of service" data-confidence="98.9%" data-action="Enable NGINX request rate limiting">
-                        <div class="card-scan-line"></div>
-                        <div class="tc-header">
-                            <span><i class="fa-solid fa-ghost"></i> DoS Hulk</span>
-                            <span class="tc-pulse-dot red-pulse"></span>
-                        </div>
-                        <div class="tc-sub">HTTP GET flood denial of service</div>
-                        <div class="tc-meta-row">
-                            <span class="tc-sev-pill high-pill">● HIGH</span>
-                            <div class="tc-sparkline" aria-hidden="true">
-                                <svg width="40" height="10" viewBox="0 0 40 10" fill="none">
-                                    <path d="M0 8 L12 2 L22 9 L30 1 L40 7" stroke="#f43f5e" stroke-width="1.2"/>
-                                </svg>
-                            </div>
-                        </div>
-                        <div class="tc-analyze-indicator">ANALYZE <i class="fa-solid fa-arrow-right"></i></div>
-                    </div>
-
-                    <!-- 11. DoS Slowloris -->
-                    <div class="threat-class-card attack-class" data-category="dos" data-severity="HIGH" data-name="DoS Slowloris" data-desc="Slow HTTP header connection exhaustion" data-confidence="97.2%" data-action="Set minimum request header data rates">
-                        <div class="card-scan-line"></div>
-                        <div class="tc-header">
-                            <span><i class="fa-solid fa-hourglass-half"></i> DoS Slowloris</span>
-                            <span class="tc-pulse-dot red-pulse"></span>
-                        </div>
-                        <div class="tc-sub">Slow HTTP header connection exhaustion</div>
-                        <div class="tc-meta-row">
-                            <span class="tc-sev-pill high-pill">● HIGH</span>
-                            <div class="tc-sparkline" aria-hidden="true">
-                                <svg width="40" height="10" viewBox="0 0 40 10" fill="none">
-                                    <path d="M0 5 L10 2 L20 7 L30 3 L40 6" stroke="#f43f5e" stroke-width="1.2"/>
-                                </svg>
-                            </div>
-                        </div>
-                        <div class="tc-analyze-indicator">ANALYZE <i class="fa-solid fa-arrow-right"></i></div>
-                    </div>
-
-                    <!-- 12. DoS Slowhttptest -->
-                    <div class="threat-class-card attack-class" data-category="dos" data-severity="HIGH" data-name="DoS Slowhttptest" data-desc="Slow HTTP request body exhaustion" data-confidence="96.9%" data-action="Enforce strict timeout limits on connection read">
-                        <div class="card-scan-line"></div>
-                        <div class="tc-header">
-                            <span><i class="fa-solid fa-circle-pause"></i> DoS Slowhttptest</span>
-                            <span class="tc-pulse-dot red-pulse"></span>
-                        </div>
-                        <div class="tc-sub">Slow HTTP request body exhaustion</div>
-                        <div class="tc-meta-row">
-                            <span class="tc-sev-pill high-pill">● HIGH</span>
-                            <div class="tc-sparkline" aria-hidden="true">
-                                <svg width="40" height="10" viewBox="0 0 40 10" fill="none">
-                                    <path d="M0 6 L12 1 L24 8 L32 2 L40 5" stroke="#f43f5e" stroke-width="1.2"/>
-                                </svg>
-                            </div>
-                        </div>
-                        <div class="tc-analyze-indicator">ANALYZE <i class="fa-solid fa-arrow-right"></i></div>
-                    </div>
-
-                    <!-- 13. FTP-Patator -->
-                    <div class="threat-class-card attack-class" data-category="brute" data-severity="MEDIUM" data-name="FTP-Patator" data-desc="FTP protocol brute force authentication" data-confidence="96.5%" data-action="Block failed login IP via Fail2Ban">
-                        <div class="card-scan-line"></div>
-                        <div class="tc-header">
-                            <span><i class="fa-solid fa-key"></i> FTP-Patator</span>
-                            <span class="tc-pulse-dot amber-pulse"></span>
-                        </div>
-                        <div class="tc-sub">FTP protocol brute force authentication</div>
-                        <div class="tc-meta-row">
-                            <span class="tc-sev-pill med-pill">● MEDIUM</span>
-                            <div class="tc-sparkline" aria-hidden="true">
-                                <svg width="40" height="10" viewBox="0 0 40 10" fill="none">
-                                    <path d="M0 5 L10 2 L18 8 L28 4 L40 6" stroke="#f59e0b" stroke-width="1.2"/>
-                                </svg>
-                            </div>
-                        </div>
-                        <div class="tc-analyze-indicator">ANALYZE <i class="fa-solid fa-arrow-right"></i></div>
-                    </div>
-
-                    <!-- 14. SSH-Patator -->
-                    <div class="threat-class-card attack-class" data-category="brute" data-severity="MEDIUM" data-name="SSH-Patator" data-desc="SSH shell brute force authentication" data-confidence="97.1%" data-action="Ban SSH IP & require public key auth">
-                        <div class="card-scan-line"></div>
-                        <div class="tc-header">
-                            <span><i class="fa-solid fa-terminal"></i> SSH-Patator</span>
-                            <span class="tc-pulse-dot amber-pulse"></span>
-                        </div>
-                        <div class="tc-sub">SSH shell brute force authentication</div>
-                        <div class="tc-meta-row">
-                            <span class="tc-sev-pill med-pill">● MEDIUM</span>
-                            <div class="tc-sparkline" aria-hidden="true">
-                                <svg width="40" height="10" viewBox="0 0 40 10" fill="none">
-                                    <path d="M0 6 L8 1 L16 8 L26 3 L40 7" stroke="#f59e0b" stroke-width="1.2"/>
-                                </svg>
-                            </div>
-                        </div>
-                        <div class="tc-analyze-indicator">ANALYZE <i class="fa-solid fa-arrow-right"></i></div>
-                    </div>
-
-                    <!-- 15. Heartbleed -->
-                    <div class="threat-class-card attack-class" data-category="other" data-severity="HIGH" data-name="Heartbleed" data-desc="OpenSSL Heartbleed buffer over-read" data-confidence="99.4%" data-action="Patch OpenSSL binary & revoke SSL certificates">
-                        <div class="card-scan-line"></div>
-                        <div class="tc-header">
-                            <span><i class="fa-solid fa-heart-pulse"></i> Heartbleed</span>
-                            <span class="tc-pulse-dot red-pulse"></span>
-                        </div>
-                        <div class="tc-sub">OpenSSL Heartbleed buffer over-read</div>
-                        <div class="tc-meta-row">
-                            <span class="tc-sev-pill high-pill">● HIGH</span>
-                            <div class="tc-sparkline" aria-hidden="true">
-                                <svg width="40" height="10" viewBox="0 0 40 10" fill="none">
-                                    <path d="M0 8 L8 1 L16 9 L24 2 L32 8 L40 4" stroke="#f43f5e" stroke-width="1.2"/>
-                                </svg>
-                            </div>
-                        </div>
-                        <div class="tc-analyze-indicator">ANALYZE <i class="fa-solid fa-arrow-right"></i></div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- THREAT INTELLIGENCE DETAIL MODAL -->
-        <div class="threat-modal-backdrop hidden" id="threat-detail-modal" role="dialog" aria-modal="true" aria-labelledby="modal-threat-title">
-            <div class="threat-modal-card">
-                <button type="button" class="close-modal-btn" id="close-threat-modal" aria-label="Close modal">&times;</button>
-                <div class="modal-header">
-                    <div class="modal-icon-badge" id="modal-icon-badge"><i class="fa-solid fa-shield-virus"></i></div>
-                    <div class="modal-header-text">
-                        <h3 id="modal-threat-title">DDoS</h3>
-                        <span id="modal-threat-category" class="modal-sub-tag">DOS CATEGORY</span>
-                    </div>
-                </div>
-                <div class="modal-body">
-                    <p id="modal-threat-desc" class="modal-desc-text">Distributed Denial of Service flood</p>
-
-                    <div class="modal-info-grid">
-                        <div class="modal-info-item">
-                            <span class="m-lbl">SEVERITY LEVEL</span>
-                            <strong id="modal-threat-severity" class="m-val red-text">● HIGH</strong>
-                        </div>
-                        <div class="modal-info-item">
-                            <span class="m-lbl">DETECTION STATUS</span>
-                            <strong class="m-val green-text">MONITORED</strong>
-                        </div>
-                        <div class="modal-info-item">
-                            <span class="m-lbl">AI CONFIDENCE</span>
-                            <strong id="modal-threat-confidence" class="m-val violet-text">98.5%</strong>
-                        </div>
-                        <div class="modal-info-item">
-                            <span class="m-lbl">DETECTION ENGINE</span>
-                            <strong class="m-val amber-text">XGBoost v1.7</strong>
-                        </div>
-                    </div>
-
-                    <div class="modal-action-box">
-                        <span class="action-lbl"><i class="fa-solid fa-shield-halved"></i> RECOMMENDED MITIGATION ACTION:</span>
-                        <p id="modal-threat-action" class="action-text">Rate-limit & trigger BGP flowspec scrubbing</p>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary btn-modal-run" id="btn-modal-run-scenario">
-                        <i class="fa-solid fa-bolt"></i> RUN DETAILED SCENARIO ANALYSIS
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- 11. FINAL CTA SECTION -->
-        <section id="cta-section" class="cta-section">
-            <div class="section-container">
-                <div class="cta-card">
-                    <div class="cta-content">
-                        <span class="sys-badge-code">INTELLIGENCE PLATFORM // ACTION</span>
-                        <h2>SEE THE NETWORK. UNDERSTAND THE THREAT. LET AI DECIDE.</h2>
-                        <p>Submit 78 flow features or select a scenario to test the validated XGBoost threat intelligence engine in real time.</p>
-                        <a href="#analyzer" class="btn btn-primary btn-lg" id="btn-cta-start">
-                            <i class="fa-solid fa-bolt"></i> OPEN DETECTION CENTER
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </section>
+        <div id="topology" style="display:none;" aria-hidden="true"></div>
+        <div id="analytics" style="display:none;" aria-hidden="true"></div>
+        <div id="metrics" style="display:none;" aria-hidden="true"></div>
+        <div id="status" style="display:none;" aria-hidden="true"></div>
     </main>
 
-    <!-- Footer -->
-    <footer class="footer" id="main-footer" role="contentinfo">
-        <div class="footer-container">
-            <div class="footer-brand">
-                <i class="fa-solid fa-atom"></i> AI NID — AUTONOMOUS AI NETWORK INTELLIGENCE PLATFORM
-            </div>
-            <p class="footer-copy">
-                "Real-Time Intelligent Network Threat Detection" &bull; Powered by FastAPI & XGBoost Intelligence Engine
-            </p>
+    <footer class="footer">
+        <div class="section-container text-center">
+            <p><strong>NETWORK INTRUSION DETECTION</strong> &mdash; Machine Learning Security System</p>
+            <p class="footer-sub">CIC-IDS2017 Dataset &bull; XGBoost Classifier &bull; FastAPI Backend Infrastructure</p>
         </div>
     </footer>
 
-    <!-- Custom JS Scripts -->
-    <script src="three_canvas.js"></script>
     <script src="app.js"></script>
 </body>
 </html>
