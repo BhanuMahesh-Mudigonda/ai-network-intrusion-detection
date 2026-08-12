@@ -11,58 +11,106 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 </head>
 <body>
-    <!-- TOP NAV -->
+    <!-- BACKGROUND AMBIENT CANVAS -->
+    <canvas id="bg-network-canvas" class="bg-canvas"></canvas>
+
+    <!-- TOP NAVIGATION NAVBAR -->
     <header class="navbar" id="navbar" role="banner">
         <div class="nav-container">
             <div class="brand" id="nav-brand">
                 <div class="brand-logo-icon" aria-hidden="true"><i class="fa-solid fa-shield-halved brand-icon"></i></div>
                 <div class="brand-text">
                     <div class="brand-top-row"><span class="brand-title">NETWORK INTRUSION DETECTION</span></div>
-                    <span class="brand-sub">MACHINE LEARNING SECURITY SYSTEM</span>
+                    <span class="brand-sub">CYBERSECURITY ML ANALYSIS CONSOLE</span>
                 </div>
             </div>
             <nav class="nav-links" id="main-nav" role="navigation" aria-label="Main Navigation">
-                <a href="#hero" class="nav-link active" id="nav-overview">Overview</a>
-                <a href="#section-dataset" class="nav-link" id="nav-dataset">1. Dataset</a>
-                <a href="#section-pipeline" class="nav-link" id="nav-pipeline">2. Pipeline</a>
-                <a href="#section-model-comparison" class="nav-link" id="nav-models">3. Models</a>
-                <a href="#section-prediction-flow" class="nav-link" id="nav-prediction">4. Prediction</a>
-                <a href="#analyzer" class="nav-link" id="nav-detection">5. Live Demo</a>
-                <a href="#section-attacks" class="nav-link" id="nav-attacks">6. Results</a>
-                <a href="#section-fastapi" class="nav-link" id="nav-specs">7. Architecture</a>
+                <a href="#hero" class="nav-link active" id="nav-hero">Overview</a>
+                <a href="#section-problem" class="nav-link" id="nav-problem">Problem</a>
+                <a href="#section-solution" class="nav-link" id="nav-solution">Solution</a>
+                <a href="#section-dataset" class="nav-link" id="nav-dataset">Dataset</a>
+                <a href="#section-learning" class="nav-link" id="nav-learning">Model</a>
+                <a href="#section-live-demo" class="nav-link highlight-nav" id="nav-demo">🔴 LIVE MODEL CHECK</a>
+                <a href="#section-performance" class="nav-link" id="nav-performance">Performance</a>
             </nav>
             <div class="api-status-badge" id="api-status-badge" aria-live="polite">
                 <span class="status-dot online" id="status-dot"></span>
-                <span class="status-text" id="status-text">SYSTEM ONLINE</span>
+                <span class="status-text" id="status-text">API CONNECTED</span>
             </div>
         </div>
     </header>
 
     <main role="main">
-        <!-- HERO -->
+        <!-- USER JOURNEY STEP BAR -->
+        <div class="user-journey-bar-wrapper">
+            <div class="section-container">
+                <div class="user-journey-bar" id="user-journey-bar">
+                    <div class="uj-step uj-active" id="uj-1"><span>01 DATASET</span></div>
+                    <div class="uj-arrow">&rarr;</div>
+                    <div class="uj-step" id="uj-2"><span>02 78 FEATURES</span></div>
+                    <div class="uj-arrow">&rarr;</div>
+                    <div class="uj-step" id="uj-3"><span>03 PREPROCESSING</span></div>
+                    <div class="uj-arrow">&rarr;</div>
+                    <div class="uj-step" id="uj-4"><span>04 XGBOOST</span></div>
+                    <div class="uj-arrow">&rarr;</div>
+                    <div class="uj-step" id="uj-5"><span>05 VERIFICATION</span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- HERO SECTION — CYBERSECURITY ML ANALYSIS CONSOLE            -->
+        <!-- ============================================================ -->
         <section id="hero" class="hero hero-section">
             <div class="hero-asymmetric-container">
                 <div class="hero-content hero-text-column">
-                    <div class="sys-eyebrow-tag" id="hero-badge"><span class="sys-badge-code">MACHINE LEARNING SECURITY SYSTEM</span></div>
-                    <h1 class="hero-title" id="hero-title">AI-Powered Network<br><span class="gradient-text">Intrusion Detection</span></h1>
-                    <p class="hero-tagline" id="hero-tagline">Detect and classify suspicious network traffic using Machine Learning</p>
-                    <p class="hero-description" id="hero-desc">Our system analyzes network traffic patterns and predicts whether a network flow is normal (BENIGN) or belongs to a known attack category such as DDoS, PortScan, Bot, or Web Attack.</p>
+                    <div class="sys-eyebrow-tag" id="hero-badge"><span class="sys-badge-code">NETWORK INTRUSION DETECTION SYSTEM</span></div>
+                    <h1 class="hero-title" id="hero-title">Detect malicious network traffic<br><span class="gradient-text">before it becomes an incident.</span></h1>
+                    <p class="hero-explanation" id="hero-exp">We analyze real CIC-IDS2017 network-flow records using 78 traffic features and a trained XGBoost classifier to determine whether the flow is benign or an attack.</p>
+                    
                     <div class="hero-cta">
-                        <a href="#analyzer" class="btn btn-primary" id="btn-hero-analyze"><i class="fa-solid fa-bolt"></i> TEST LIVE PREDICTION</a>
-                        <a href="#section-dataset" class="btn btn-secondary" id="btn-hero-system"><i class="fa-solid fa-book-open"></i> EXPLORE PROJECT STORY</a>
+                        <a href="#section-live-demo" class="btn btn-primary btn-cta-main" id="btn-hero-analyze"><i class="fa-solid fa-play"></i> ANALYZE A REAL DATASET RECORD</a>
+                        <a href="#section-problem" class="hero-secondary-link" id="btn-hero-problem">See how the model works &rarr;</a>
                     </div>
                 </div>
+
+                <!-- RIGHT SIDE: LIVE ANALYSIS PIPELINE CARD -->
                 <div class="hero-core hero-visual-column" id="hero-visual-column">
-                    <div class="hero-concepts-flow">
-                        <div class="concept-card concept-1"><div class="concept-icon green-icon"><i class="fa-solid fa-network-wired"></i></div><div class="concept-text"><span class="concept-step-num">STEP 1</span><strong class="concept-title">NETWORK TRAFFIC</strong><span class="concept-desc">Incoming network-flow data</span></div></div>
-                        <div class="concept-flow-arrow"><i class="fa-solid fa-arrow-down"></i></div>
-                        <div class="concept-card concept-2"><div class="concept-icon violet-icon"><i class="fa-solid fa-brain"></i></div><div class="concept-text"><span class="concept-step-num">STEP 2</span><strong class="concept-title">MACHINE LEARNING</strong><span class="concept-desc">Learned traffic patterns</span></div></div>
-                        <div class="concept-flow-arrow"><i class="fa-solid fa-arrow-down"></i></div>
-                        <div class="concept-card concept-3"><div class="concept-icon amber-icon"><i class="fa-solid fa-shield-halved"></i></div><div class="concept-text"><span class="concept-step-num">STEP 3</span><strong class="concept-title">PREDICTION</strong><span class="concept-desc">BENIGN or Attack Category</span></div></div>
+                    <div class="live-pipeline-card">
+                        <div class="lpc-header"><i class="fa-solid fa-microchip green-text"></i> LIVE ANALYSIS PIPELINE</div>
+                        <div class="lpc-steps">
+                            <div class="lpc-step lpc-done" id="lpc-s1">
+                                <span class="lpc-status-dot green"></span>
+                                <div class="lpc-info">
+                                    <strong>01 REAL DATASET ROW</strong>
+                                    <span id="lpc-file-info">CIC-IDS2017 Record #180596</span>
+                                </div>
+                            </div>
+                            <div class="lpc-step lpc-done" id="lpc-s2">
+                                <span class="lpc-status-dot green"></span>
+                                <div class="lpc-info">
+                                    <strong>02 78 TRAFFIC FEATURES</strong>
+                                    <span>Numerical Measurements Ready</span>
+                                </div>
+                            </div>
+                            <div class="lpc-step lpc-done" id="lpc-s3">
+                                <span class="lpc-status-dot green"></span>
+                                <div class="lpc-info">
+                                    <strong>03 PREPROCESSING &amp; XGBOOST</strong>
+                                    <span>StandardScaler + Model Ready</span>
+                                </div>
+                            </div>
+                            <div class="lpc-step lpc-pending" id="lpc-s4">
+                                <span class="lpc-status-dot amber" id="lpc-dot-4"></span>
+                                <div class="lpc-info">
+                                    <strong id="lpc-pred-title">04 MODEL PREDICTION</strong>
+                                    <span id="lpc-pred-desc">○ WAITING FOR ANALYSIS</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -75,23 +123,120 @@
                 <div class="strip-divider">|</div>
                 <div class="strip-item"><span class="strip-dot cyan-dot"></span><div class="strip-text"><strong>FEATURES</strong><span>78 Metrics</span></div></div>
                 <div class="strip-divider">|</div>
-                <div class="strip-item"><span class="strip-dot violet-dot"></span><div class="strip-text"><strong>FINAL MODEL</strong><span>XGBoost</span></div></div>
+                <div class="strip-item"><span class="strip-dot violet-dot"></span><div class="strip-text"><strong>MODEL</strong><span>Trained XGBoost</span></div></div>
                 <div class="strip-divider">|</div>
-                <div class="strip-item"><span class="strip-dot amber-dot"></span><div class="strip-text"><strong>BACKEND</strong><span>FastAPI</span></div></div>
+                <div class="strip-item"><span class="strip-dot amber-dot"></span><div class="strip-text"><strong>BACKEND</strong><span>FastAPI REST Service</span></div></div>
                 <div class="strip-divider">|</div>
-                <div class="strip-item"><span class="strip-dot emerald-dot"></span><div class="strip-text"><strong>TEST ACCURACY</strong><span>99.89% Verified</span></div></div>
+                <div class="strip-item"><span class="strip-dot emerald-dot"></span><div class="strip-text"><strong>ACCURACY</strong><span>99.89% Verified</span></div></div>
             </div>
         </div>
 
         <!-- ============================================================ -->
-        <!-- SECTION 1: OUR DATASET                                      -->
+        <!-- 1. PROBLEM SECTION                                          -->
+        <!-- ============================================================ -->
+        <section id="section-problem" class="academic-section">
+            <div class="section-container">
+                <div class="section-badge-header text-center">
+                    <span class="section-sys-tag">SECTION 1</span>
+                    <h2 class="section-title text-center">THE PROBLEM</h2>
+                    <p class="section-subtitle">Why manual traffic inspection is impossible in modern networks</p>
+                </div>
+
+                <div class="academic-card full-width-card">
+                    <p class="problem-lead-text">
+                        "Network environments generate large numbers of traffic flows. Among normal traffic, some flows may represent malicious activities such as DDoS or PortScan attacks. Manually identifying every flow is difficult."
+                    </p>
+
+                    <!-- VISUAL TRAFFIC INSPECTION PROBLEM -->
+                    <div class="problem-visual-grid mt-2">
+                        <div class="pv-flow-list">
+                            <div class="pv-flow-item benign-flow"><i class="fa-solid fa-circle-check green-text"></i> <span>NORMAL FLOW #1 (HTTP Traffic)</span></div>
+                            <div class="pv-flow-item benign-flow"><i class="fa-solid fa-circle-check green-text"></i> <span>NORMAL FLOW #2 (DNS Query)</span></div>
+                            <div class="pv-flow-item attack-flow"><i class="fa-solid fa-triangle-exclamation red-text"></i> <span>ATTACK FLOW #3 (DDoS Flood)</span></div>
+                            <div class="pv-flow-item benign-flow"><i class="fa-solid fa-circle-check green-text"></i> <span>NORMAL FLOW #4 (HTTPS Request)</span></div>
+                            <div class="pv-flow-item attack-flow"><i class="fa-solid fa-triangle-exclamation red-text"></i> <span>ATTACK FLOW #5 (PortScan Probe)</span></div>
+                        </div>
+
+                        <div class="pv-question-box">
+                            <div class="pv-question-icon"><i class="fa-solid fa-circle-question amber-text"></i></div>
+                            <h3 class="pv-question-title">QUESTION:</h3>
+                            <p class="pv-question-text">"Which traffic flow is suspicious?"</p>
+                        </div>
+                    </div>
+
+                    <div class="problem-answer-banner mt-2">
+                        <i class="fa-solid fa-lightbulb green-text"></i>
+                        <span><strong>THE SOLUTION:</strong> Machine Learning can learn patterns from previously labelled network traffic and automatically classify new traffic flows.</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================ -->
+        <!-- 2. OUR SOLUTION & HOW THE PREDICTION WORKS                   -->
+        <!-- ============================================================ -->
+        <section id="section-solution" class="academic-section bg-darker">
+            <div class="section-container">
+                <div class="section-badge-header text-center">
+                    <span class="section-sys-tag">SECTION 2</span>
+                    <h2 class="section-title text-center">OUR SOLUTION &amp; HOW PREDICTION WORKS</h2>
+                    <p class="section-subtitle">The 5-step classification pipeline</p>
+                </div>
+
+                <div class="academic-card full-width-card">
+                    <!-- 5-STEP VISUAL PIPELINE WITH EXPLANATION -->
+                    <div class="solution-pipeline-flow">
+                        <div class="sp-box">
+                            <div class="sp-icon cyan-icon"><i class="fa-solid fa-network-wired"></i></div>
+                            <strong>REAL DATASET ROW</strong>
+                            <span>One network-flow record from CIC-IDS2017</span>
+                        </div>
+                        <div class="sp-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+
+                        <div class="sp-box">
+                            <div class="sp-icon violet-icon"><i class="fa-solid fa-list-ol"></i></div>
+                            <strong>FEATURES</strong>
+                            <span>Traffic measurements extracted from record</span>
+                        </div>
+                        <div class="sp-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+
+                        <div class="sp-box">
+                            <div class="sp-icon amber-icon"><i class="fa-solid fa-sliders"></i></div>
+                            <strong>PREPROCESSING</strong>
+                            <span>Transforms values into model format</span>
+                        </div>
+                        <div class="sp-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+
+                        <div class="sp-box sp-highlight">
+                            <div class="sp-icon green-icon"><i class="fa-solid fa-brain"></i></div>
+                            <strong>XGBOOST MODEL</strong>
+                            <span>Trained on labelled traffic patterns</span>
+                        </div>
+                        <div class="sp-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+
+                        <div class="sp-box">
+                            <div class="sp-icon emerald-icon"><i class="fa-solid fa-shield-check"></i></div>
+                            <strong>PREDICTION</strong>
+                            <span>Classifies traffic as BENIGN or attack</span>
+                        </div>
+                    </div>
+
+                    <p class="ac-desc-large text-center mt-2">
+                        "The model receives numerical characteristics of a network flow and uses patterns learned during training to classify the traffic."
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================ -->
+        <!-- 3. OUR DATASET SECTION                                      -->
         <!-- ============================================================ -->
         <section id="section-dataset" class="academic-section">
             <div class="section-container">
                 <div class="section-badge-header text-center">
-                    <span class="section-sys-tag">SECTION 1</span>
+                    <span class="section-sys-tag">SECTION 3</span>
                     <h2 class="section-title text-center">OUR DATASET</h2>
-                    <p class="section-subtitle">The real-world network traffic data used to train our model</p>
+                    <p class="section-subtitle">Real-world benchmark network traffic dataset (CIC-IDS2017)</p>
                 </div>
 
                 <div class="academic-card full-width-card">
@@ -101,373 +246,264 @@
                     </div>
                     <p class="ac-desc">We use labelled network-traffic data containing normal and attack-related network flows. Each row represents a network flow described by traffic measurements and a corresponding class label.</p>
 
-                    <!-- REAL DATASET STATISTICS -->
+                    <!-- REAL DATASET STATISTIC CARDS -->
                     <div class="dataset-stats-grid">
-                        <div class="ds-stat-card"><i class="fa-solid fa-table-list cyan-text"></i><span class="ds-stat-val">2,830,743</span><span class="ds-stat-label">Total Records</span></div>
-                        <div class="ds-stat-card"><i class="fa-solid fa-list-ol violet-text"></i><span class="ds-stat-val">79</span><span class="ds-stat-label">Columns (78 Features + 1 Label)</span></div>
-                        <div class="ds-stat-card"><i class="fa-solid fa-tags amber-text"></i><span class="ds-stat-val">15</span><span class="ds-stat-label">Traffic Classes</span></div>
-                        <div class="ds-stat-card"><i class="fa-solid fa-file-csv green-text"></i><span class="ds-stat-val">8</span><span class="ds-stat-label">CSV Files (by Day)</span></div>
-                    </div>
-
-                    <!-- REAL CLASS DISTRIBUTION TABLE -->
-                    <div class="ac-header mt-2">
-                        <span class="ac-tag">REAL CLASS DISTRIBUTION</span>
-                        <h3><i class="fa-solid fa-chart-pie amber-text"></i> What traffic classes are in the dataset?</h3>
-                    </div>
-                    <p class="ac-desc">The dataset is heavily imbalanced &mdash; most traffic is BENIGN (normal), with attack categories forming a small but critical portion.</p>
-                    <div class="data-table-wrapper">
-                        <table class="data-table">
-                            <thead><tr><th>Class Label</th><th>Type</th><th>Count</th><th>Percentage</th></tr></thead>
-                            <tbody>
-                                <tr class="benign-row"><td><i class="fa-solid fa-shield-check green-text"></i> BENIGN</td><td>Normal</td><td>2,273,097</td><td>80.30%</td></tr>
-                                <tr><td><i class="fa-solid fa-bomb red-text"></i> DoS Hulk</td><td>Attack</td><td>231,073</td><td>8.16%</td></tr>
-                                <tr><td><i class="fa-solid fa-crosshairs amber-text"></i> PortScan</td><td>Attack</td><td>158,930</td><td>5.61%</td></tr>
-                                <tr><td><i class="fa-solid fa-bomb red-text"></i> DDoS</td><td>Attack</td><td>128,027</td><td>4.52%</td></tr>
-                                <tr><td><i class="fa-solid fa-bolt red-text"></i> DoS GoldenEye</td><td>Attack</td><td>10,293</td><td>0.36%</td></tr>
-                                <tr><td><i class="fa-solid fa-key orange-text"></i> FTP-Patator</td><td>Attack</td><td>7,938</td><td>0.28%</td></tr>
-                                <tr><td><i class="fa-solid fa-key orange-text"></i> SSH-Patator</td><td>Attack</td><td>5,897</td><td>0.21%</td></tr>
-                                <tr><td><i class="fa-solid fa-bolt red-text"></i> DoS slowloris</td><td>Attack</td><td>5,796</td><td>0.20%</td></tr>
-                                <tr><td><i class="fa-solid fa-bolt red-text"></i> DoS Slowhttptest</td><td>Attack</td><td>5,499</td><td>0.19%</td></tr>
-                                <tr><td><i class="fa-solid fa-robot violet-text"></i> Bot</td><td>Attack</td><td>1,966</td><td>0.07%</td></tr>
-                                <tr><td><i class="fa-solid fa-globe cyan-text"></i> Web Attack &ndash; Brute Force</td><td>Attack</td><td>1,507</td><td>0.05%</td></tr>
-                                <tr><td><i class="fa-solid fa-globe cyan-text"></i> Web Attack &ndash; XSS</td><td>Attack</td><td>652</td><td>0.02%</td></tr>
-                                <tr><td><i class="fa-solid fa-user-ninja magenta-text"></i> Infiltration</td><td>Attack</td><td>36</td><td>&lt;0.01%</td></tr>
-                                <tr><td><i class="fa-solid fa-globe cyan-text"></i> Web Attack &ndash; SQL Injection</td><td>Attack</td><td>21</td><td>&lt;0.01%</td></tr>
-                                <tr><td><i class="fa-solid fa-heart-crack pink-text"></i> Heartbleed</td><td>Attack</td><td>11</td><td>&lt;0.01%</td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <!-- SAMPLE ROWS PREVIEW -->
-                    <div class="ac-header mt-2">
-                        <span class="ac-tag">DATA PREVIEW</span>
-                        <h3><i class="fa-solid fa-eye violet-text"></i> Sample rows from the actual dataset</h3>
-                    </div>
-                    <p class="ac-desc">Below are 5 real rows from the dataset showing selected key columns.</p>
-                    <div class="data-table-wrapper">
-                        <table class="data-table sample-table">
-                            <thead><tr><th>Dest Port</th><th>Flow Duration</th><th>Fwd Packets</th><th>Bwd Packets</th><th>Flow Bytes/s</th><th>Label</th></tr></thead>
-                            <tbody>
-                                <tr><td>22</td><td>166</td><td>1</td><td>1</td><td>0.00</td><td class="green-text"><strong>BENIGN</strong></td></tr>
-                                <tr><td>60148</td><td>83</td><td>1</td><td>2</td><td>0.00</td><td class="green-text"><strong>BENIGN</strong></td></tr>
-                                <tr><td>123</td><td>99947</td><td>1</td><td>1</td><td>960.51</td><td class="green-text"><strong>BENIGN</strong></td></tr>
-                                <tr><td>123</td><td>37017</td><td>1</td><td>1</td><td>2593.40</td><td class="green-text"><strong>BENIGN</strong></td></tr>
-                                <tr><td>0</td><td>111161336</td><td>147</td><td>0</td><td>0.00</td><td class="green-text"><strong>BENIGN</strong></td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <!-- WHAT DOES ONE ROW MEAN? -->
-                <div class="academic-card full-width-card mt-2">
-                    <div class="ac-header">
-                        <span class="ac-tag">UNDERSTANDING THE DATA</span>
-                        <h3><i class="fa-solid fa-magnifying-glass green-text"></i> WHAT DOES ONE ROW MEAN?</h3>
-                    </div>
-                    <p class="ac-desc">One row represents one network flow. The numerical values describe how that network communication behaved, and the Label represents the known traffic class.</p>
-                    <div class="one-row-visual">
-                        <div class="orv-box orv-main"><i class="fa-solid fa-ethernet cyan-text"></i><strong>ONE NETWORK FLOW</strong><span>A single communication between two computers</span></div>
-                        <div class="orv-arrow"><i class="fa-solid fa-arrow-down"></i></div>
-                        <div class="orv-box"><i class="fa-solid fa-ruler-combined violet-text"></i><strong>78 TRAFFIC MEASUREMENTS</strong><span>Duration, packet counts, byte sizes, timing, flags...</span></div>
-                        <div class="orv-arrow"><i class="fa-solid fa-arrow-down"></i></div>
-                        <div class="orv-box orv-highlight"><i class="fa-solid fa-tag amber-text"></i><strong>LABEL</strong><span>BENIGN (normal) or attack category name</span></div>
+                        <div class="ds-stat-card"><i class="fa-solid fa-database cyan-text"></i><span class="ds-stat-val">CIC-IDS2017</span><span class="ds-stat-label">DATASET</span></div>
+                        <div class="ds-stat-card"><i class="fa-solid fa-table-list violet-text"></i><span class="ds-stat-val">2,830,743</span><span class="ds-stat-label">NETWORK FLOWS</span></div>
+                        <div class="ds-stat-card"><i class="fa-solid fa-list-ol green-text"></i><span class="ds-stat-val">78</span><span class="ds-stat-label">FEATURES</span></div>
+                        <div class="ds-stat-card"><i class="fa-solid fa-tags amber-text"></i><span class="ds-stat-val">15</span><span class="ds-stat-label">ATTACK CLASSES</span></div>
+                        <div class="ds-stat-card"><i class="fa-solid fa-shield-check emerald-text"></i><span class="ds-stat-val">2,273,097</span><span class="ds-stat-label">BENIGN RECORDS</span></div>
+                        <div class="ds-stat-card"><i class="fa-solid fa-triangle-exclamation red-text"></i><span class="ds-stat-val">557,646</span><span class="ds-stat-label">ATTACK RECORDS</span></div>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- ============================================================ -->
-        <!-- SECTION 2: WHAT DID WE DO WITH THE DATA?                    -->
+        <!-- 4. HOW THE MODEL LEARNS SECTION                             -->
         <!-- ============================================================ -->
-        <section id="section-pipeline" class="academic-section bg-darker">
-            <div class="section-container">
-                <div class="section-badge-header text-center">
-                    <span class="section-sys-tag">SECTION 2</span>
-                    <h2 class="section-title text-center">WHAT DID WE DO WITH THE DATA?</h2>
-                    <p class="section-subtitle">Our complete data processing and model training pipeline</p>
-                </div>
-                <div class="academic-card full-width-card mb-2">
-                    <div class="ac-header"><span class="ac-tag">THE PROBLEM</span><h3><i class="fa-solid fa-triangle-exclamation amber-text"></i> WHY DO WE NEED THIS?</h3></div>
-                    <p class="ac-desc-large">Modern networks generate a large number of network connections. Manually checking every connection for malicious activity is difficult and time-consuming. Our system automatically analyzes network traffic and identifies potentially suspicious activity.</p>
-                    <div class="problem-flow-visual">
-                        <div class="p-box"><i class="fa-solid fa-globe amber-text"></i><strong>THOUSANDS OF NETWORK FLOWS</strong><span>High-volume raw connection traffic</span></div>
-                        <div class="p-arrow"><i class="fa-solid fa-angles-right"></i></div>
-                        <div class="p-box"><i class="fa-solid fa-user-slash red-text"></i><strong>DIFFICULT TO CHECK MANUALLY</strong><span>Human inspection cannot scale</span></div>
-                        <div class="p-arrow"><i class="fa-solid fa-angles-right"></i></div>
-                        <div class="p-box highlight-p-box"><i class="fa-solid fa-robot green-text"></i><strong>NEED AUTOMATIC SCREENING</strong><span>Machine Learning classifies flows instantly</span></div>
-                    </div>
-                </div>
-                <div class="academic-card full-width-card">
-                    <div class="ac-header"><span class="ac-tag">OUR IMPLEMENTATION PIPELINE</span><h3><i class="fa-solid fa-diagram-project violet-text"></i> DATA &rarr; MODEL PIPELINE</h3></div>
-                    <div class="pipeline-grid-6">
-                        <div class="pipe-step-card"><span class="ps-num">01</span><h4>RAW NETWORK DATA</h4><p>CIC-IDS2017 CSV files containing 2.8M+ network flow records from real infrastructure.</p></div>
-                        <div class="pipe-step-card"><span class="ps-num">02</span><h4>DATA ANALYSIS</h4><p>We inspect the dataset structure, label distribution, missing values and duplicates.</p></div>
-                        <div class="pipe-step-card"><span class="ps-num">03</span><h4>DATA CLEANING</h4><p>We handle invalid, missing, infinite and duplicate data before training.</p></div>
-                        <div class="pipe-step-card"><span class="ps-num">04</span><h4>FEATURE PREPARATION</h4><p>We prepare 78 network-flow measurements in the format required by the model.</p></div>
-                        <div class="pipe-step-card"><span class="ps-num">05</span><h4>TRAIN / TEST SPLIT</h4><p>Stratified 80% train (2,017,889 rows) / 20% test (504,473 rows) &mdash; no data leakage.</p></div>
-                        <div class="pipe-step-card highlight-ps"><span class="ps-num">06</span><h4>MODEL TRAINING</h4><p>We train 5 ML algorithms and compare performance to select the best classifier.</p></div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ============================================================ -->
-        <!-- SECTION 3: WHAT DOES THE MODEL SEE? (FEATURES)              -->
-        <!-- ============================================================ -->
-        <section id="section-features" class="academic-section">
-            <div class="section-container">
-                <div class="section-badge-header text-center">
-                    <span class="section-sys-tag">SECTION 3</span>
-                    <h2 class="section-title text-center">WHAT DOES THE MODEL SEE?</h2>
-                    <p class="section-subtitle">Understanding the 78 numerical flow features used for prediction</p>
-                </div>
-                <div class="academic-card full-width-card">
-                    <p class="ac-desc-large text-center">The model does not look at a network connection like a human does. It receives 78 numerical measurements that describe how the connection behaved.</p>
-                    <div class="flow-to-features-banner">
-                        <div class="ftf-box">ONE NETWORK FLOW</div>
-                        <div class="ftf-arrow"><i class="fa-solid fa-arrow-right"></i></div>
-                        <div class="ftf-box">TRAFFIC MEASUREMENTS</div>
-                        <div class="ftf-arrow"><i class="fa-solid fa-arrow-right"></i></div>
-                        <div class="ftf-box ftf-highlight">78 NUMERICAL FEATURES</div>
-                    </div>
-                    <div class="feature-groups-7-grid">
-                        <div class="fg-card"><div class="fg-head"><i class="fa-solid fa-plug cyan-text"></i> Connection Information</div><p>Basic connection metadata</p><span class="fg-ex">Examples: Destination Port, Flow Duration</span></div>
-                        <div class="fg-card"><div class="fg-head"><i class="fa-solid fa-cubes violet-text"></i> Packet Counts</div><p>Number of packets sent</p><span class="fg-ex">Examples: Total Fwd Packets, Total Backward Packets</span></div>
-                        <div class="fg-card"><div class="fg-head"><i class="fa-solid fa-ruler-combined green-text"></i> Packet Sizes</div><p>Byte payload dimensions</p><span class="fg-ex">Examples: Fwd Packet Length Max, Packet Length Mean</span></div>
-                        <div class="fg-card"><div class="fg-head"><i class="fa-solid fa-gauge-high amber-text"></i> Traffic Rates</div><p>Transmission speeds</p><span class="fg-ex">Examples: Flow Bytes/s, Flow Packets/s</span></div>
-                        <div class="fg-card"><div class="fg-head"><i class="fa-solid fa-stopwatch magenta-text"></i> Timing &amp; Flow Info</div><p>Inter-arrival time statistics</p><span class="fg-ex">Examples: Flow IAT Mean, Fwd IAT Min, Bwd IAT Max</span></div>
-                        <div class="fg-card"><div class="fg-head"><i class="fa-solid fa-flag red-text"></i> TCP Flags</div><p>Network control signals</p><span class="fg-ex">Examples: SYN Flag Count, ACK Flag Count, FIN Flag Count</span></div>
-                        <div class="fg-card"><div class="fg-head"><i class="fa-solid fa-bed blue-text"></i> Active &amp; Idle Behavior</div><p>Connection state periods</p><span class="fg-ex">Examples: Active Mean, Idle Max</span></div>
-                    </div>
-                    <details class="all-78-accordion">
-                        <summary class="all-78-summary"><span><i class="fa-solid fa-list-ul"></i> View all 78 feature names extracted from CIC-IDS2017</span><i class="fa-solid fa-chevron-down"></i></summary>
-                        <div class="all-78-content"><code>Destination Port, Flow Duration, Total Fwd Packets, Total Backward Packets, Total Length of Fwd Packets, Total Length of Bwd Packets, Fwd Packet Length Max, Fwd Packet Length Min, Fwd Packet Length Mean, Fwd Packet Length Std, Bwd Packet Length Max, Bwd Packet Length Min, Bwd Packet Length Mean, Bwd Packet Length Std, Flow Bytes/s, Flow Packets/s, Flow IAT Mean, Flow IAT Std, Flow IAT Max, Flow IAT Min, Fwd IAT Total, Fwd IAT Mean, Fwd IAT Std, Fwd IAT Max, Fwd IAT Min, Bwd IAT Total, Bwd IAT Mean, Bwd IAT Std, Bwd IAT Max, Bwd IAT Min, Fwd PSH Flags, Bwd PSH Flags, Fwd URG Flags, Bwd URG Flags, Fwd Header Length, Bwd Header Length, Fwd Packets/s, Bwd Packets/s, Min Packet Length, Max Packet Length, Packet Length Mean, Packet Length Std, Packet Length Variance, FIN Flag Count, SYN Flag Count, RST Flag Count, PSH Flag Count, ACK Flag Count, URG Flag Count, CWE Flag Count, ECE Flag Count, Down/Up Ratio, Average Packet Size, Avg Fwd Segment Size, Avg Bwd Segment Size, Fwd Header Length.1, Fwd Avg Bytes/Bulk, Fwd Avg Packets/Bulk, Fwd Avg Bulk Rate, Bwd Avg Bytes/Bulk, Bwd Avg Packets/Bulk, Bwd Avg Bulk Rate, Subflow Fwd Packets, Subflow Fwd Bytes, Subflow Bwd Packets, Subflow Bwd Bytes, Init_Win_bytes_forward, Init_Win_bytes_backward, act_data_pkt_fwd, min_seg_size_forward, Active Mean, Active Std, Active Max, Active Min, Idle Mean, Idle Std, Idle Max, Idle Min.</code></div>
-                    </details>
-                </div>
-            </div>
-        </section>
-
-        <!-- ============================================================ -->
-        <!-- SECTION 4: MODEL COMPARISON                                 -->
-        <!-- ============================================================ -->
-        <section id="section-model-comparison" class="academic-section bg-darker">
+        <section id="section-learning" class="academic-section bg-darker">
             <div class="section-container">
                 <div class="section-badge-header text-center">
                     <span class="section-sys-tag">SECTION 4</span>
-                    <h2 class="section-title text-center">MODEL COMPARISON</h2>
-                    <p class="section-subtitle">We compare multiple Machine Learning classifiers to determine which performs best</p>
+                    <h2 class="section-title text-center">HOW THE MODEL LEARNS</h2>
+                    <p class="section-subtitle">Training, preprocessing, and model persistence</p>
                 </div>
+
                 <div class="academic-card full-width-card">
-                    <div class="ac-header"><span class="ac-tag">EXPERIMENT RESULTS</span><h3><i class="fa-solid fa-ranking-star amber-text"></i> Actual Model Comparison Results</h3></div>
-                    <p class="ac-desc">We trained 5 different Machine Learning classifiers on the same CIC-IDS2017 dataset and compared their performance.</p>
+                    <div class="pipeline-grid-6">
+                        <div class="pipe-step-card"><span class="ps-num">01</span><h4>80/20 STRATIFIED SPLIT</h4><p>80% training set (2,017,889 flows) / 20% test set (504,473 flows) to prevent data leakage.</p></div>
+                        <div class="pipe-step-card"><span class="ps-num">02</span><h4>DATA PREPROCESSING</h4><p>Convert infinite values, impute column medians, and remove duplicate records.</p></div>
+                        <div class="pipe-step-card"><span class="ps-num">03</span><h4>STANDARD SCALING</h4><p>Scale all 78 numerical features using StandardScaler trained exclusively on training split.</p></div>
+                        <div class="pipe-step-card"><span class="ps-num">04</span><h4>XGBOOST ALGORITHM</h4><p>Train Gradient Boosted Decision Trees to learn complex decision boundaries between BENIGN and attack flows.</p></div>
+                        <div class="pipe-step-card"><span class="ps-num">05</span><h4>MODEL EVALUATION</h4><p>Achieved 99.89% Test Accuracy and 80.38% Minority Recall on unseen test data.</p></div>
+                        <div class="pipe-step-card highlight-ps"><span class="ps-num">06</span><h4>FASTAPI SERVICE</h4><p>Saved model bundle (`best_comparison_model.pkl`) loaded into memory once at API startup.</p></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================ -->
+        <!-- 5. MAIN FEATURE DEMO: LIVE MODEL CHECK                       -->
+        <!-- ============================================================ -->
+        <section id="section-live-demo" class="academic-section centerpiece-section">
+            <div class="section-container">
+                <div class="section-badge-header text-center">
+                    <span class="section-sys-tag highlight-tag">MAIN FEATURE DEMO</span>
+                    <h2 class="section-title text-center">🔴 LIVE MODEL CHECK</h2>
+                    <p class="section-subtitle">Test a real network-traffic record through our trained model.</p>
+                </div>
+
+                <!-- FACULTY EXPLANATION BOX -->
+                <div class="academic-card full-width-card mb-2 faculty-box">
+                    <div class="ac-header">
+                        <span class="ac-tag green-tag">FACULTY DEMO GUIDE</span>
+                        <h3><i class="fa-solid fa-circle-info cyan-text"></i> WHAT ARE WE ACTUALLY CHECKING?</h3>
+                    </div>
+                    <p class="ac-desc-large">
+                        "We select a real network-traffic record from the CIC-IDS2017 dataset and send its traffic features through our trained XGBoost model. The model predicts whether the traffic is BENIGN or belongs to an attack category. We then compare the prediction with the actual dataset label."
+                    </p>
+                </div>
+
+                <!-- DATASET PREVIEW TABLE (5 REAL RECORDS) -->
+                <div class="academic-card full-width-card mb-2">
+                    <div class="ac-header">
+                        <span class="ac-tag">REAL DATASET PREVIEW</span>
+                        <h3><i class="fa-solid fa-table violet-text"></i> Select a Real Record from CIC-IDS2017</h3>
+                    </div>
+                    <p class="ac-subtext mb-1">Click <strong>[ TEST THIS RECORD ]</strong> on any real row to load its features into the Live Model Check below:</p>
+
                     <div class="data-table-wrapper">
-                        <table class="data-table model-comparison-table">
-                            <thead><tr><th>Model</th><th>Accuracy</th><th>Macro F1</th><th>Minority Recall</th><th>ROC-AUC</th><th>Winner?</th></tr></thead>
+                        <table class="data-table sample-table" id="dataset-preview-table">
+                            <thead>
+                                <tr>
+                                    <th>Record</th>
+                                    <th>Source File</th>
+                                    <th>Actual Label</th>
+                                    <th>Input Features</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
                             <tbody>
-                                <tr class="winner-row"><td><strong><i class="fa-solid fa-trophy amber-text"></i> XGBoost</strong></td><td><strong>99.89%</strong></td><td><strong>91.70%</strong></td><td><strong>80.38%</strong></td><td><strong>0.9998</strong></td><td><span class="winner-badge"><i class="fa-solid fa-check"></i> BEST</span></td></tr>
-                                <tr><td>Random Forest</td><td>99.84%</td><td>80.72%</td><td>56.16%</td><td>0.9971</td><td>&mdash;</td></tr>
-                                <tr><td>Decision Tree</td><td>99.82%</td><td>80.11%</td><td>55.34%</td><td>0.9812</td><td>&mdash;</td></tr>
-                                <tr><td>Gradient Boosting</td><td>99.19%</td><td>67.33%</td><td>39.49%</td><td>0.7265</td><td>&mdash;</td></tr>
-                                <tr><td>Logistic Regression</td><td>97.81%</td><td>64.10%</td><td>29.50%</td><td>0.9908</td><td>&mdash;</td></tr>
+                                <tr>
+                                    <td><code>Record #180596 (ddos_1)</code></td>
+                                    <td>Friday-WorkingHours-Afternoon-DDos.pcap_ISCX.csv</td>
+                                    <td><strong class="red-text">DDoS</strong></td>
+                                    <td>78 Features</td>
+                                    <td><button type="button" class="btn-table-load" onclick="window.loadSpecificSample('ddos_1')"><i class="fa-solid fa-vial"></i> TEST THIS RECORD</button></td>
+                                </tr>
+                                <tr>
+                                    <td><code>Record #184342 (benign_1)</code></td>
+                                    <td>Friday-WorkingHours-Afternoon-DDos.pcap_ISCX.csv</td>
+                                    <td><strong class="green-text">BENIGN</strong></td>
+                                    <td>78 Features</td>
+                                    <td><button type="button" class="btn-table-load" onclick="window.loadSpecificSample('benign_1')"><i class="fa-solid fa-vial"></i> TEST THIS RECORD</button></td>
+                                </tr>
+                                <tr>
+                                    <td><code>Record #229173 (portscan_1)</code></td>
+                                    <td>Friday-WorkingHours-Afternoon-PortScan.pcap_ISCX.csv</td>
+                                    <td><strong class="amber-text">PortScan</strong></td>
+                                    <td>78 Features</td>
+                                    <td><button type="button" class="btn-table-load" onclick="window.loadSpecificSample('portscan_1')"><i class="fa-solid fa-vial"></i> TEST THIS RECORD</button></td>
+                                </tr>
+                                <tr>
+                                    <td><code>Record #154164 (bot_1)</code></td>
+                                    <td>Friday-WorkingHours-Morning.pcap_ISCX.csv</td>
+                                    <td><strong class="violet-text">Bot</strong></td>
+                                    <td>78 Features</td>
+                                    <td><button type="button" class="btn-table-load" onclick="window.loadSpecificSample('bot_1')"><i class="fa-solid fa-vial"></i> TEST THIS RECORD</button></td>
+                                </tr>
+                                <tr>
+                                    <td><code>Record #22758 (ssh_1)</code></td>
+                                    <td>Tuesday-WorkingHours.pcap_ISCX.csv</td>
+                                    <td><strong class="orange-text">SSH-Patator</strong></td>
+                                    <td>78 Features</td>
+                                    <td><button type="button" class="btn-table-load" onclick="window.loadSpecificSample('ssh_1')"><i class="fa-solid fa-vial"></i> TEST THIS RECORD</button></td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
-                    <p class="ac-subtext mt-1"><strong>Why XGBoost won:</strong> XGBoost achieved the highest Minority-Class Recall (80.38%), meaning it correctly identified the most rare attack types. This is critical because missing an attack is more dangerous than a false alarm.</p>
-                </div>
-                <div class="academic-card full-width-card mt-2">
-                    <div class="ac-header"><span class="ac-tag">FINAL INFERENCE MODEL</span><h3><i class="fa-solid fa-microchip violet-text"></i> WHICH MODEL MAKES THE PREDICTION?</h3></div>
-                    <div class="xgb-spotlight"><span class="xgb-title">XGBOOST</span><span class="xgb-sub">Gradient Boosted Decision Trees Classifier</span></div>
-                    <p class="ac-desc">XGBoost is the trained Machine Learning classifier used by the final prediction service. It was selected because it best identifies both common and rare attack types.</p>
-                    <div class="model-pipeline-strip"><span>DATA</span> <i class="fa-solid fa-chevron-right"></i> <span>LEARNING</span> <i class="fa-solid fa-chevron-right"></i> <strong class="violet-text">MODEL</strong> <i class="fa-solid fa-chevron-right"></i> <strong class="green-text">PREDICTION</strong></div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ============================================================ -->
-        <!-- SECTION 5: HOW DOES OUR AI PREDICT?                         -->
-        <!-- ============================================================ -->
-        <section id="section-prediction-flow" class="academic-section centerpiece-section">
-            <div class="section-container">
-                <div class="section-badge-header text-center">
-                    <span class="section-sys-tag highlight-tag">MOST IMPORTANT SECTION</span>
-                    <h2 class="section-title text-center">HOW DOES OUR AI PREDICT?</h2>
-                    <p class="section-subtitle">Step-by-step real prediction pipeline from incoming network flow to final result</p>
-                </div>
-                <div class="centerpiece-pipeline-card">
-                    <div class="c-pipeline-grid-8">
-                        <div class="cp-step"><span class="cp-num">01</span><strong>NEW NETWORK FLOW</strong><p>New network activity that we want to analyze.</p></div>
-                        <div class="cp-arrow"><i class="fa-solid fa-arrow-right"></i></div>
-                        <div class="cp-step"><span class="cp-num">02</span><strong>78 TRAFFIC FEATURES</strong><p>Numerical measurements describing how the connection behaved.</p></div>
-                        <div class="cp-arrow"><i class="fa-solid fa-arrow-right"></i></div>
-                        <div class="cp-step"><span class="cp-num">03</span><strong>INPUT VALIDATION</strong><p>Checks that the required values are present and valid.</p></div>
-                        <div class="cp-arrow"><i class="fa-solid fa-arrow-right"></i></div>
-                        <div class="cp-step"><span class="cp-num">04</span><strong>FEATURE ORDERING</strong><p>Arranges values in the exact model column sequence.</p></div>
-                        <div class="cp-arrow"><i class="fa-solid fa-arrow-right"></i></div>
-                        <div class="cp-step"><span class="cp-num">05</span><strong>PREPROCESSING / SCALING</strong><p>Prepares the values in the same format used during model training.</p></div>
-                        <div class="cp-arrow"><i class="fa-solid fa-arrow-right"></i></div>
-                        <div class="cp-step"><span class="cp-num">06</span><strong>TRAINED XGBOOST</strong><p>Uses patterns learned from previously labelled network traffic.</p></div>
-                        <div class="cp-arrow"><i class="fa-solid fa-arrow-right"></i></div>
-                        <div class="cp-step"><span class="cp-num">07</span><strong>PREDICTED CLASS</strong><p>Returns the class that the model considers most likely.</p></div>
-                        <div class="cp-arrow"><i class="fa-solid fa-arrow-right"></i></div>
-                        <div class="cp-step cp-final"><span class="cp-num">08</span><strong>CONFIDENCE / PROBABILITY</strong><p>Shows the model's confidence in the predicted class.</p></div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ============================================================ -->
-        <!-- SECTION 6: LIVE NETWORK TRAFFIC PREDICTION (DEMO)           -->
-        <!-- ============================================================ -->
-        <section id="analyzer" class="academic-section bg-darker">
-            <div class="section-container">
-                <div class="section-badge-header text-center">
-                    <span class="section-sys-tag highlight-tag">LIVE DEMO</span>
-                    <h2 class="section-title text-center">LIVE NETWORK TRAFFIC PREDICTION</h2>
-                    <p class="section-subtitle">Load an actual test-set sample record from our dataset and pass its 78 features through our FastAPI + XGBoost pipeline</p>
                 </div>
 
                 <div class="live-demo-container">
-                    <!-- LEFT COLUMN: DATASET SAMPLE SELECTOR & INPUT PANEL -->
+                    <!-- LEFT COLUMN: REAL DATASET RECORD SELECTION -->
                     <div class="demo-card input-demo-card">
                         <div class="dc-header">
-                            <h3><i class="fa-solid fa-database cyan-text"></i> STEP 1: LOAD REAL DATASET SAMPLE</h3>
+                            <h3><i class="fa-solid fa-database cyan-text"></i> 🔴 LIVE MODEL CHECK</h3>
                         </div>
-                        <p class="dc-sub">Select a target traffic category from our CIC-IDS2017 test-set records:</p>
+                        <p class="dc-sub">Test a real network-traffic record through our trained model.</p>
 
-                        <!-- DATASET SAMPLE CATEGORY SELECTOR -->
+                        <!-- SAMPLE SELECTOR BUTTONS -->
                         <div class="preset-buttons-grid" id="dataset-sample-buttons">
-                            <button type="button" class="btn btn-preset active" data-sample-cat="BENIGN" id="btn-sample-benign">
-                                <i class="fa-solid fa-shield-check green-text"></i>
-                                <span>BENIGN (Normal)</span>
-                            </button>
-                            <button type="button" class="btn btn-preset" data-sample-cat="DDoS" id="btn-sample-ddos">
+                            <button type="button" class="btn btn-preset active" data-sample-cat="ddos_1" id="btn-sample-ddos">
                                 <i class="fa-solid fa-bomb red-text"></i>
-                                <span>DDoS Attack</span>
+                                <span>Real DDoS Record (#180596)</span>
                             </button>
-                            <button type="button" class="btn btn-preset" data-sample-cat="PortScan" id="btn-sample-portscan">
+                            <button type="button" class="btn btn-preset" data-sample-cat="benign_1" id="btn-sample-benign">
+                                <i class="fa-solid fa-shield-check green-text"></i>
+                                <span>Real BENIGN Record (#184342)</span>
+                            </button>
+                            <button type="button" class="btn btn-preset" data-sample-cat="portscan_1" id="btn-sample-portscan">
                                 <i class="fa-solid fa-crosshairs amber-text"></i>
-                                <span>PortScan Attack</span>
+                                <span>Real PortScan Record (#229173)</span>
                             </button>
-                            <button type="button" class="btn btn-preset" data-sample-cat="Bot" id="btn-sample-bot">
+                            <button type="button" class="btn btn-preset" data-sample-cat="bot_1" id="btn-sample-bot">
                                 <i class="fa-solid fa-robot violet-text"></i>
-                                <span>Botnet Attack</span>
+                                <span>Real Bot Record (#154164)</span>
                             </button>
-                            <button type="button" class="btn btn-preset" data-sample-cat="SSH-Patator" id="btn-sample-ssh">
+                            <button type="button" class="btn btn-preset" data-sample-cat="ssh_1" id="btn-sample-ssh">
                                 <i class="fa-solid fa-key orange-text"></i>
-                                <span>SSH Patator</span>
-                            </button>
-                            <button type="button" class="btn btn-preset" data-sample-cat="Heartbleed" id="btn-sample-heartbleed">
-                                <i class="fa-solid fa-heart-crack pink-text"></i>
-                                <span>Heartbleed</span>
+                                <span>Real SSH-Patator Record (#22758)</span>
                             </button>
                         </div>
 
-                        <!-- LOAD REAL DATASET SAMPLE BUTTON -->
-                        <div class="demo-action-box text-center mt-2">
-                            <button type="button" class="btn btn-secondary btn-large-run" id="btn-load-dataset-sample">
-                                <i class="fa-solid fa-file-import"></i> LOAD REAL DATASET SAMPLE
+                        <!-- RECORD NAVIGATION CONTROLS -->
+                        <div class="record-navigation-bar mt-1">
+                            <button type="button" class="btn btn-secondary btn-sm" id="btn-prev-record">
+                                <i class="fa-solid fa-chevron-left"></i> PREVIOUS RECORD
+                            </button>
+                            <button type="button" class="btn btn-secondary btn-sm" id="btn-next-record">
+                                NEXT RECORD <i class="fa-solid fa-chevron-right"></i>
                             </button>
                         </div>
 
-                        <!-- SAMPLE PREVIEW CARD (Populated when sample loaded) -->
-                        <div class="sample-preview-card mt-2" id="sample-preview-card" style="display:none;">
+                        <!-- LIVE RECORD SUMMARY BOX -->
+                        <div class="sample-preview-card mt-2" id="sample-preview-card">
                             <div class="spc-header">
-                                <span class="badge-test-set" id="spc-badge"><i class="fa-solid fa-vial"></i> TEST-SET SAMPLE</span>
-                                <span class="spc-source" id="spc-source">File: Friday-WorkingHours-Afternoon-DDos.pcap_ISCX.csv (Row #10000)</span>
+                                <span class="badge-test-set" id="spc-badge"><i class="fa-solid fa-vial"></i> REAL CIC-IDS2017 TEST RECORD</span>
+                                <span class="spc-source" id="spc-source">File: Friday-WorkingHours-Afternoon-DDos.pcap_ISCX.csv</span>
                             </div>
                             <div class="spc-body">
                                 <div class="spc-field">
-                                    <span class="spc-label">KNOWN DATASET LABEL (Ground Truth):</span>
-                                    <strong class="spc-val amber-text" id="spc-dataset-label">BENIGN</strong>
+                                    <span class="spc-label">DATASET:</span>
+                                    <strong class="spc-val cyan-text">CIC-IDS2017</strong>
                                 </div>
                                 <div class="spc-field mt-1">
-                                    <span class="spc-label">MODEL INPUT:</span>
-                                    <span class="spc-sub">78 Numerical Features Extracted from Selected Row</span>
+                                    <span class="spc-label">RECORD NUMBER:</span>
+                                    <strong class="spc-val text-primary" id="lcs-sample-id">Record #180596 (ddos_1)</strong>
                                 </div>
+                                <div class="spc-field mt-1 spc-ground-truth-box">
+                                    <span class="spc-label">ACTUAL DATASET LABEL:</span>
+                                    <strong class="spc-val gold-badge" id="spc-dataset-label">DDoS</strong>
+                                </div>
+                                <div class="spc-field mt-1">
+                                    <span class="spc-label">INPUT FEATURES:</span>
+                                    <strong class="spc-val cyan-text">78 Features</strong>
+                                </div>
+
+                                <!-- WHAT DID WE GIVE THE MODEL? COMPACT FEATURE PREVIEW -->
+                                <div class="key-features-table-wrapper mt-1">
+                                    <span class="spc-label">WHAT DID WE GIVE THE MODEL? (FEATURE PREVIEW):</span>
+                                    <table class="key-features-table">
+                                        <thead><tr><th>Feature Name</th><th>Actual Value</th></tr></thead>
+                                        <tbody id="key-features-tbody">
+                                            <tr><td>Destination Port</td><td>80.0</td></tr>
+                                            <tr><td>Flow Duration</td><td>102,139,089.0</td></tr>
+                                            <tr><td>Total Fwd Packets</td><td>8.0</td></tr>
+                                            <tr><td>Total Backward Packets</td><td>6.0</td></tr>
+                                            <tr><td>Flow Bytes/s</td><td>114.18</td></tr>
+                                            <tr><td>Flow Packets/s</td><td>0.137</td></tr>
+                                            <tr><td>Packet Length Mean</td><td>777.93</td></tr>
+                                            <tr><td>ACK Flag Count</td><td>1.0</td></tr>
+                                            <tr><td>Init_Win_bytes_forward</td><td>256.0</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
                                 <details class="all-78-accordion mt-1">
                                     <summary class="all-78-summary">
-                                        <span><i class="fa-solid fa-list-ul"></i> View 78 Feature Values Extracted from Row</span>
+                                        <span><i class="fa-solid fa-list-ul"></i> [ VIEW ALL 78 FEATURES ]</span>
                                         <i class="fa-solid fa-chevron-down"></i>
                                     </summary>
-                                    <div class="all-78-content" id="spc-features-view"><code>Select a sample to view feature array</code></div>
+                                    <div class="all-78-content" id="spc-features-view"><code>Select a sample to view all 78 feature values</code></div>
                                 </details>
                             </div>
                         </div>
 
-                        <!-- RUN LIVE PREDICTION BUTTON -->
+                        <!-- LARGE PRIMARY ANALYZE BUTTON -->
                         <div class="demo-action-box text-center mt-2">
-                            <button type="button" class="btn btn-primary btn-large-run" id="btn-run-prediction" disabled>
-                                <i class="fa-solid fa-play"></i> RUN LIVE PREDICTION
+                            <button type="button" class="btn btn-primary btn-large-run" id="btn-run-prediction">
+                                <i class="fa-solid fa-play"></i> ANALYZE THIS REAL TRAFFIC
                             </button>
                         </div>
-
-                        <!-- OPTIONAL PRESETS & CUSTOM INPUTS -->
-                        <details class="manual-input-accordion mt-2">
-                            <summary class="manual-summary">Optional Example Presets &amp; Custom Inputs</summary>
-                            <div class="manual-content">
-                                <p class="dc-sub">Example presets for quick manual testing:</p>
-                                <div class="preset-buttons-grid">
-                                    <button type="button" class="btn btn-preset-opt" data-preset="sample">Sample Baseline</button>
-                                    <button type="button" class="btn btn-preset-opt" data-preset="benign">Benign Preset</button>
-                                    <button type="button" class="btn btn-preset-opt" data-preset="ddos">DDoS Preset</button>
-                                    <button type="button" class="btn btn-preset-opt" data-preset="portscan">PortScan Preset</button>
-                                </div>
-                                <div class="file-drop-area mt-1" id="drop-zone"><i class="fa-solid fa-file-csv"></i><span>Drop Custom CIC-IDS2017 CSV File Here</span><input type="file" id="csv-file-input" accept=".csv"></div>
-                                <div id="feature-inputs-grid" class="feature-inputs-grid"></div>
-                            </div>
-                        </details>
                     </div>
 
-                    <!-- RIGHT COLUMN: REAL MODEL PREDICTION DISPLAY PANEL -->
+                    <!-- RIGHT COLUMN: PREDICTION FLOW & REAL MODEL RESULT CARD -->
                     <div class="demo-card output-demo-card">
                         <div class="dc-header">
-                            <h3><i class="fa-solid fa-square-poll-vertical green-text"></i> STEP 2: REAL PREDICTION RESULT</h3>
+                            <h3><i class="fa-solid fa-square-poll-vertical green-text"></i> REAL MODEL RESULT</h3>
                         </div>
 
-                        <!-- INITIAL LOAD STATE: NO SAMPLE SELECTED -->
-                        <div class="result-card ready-state" id="prediction-result-card">
+                        <!-- PROCESSING FLOW PIPELINE -->
+                        <div class="prediction-pipeline-strip mt-1" id="pred-pipeline-strip">
+                            <div class="pps-step pps-active" id="pps-1"><span>REAL DATASET ROW</span></div>
+                            <div class="pps-arrow">&rarr;</div>
+                            <div class="pps-step" id="pps-2"><span>78 FEATURES</span></div>
+                            <div class="pps-arrow">&rarr;</div>
+                            <div class="pps-step" id="pps-3"><span>PREPROCESSING</span></div>
+                            <div class="pps-arrow">&rarr;</div>
+                            <div class="pps-step" id="pps-4"><span>XGBOOST MODEL</span></div>
+                            <div class="pps-arrow">&rarr;</div>
+                            <div class="pps-step" id="pps-5"><span>PREDICTION</span></div>
+                        </div>
+
+                        <!-- LARGE REAL MODEL RESULT CARD -->
+                        <div class="result-card" id="prediction-result-card">
                             <div class="res-block" id="res-status-banner">
-                                <span class="badge-awaiting" id="res-status-badge"><i class="fa-solid fa-circle-pause"></i> NO DATASET SAMPLE SELECTED</span>
-                                <div class="res-val-box mt-1" id="res-input-summary">Load a real dataset sample to begin.</div>
+                                <span class="badge-awaiting" id="res-status-badge"><i class="fa-solid fa-circle-play"></i> READY FOR PREDICTION</span>
+                                <div class="res-val-box mt-1" id="res-input-summary">Click "ANALYZE THIS REAL TRAFFIC" to send features to FastAPI backend.</div>
                             </div>
 
-                            <!-- PIPELINE ANIMATION STRIP -->
-                            <div class="prediction-pipeline-strip mt-1" id="pred-pipeline-strip" style="display:none;">
-                                <div class="pps-step pps-active" id="pps-1"><span>1. ROW</span></div>
-                                <div class="pps-arrow">&rarr;</div>
-                                <div class="pps-step" id="pps-2"><span>2. 78 FEATS</span></div>
-                                <div class="pps-arrow">&rarr;</div>
-                                <div class="pps-step" id="pps-3"><span>3. VALIDATE</span></div>
-                                <div class="pps-arrow">&rarr;</div>
-                                <div class="pps-step" id="pps-4"><span>4. SCALER</span></div>
-                                <div class="pps-arrow">&rarr;</div>
-                                <div class="pps-step" id="pps-5"><span>5. XGBOOST</span></div>
-                                <div class="pps-arrow">&rarr;</div>
-                                <div class="pps-step" id="pps-6"><span>6. RESULT</span></div>
-                            </div>
-
-                            <!-- GROUND TRUTH DATASET LABEL -->
+                            <!-- MODEL PREDICTION OUTPUT -->
                             <div class="res-block mt-1">
-                                <span class="res-label">KNOWN DATASET LABEL:</span>
-                                <div class="res-val-box gold-text font-bold" id="res-ground-truth-label">—</div>
-                            </div>
-
-                            <!-- MODEL PREDICTED CLASS -->
-                            <div class="res-block mt-1">
-                                <span class="res-label">MODEL PREDICTION:</span>
+                                <span class="res-label">REAL MODEL PREDICTION:</span>
                                 <div class="res-prediction-big" id="res-prediction-label">—</div>
                             </div>
 
-                            <!-- PREDICTION VS DATASET LABEL COMPARISON -->
-                            <div class="res-block mt-1" id="comparison-block" style="display:none;">
-                                <span class="res-label">PREDICTION VS DATASET LABEL:</span>
-                                <div class="comparison-result-box" id="res-comparison-box">—</div>
-                            </div>
-
-                            <!-- CONFIDENCE & PROBABILITY BARS -->
+                            <!-- CONFIDENCE SCORE -->
                             <div class="res-block mt-1">
-                                <span class="res-label">CONFIDENCE / PROBABILITY:</span>
-                                <div class="res-val-box gold-text" id="res-confidence">—</div>
+                                <span class="res-label">CONFIDENCE SCORE:</span>
+                                <div class="res-val-box gold-text font-bold" id="res-confidence">—</div>
                                 <div class="prob-bars-flex mt-1">
                                     <div class="prob-line"><span class="pl-label">Confidence:</span> <div class="pl-track"><div class="pl-fill fill-green" id="bar-confidence" style="width:0%;"></div></div></div>
                                     <div class="prob-line"><span class="pl-label">Attack Prob:</span> <div class="pl-track"><div class="pl-fill fill-red" id="bar-attack-prob" style="width:0%;"></div></div></div>
@@ -475,18 +511,40 @@
                                 </div>
                             </div>
 
-                            <!-- WHAT JUST HAPPENED EXPLANATION -->
+                            <!-- ACTUAL DATASET LABEL -->
                             <div class="res-block mt-1">
-                                <span class="res-label">WHAT JUST HAPPENED?</span>
+                                <span class="res-label">ACTUAL DATASET LABEL:</span>
+                                <div class="res-val-box gold-text font-bold" id="res-ground-truth-label">DDoS</div>
+                            </div>
+
+                            <!-- ACTUAL VS PREDICTED RESULT -->
+                            <div class="res-block mt-1" id="comparison-block">
+                                <span class="res-label">ACTUAL VS PREDICTED RESULT:</span>
+                                <div class="comparison-result-box" id="res-comparison-box">
+                                    <div class="comp-grid">
+                                        <div class="comp-col"><span>ACTUAL LABEL</span><strong id="comp-actual">DDoS</strong></div>
+                                        <div class="comp-col"><span>PREDICTED LABEL</span><strong id="comp-predicted">—</strong></div>
+                                        <div class="comp-col"><span>RESULT</span><strong id="comp-status" class="green-text">—</strong></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- HOW DID THE MODEL PREDICT? -->
+                            <div class="res-block mt-1">
+                                <span class="res-label">HOW DID THE MODEL PREDICT?</span>
                                 <div class="res-explanation-box" id="res-meaning-box">
-                                    Click "LOAD REAL DATASET SAMPLE" then "RUN LIVE PREDICTION" to see the trained model classify a real network flow.
+                                    "These network-traffic features were passed through the same preprocessing pipeline used during model training. The trained XGBoost classifier then evaluated the traffic pattern and returned the predicted class."
                                 </div>
                             </div>
                         </div>
 
-                        <!-- HIDDEN TELEMETRY BINDINGS FOR COMPATIBILITY -->
-                        <div class="hidden-telemetry-bindings" style="display:none;">
-                            <span id="threat-status-box"></span><span id="status-name"></span><span id="status-sub"></span><span id="res-attack-type"></span><span id="res-security-action"></span><span id="result-icon-wrapper"></span><i id="result-icon"></i>
+                        <!-- ERROR DISPLAY -->
+                        <div class="error-banner hidden mt-1" id="error-banner">
+                            <i class="fa-solid fa-circle-exclamation red-text"></i>
+                            <div class="error-text">
+                                <strong id="error-title">API Connection Failed</strong>
+                                <span id="error-message">Could not connect to FastAPI backend server.</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -494,136 +552,112 @@
         </section>
 
         <!-- ============================================================ -->
-        <!-- SECTION 7: WHAT DOES THE RESULT MEAN?                       -->
+        <!-- 6. MODEL PERFORMANCE & EVALUATION                           -->
         <!-- ============================================================ -->
-        <section id="section-attacks" class="academic-section">
+        <section id="section-performance" class="academic-section bg-darker">
             <div class="section-container">
                 <div class="section-badge-header text-center">
-                    <span class="section-sys-tag">SECTION 7</span>
-                    <h2 class="section-title text-center">WHAT DOES THE RESULT MEAN?</h2>
-                    <p class="section-subtitle">Understanding the attack classes supported by our trained model</p>
+                    <span class="section-sys-tag">SECTION 6</span>
+                    <h2 class="section-title text-center">MODEL PERFORMANCE &amp; EVALUATION</h2>
+                    <p class="section-subtitle">Evaluation metrics measured on held-out test data used during model evaluation</p>
                 </div>
-                <div class="attack-cards-grid">
-                    <div class="ac-class-card benign-class"><div class="acc-head"><i class="fa-solid fa-shield-check green-text"></i> BENIGN</div><p>Normal, safe network traffic flow. No security concern detected.</p></div>
-                    <div class="ac-class-card attack-class"><div class="acc-head"><i class="fa-solid fa-bomb red-text"></i> DDoS</div><p>Traffic associated with a distributed denial-of-service attack attempting to exhaust server resources.</p></div>
-                    <div class="ac-class-card attack-class"><div class="acc-head"><i class="fa-solid fa-crosshairs amber-text"></i> PortScan</div><p>Traffic associated with scanning network ports/services to find open entry points.</p></div>
-                    <div class="ac-class-card attack-class"><div class="acc-head"><i class="fa-solid fa-robot violet-text"></i> Bot</div><p>Traffic generated by compromised devices controlled remotely as part of a botnet.</p></div>
-                    <div class="ac-class-card attack-class"><div class="acc-head"><i class="fa-solid fa-user-ninja magenta-text"></i> Infiltration</div><p>Traffic resulting from internal network breach or unauthorized access attempt.</p></div>
-                    <div class="ac-class-card attack-class"><div class="acc-head"><i class="fa-solid fa-globe cyan-text"></i> Web Attack</div><p>Traffic targeting web application vulnerabilities such as SQL Injection, XSS, or Brute Force.</p></div>
-                    <div class="ac-class-card attack-class"><div class="acc-head"><i class="fa-solid fa-key orange-text"></i> Brute Force</div><p>Traffic associated with automated password-guessing attacks against network authentication.</p></div>
-                    <div class="ac-class-card attack-class"><div class="acc-head"><i class="fa-solid fa-heart-crack pink-text"></i> Heartbleed</div><p>Traffic exploiting the OpenSSL Heartbleed vulnerability to extract server memory.</p></div>
-                </div>
-            </div>
-        </section>
 
-        <!-- ============================================================ -->
-        <!-- SECTION 8: WHY IS THIS USEFUL?                              -->
-        <!-- ============================================================ -->
-        <section id="section-utility" class="academic-section bg-darker">
-            <div class="section-container">
-                <div class="section-badge-header text-center"><span class="section-sys-tag">SECTION 8</span><h2 class="section-title text-center">WHY IS THIS USEFUL?</h2><p class="section-subtitle">How automated network screening assists security operations</p></div>
-                <div class="academic-card full-width-card">
-                    <p class="ac-desc-large text-center">Large networks generate many connections that are difficult to inspect manually. Our system automatically screens network traffic and identifies potentially suspicious activity, helping security teams investigate possible intrusions faster.</p>
-                    <div class="utility-flow-visual mt-2">
-                        <div class="uf-box"><i class="fa-solid fa-network-wired"></i><strong>MANY NETWORK CONNECTIONS</strong><span>High volume traffic stream</span></div>
-                        <div class="uf-arrow"><i class="fa-solid fa-angles-right"></i></div>
-                        <div class="uf-box"><i class="fa-solid fa-brain violet-text"></i><strong>AUTOMATIC AI SCREENING</strong><span>FastAPI + XGBoost model</span></div>
-                        <div class="uf-arrow"><i class="fa-solid fa-angles-right"></i></div>
-                        <div class="uf-box"><i class="fa-solid fa-filter amber-text"></i><strong>NORMAL / SUSPICIOUS</strong><span>Flagged with probability score</span></div>
-                        <div class="uf-arrow"><i class="fa-solid fa-angles-right"></i></div>
-                        <div class="uf-box uf-highlight"><i class="fa-solid fa-user-shield green-text"></i><strong>SECURITY TEAM INVESTIGATION</strong><span>Faster threat response</span></div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ============================================================ -->
-        <!-- SECTION 9: WHERE DOES FASTAPI FIT?                          -->
-        <!-- ============================================================ -->
-        <section id="section-fastapi" class="academic-section">
-            <div class="section-container">
-                <div class="section-badge-header text-center"><span class="section-sys-tag">SECTION 9</span><h2 class="section-title text-center">WHERE DOES FASTAPI FIT?</h2><p class="section-subtitle">Understanding the backend architecture</p></div>
-                <div class="academic-dual-grid">
-                    <div class="academic-card">
-                        <div class="ac-header"><span class="ac-tag">BACKEND API</span><h3><i class="fa-solid fa-server cyan-text"></i> HOW FASTAPI CONNECTS EVERYTHING</h3></div>
-                        <div class="fastapi-diagram"><span class="fd-node">DASHBOARD</span> <i class="fa-solid fa-arrow-right"></i> <span class="fd-node fd-fast">FASTAPI</span> <i class="fa-solid fa-arrow-right"></i> <span class="fd-node fd-model">TRAINED MODEL</span> <i class="fa-solid fa-arrow-right"></i> <span class="fd-node fd-pred">PREDICTION</span> <i class="fa-solid fa-arrow-right"></i> <span class="fd-node fd-fast">FASTAPI</span> <i class="fa-solid fa-arrow-right"></i> <span class="fd-node">DASHBOARD</span></div>
-                        <p class="ac-desc mt-1">FastAPI provides the backend API that receives network-flow data, sends it to the trained model, and returns the prediction to the application.</p>
-                        <div class="notice-box-important"><i class="fa-solid fa-circle-exclamation amber-text"></i><span><strong>Important:</strong> FastAPI does NOT perform the Machine Learning prediction. The trained model performs the prediction.</span></div>
-                    </div>
-                    <div class="academic-card">
-                        <div class="ac-header"><span class="ac-tag">VERIFIED SPECS</span><h3><i class="fa-solid fa-clipboard-check green-text"></i> TECHNICAL DETAILS</h3></div>
-                        <ul class="spec-list-clean">
-                            <li><span>Dataset:</span> <strong>CIC-IDS2017</strong></li>
-                            <li><span>Total Records:</span> <strong>2,830,743 (raw) &rarr; 2,522,362 (cleaned)</strong></li>
-                            <li><span>Features:</span> <strong>78 Numerical Flow Metrics</strong></li>
-                            <li><span>Classes:</span> <strong>15 Traffic Categories</strong></li>
-                            <li><span>Models Compared:</span> <strong>5 (LR, DT, RF, GB, XGBoost)</strong></li>
-                            <li><span>Final Model:</span> <strong>XGBoost Classifier</strong></li>
-                            <li><span>Backend:</span> <strong>FastAPI (Python)</strong></li>
-                            <li><span>Endpoint:</span> <strong>POST /predict</strong></li>
-                            <li><span>Test Accuracy:</span> <strong>99.89% Verified</strong></li>
-                        </ul>
-                        <div class="audit-summary-box mt-1"><strong>HOW DID WE CHECK THE MODEL?</strong><p>We checked whether information from the test data accidentally influenced training and whether evaluation could be misleading.</p><span class="audit-status-badge"><i class="fa-solid fa-shield-check green-text"></i> 10-Point Audit Verified Clean</span></div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ============================================================ -->
-        <!-- SECTION 10: IMPLEMENTATION TIMELINE                         -->
-        <!-- ============================================================ -->
-        <section id="section-timeline" class="academic-section bg-darker">
-            <div class="section-container">
-                <div class="section-badge-header text-center"><span class="section-sys-tag">SECTION 10</span><h2 class="section-title text-center">WHAT EXACTLY DID WE IMPLEMENT?</h2><p class="section-subtitle">Complete 10-step implementation timeline</p></div>
-                <div class="academic-card full-width-card">
-                    <div class="timeline-10-grid mt-1">
-                        <div class="t10-step"><span>1</span> <strong>Dataset analysis</strong></div>
-                        <div class="t10-step"><span>2</span> <strong>Data cleaning</strong></div>
-                        <div class="t10-step"><span>3</span> <strong>Feature preparation</strong></div>
-                        <div class="t10-step"><span>4</span> <strong>Train/test split</strong></div>
-                        <div class="t10-step"><span>5</span> <strong>Machine Learning training</strong></div>
-                        <div class="t10-step"><span>6</span> <strong>Model comparison</strong></div>
-                        <div class="t10-step"><span>7</span> <strong>Model validation</strong></div>
-                        <div class="t10-step"><span>8</span> <strong>FastAPI integration</strong></div>
-                        <div class="t10-step"><span>9</span> <strong>Prediction API</strong></div>
-                        <div class="t10-step highlight-t10"><span>10</span> <strong>Dashboard UI</strong></div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ============================================================ -->
-        <!-- SECTION 11: FINAL DEMO SUMMARY                              -->
-        <!-- ============================================================ -->
-        <section id="final-summary" class="academic-section summary-banner-section">
-            <div class="section-container">
-                <div class="section-badge-header text-center"><span class="section-sys-tag highlight-tag">PROJECT RECAP</span><h2 class="section-title text-center">FINAL DEMO SUMMARY</h2><p class="section-subtitle">Everything you need to know about our project</p></div>
-                
+                <!-- MODEL COMPARISON TABLE -->
                 <div class="academic-card full-width-card mb-2">
-                    <div class="ac-header"><span class="ac-tag green-tag">REAL-WORLD IMPACT</span><h3><i class="fa-solid fa-shield-heart emerald-text"></i> WHY THIS MATTERS</h3></div>
-                    <p class="ac-desc" style="font-size: 1.05rem; line-height: 1.7; color: var(--text-primary);">Modern networks generate large volumes of traffic that are difficult to inspect manually. Our system uses Machine Learning to automatically classify network-flow patterns and flag potentially suspicious activity, helping security teams prioritize investigation.</p>
+                    <div class="ac-header">
+                        <span class="ac-tag">MODEL BENCHMARK</span>
+                        <h3><i class="fa-solid fa-ranking-star amber-text"></i> Classifier Performance Comparison</h3>
+                    </div>
+                    <p class="ac-subtext mb-1">Performance is measured on the held-out test data used during model evaluation.</p>
+                    <div class="data-table-wrapper">
+                        <table class="data-table model-comparison-table">
+                            <thead><tr><th>Model</th><th>Accuracy</th><th>Macro F1</th><th>Minority Recall</th><th>ROC-AUC</th><th>Selected?</th></tr></thead>
+                            <tbody>
+                                <tr class="winner-row"><td><strong><i class="fa-solid fa-trophy amber-text"></i> XGBoost</strong></td><td><strong>99.89%</strong></td><td><strong>91.70%</strong></td><td><strong>80.38%</strong></td><td><strong>0.9998</strong></td><td><span class="winner-badge"><i class="fa-solid fa-check"></i> SELECTED BEST MODEL</span></td></tr>
+                                <tr><td>Random Forest</td><td>99.84%</td><td>80.72%</td><td>56.16%</td><td>0.9971</td><td>&mdash;</td></tr>
+                                <tr><td>Decision Tree</td><td>99.82%</td><td>80.11%</td><td>55.34%</td><td>0.9812</td><td>&mdash;</td></tr>
+                                <tr><td>Gradient Boosting</td><td>99.19%</td><td>67.33%</td><td>39.49%</td><td>0.7265</td><td>&mdash;</td></tr>
+                                <tr><td>Logistic Regression</td><td>97.81%</td><td>64.10%</td><td>29.50%</td><td>0.9908</td><td>&mdash;</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
 
-                <div class="summary-5-grid">
-                    <div class="sum-card"><span class="sum-tag">WHAT WE TOOK</span><strong>CIC-IDS2017 network traffic data</strong><p>2.8M+ labelled network flow records with 78 traffic features.</p></div>
-                    <div class="sum-card"><span class="sum-tag">WHAT WE DID</span><strong>Analyze, clean, prepare &amp; train ML models</strong><p>Compared 5 classifiers: Logistic Regression, Decision Tree, Random Forest, Gradient Boosting, XGBoost.</p></div>
-                    <div class="sum-card"><span class="sum-tag">WHAT MODEL WE USE</span><strong>XGBoost for final inference</strong><p>Selected for best minority-class recall (80.38%) and highest macro F1 score (91.70%).</p></div>
-                    <div class="sum-card"><span class="sum-tag">HOW IT PREDICTS</span><strong>New traffic &rarr; 78 features &rarr; validation &rarr; preprocessing &rarr; XGBoost &rarr; prediction</strong><p>BENIGN or an attack category + probability/confidence score.</p></div>
-                    <div class="sum-card highlight-sum-card"><span class="sum-tag">WHY IT IS USEFUL</span><strong>Helps security teams identify suspicious network activity faster</strong><p>Automatically screens high-volume traffic so security teams can focus on potential threats.</p></div>
+                <!-- CHARTS GRID -->
+                <div class="charts-2x2-grid">
+                    <!-- CHART 1: DATASET CLASS DISTRIBUTION -->
+                    <div class="academic-card">
+                        <div class="ac-header">
+                            <span class="ac-tag">DATASET ANALYSIS</span>
+                            <h3><i class="fa-solid fa-chart-pie cyan-text"></i> Class Distribution</h3>
+                        </div>
+                        <p class="ac-subtext">How is our dataset distributed?</p>
+                        <div class="chart-container-box">
+                            <canvas id="chart-threat-distribution"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- CHART 2: MODEL COMPARISON -->
+                    <div class="academic-card">
+                        <div class="ac-header">
+                            <span class="ac-tag">BENCHMARK</span>
+                            <h3><i class="fa-solid fa-chart-column violet-text"></i> Model Comparison</h3>
+                        </div>
+                        <p class="ac-subtext">Which model performed best?</p>
+                        <div class="chart-container-box">
+                            <canvas id="chart-model-comparison"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- CHART 3: FEATURE IMPORTANCE -->
+                    <div class="academic-card">
+                        <div class="ac-header">
+                            <span class="ac-tag">MODEL EXPLAINABILITY</span>
+                            <h3><i class="fa-solid fa-chart-bar amber-text"></i> Top Feature Importance</h3>
+                        </div>
+                        <p class="ac-subtext">Which features influenced the model?</p>
+                        <div class="chart-container-box">
+                            <canvas id="chart-feature-importance"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- CHART 4: CONFUSION MATRIX SUMMARY -->
+                    <div class="academic-card">
+                        <div class="ac-header">
+                            <span class="ac-tag">ERROR ANALYSIS</span>
+                            <h3><i class="fa-solid fa-table-cells green-text"></i> XGBoost Confusion Matrix Summary</h3>
+                        </div>
+                        <p class="ac-subtext">Where does the model make mistakes?</p>
+                        <div class="cm-summary-grid">
+                            <div class="cm-cell green-cell">
+                                <span class="cm-val">454,580</span>
+                                <span class="cm-lbl">True Negatives (BENIGN)</span>
+                            </div>
+                            <div class="cm-cell red-cell">
+                                <span class="cm-val">49,812</span>
+                                <span class="cm-lbl">True Positives (Attacks)</span>
+                            </div>
+                            <div class="cm-cell amber-cell">
+                                <span class="cm-val">58</span>
+                                <span class="cm-lbl">False Positives</span>
+                            </div>
+                            <div class="cm-cell amber-cell">
+                                <span class="cm-val">23</span>
+                                <span class="cm-lbl">False Negatives</span>
+                            </div>
+                        </div>
+                        <p class="ac-subtext mt-1 text-center">XGBoost misclassifies only 81 records out of 504,473 test samples (99.89% accuracy).</p>
+                    </div>
                 </div>
             </div>
         </section>
-
-        <div id="topology" style="display:none;" aria-hidden="true"></div>
-        <div id="analytics" style="display:none;" aria-hidden="true"></div>
-        <div id="metrics" style="display:none;" aria-hidden="true"></div>
-        <div id="status" style="display:none;" aria-hidden="true"></div>
     </main>
 
+    <!-- FOOTER -->
     <footer class="footer">
         <div class="section-container text-center">
             <p><strong>NETWORK INTRUSION DETECTION</strong> &mdash; Machine Learning Security System</p>
-            <p class="footer-sub">CIC-IDS2017 Dataset &bull; XGBoost Classifier &bull; FastAPI Backend Infrastructure</p>
+            <p class="footer-sub">CIC-IDS2017 Dataset &bull; Trained XGBoost Classifier &bull; FastAPI Backend Infrastructure</p>
         </div>
     </footer>
 

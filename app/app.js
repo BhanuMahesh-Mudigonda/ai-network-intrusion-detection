@@ -5,8 +5,8 @@
  */
 
 document.addEventListener("DOMContentLoaded", () => {
-    // API Base URL (matches current host origin)
-    const API_BASE_URL = window.location.origin;
+    // API Base URL (relative path when served via FastAPI, port 8000 for file://)
+    const API_BASE_URL = (window.location.protocol === "file:") ? "http://localhost:8000" : "";
 
     // 78 Required Features Schema Groupings matching api/schemas.py
     const FEATURE_CATEGORIES = {
@@ -138,6 +138,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let confidenceThreshold = 0.80;
 
     // Initialize Components
+    hideErrorBanner();
     initAmbientParticleCanvas();
     initFormFields();
     setupTabNavigation();
@@ -156,11 +157,33 @@ document.addEventListener("DOMContentLoaded", () => {
     setupScrollspy();
     initPipelineSequenceCycle();
     resetPredictionCardState();
+    setupScrollRevealObserver();
+    loadDatasetSample("ddos_1");
 
     setInterval(checkApiHealth, 10000);
 
+    function setupScrollRevealObserver() {
+        if (!("IntersectionObserver" in window)) return;
+        const revealElements = document.querySelectorAll(".academic-section, .academic-card, .live-demo-container, .hero-asymmetric-container");
+        
+        revealElements.forEach((el) => {
+            el.classList.add("reveal-hidden");
+        });
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("reveal-visible");
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.15 });
+
+        revealElements.forEach((el) => observer.observe(el));
+    }
+
     // ==========================================================================
-    // 1. AMBIENT VIOLET & PEARL PARTICLE BACKGROUND CANVAS
+    // 1. NETWORK TRAFFIC ANALYSIS LAB CANVAS
     // ==========================================================================
     function initAmbientParticleCanvas() {
         const canvas = document.getElementById("bg-network-canvas");
@@ -168,66 +191,84 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const ctx = canvas.getContext("2d");
         let width, height;
-        let particles = [];
-        const numParticles = 60;
+        let packets = [];
+        let timeOffset = 0;
 
         function resize() {
             width = canvas.width = window.innerWidth;
             height = canvas.height = window.innerHeight;
+            initTrafficLanes();
         }
 
         window.addEventListener("resize", resize);
+
+        function initTrafficLanes() {
+            packets = [];
+            const laneCount = 6;
+            for (let i = 0; i < laneCount; i++) {
+                const laneY = (height / (laneCount + 1)) * (i + 1);
+                const isThreat = i === 2;
+                packets.push({
+                    y: laneY,
+                    x: Math.random() * width,
+                    speed: 0.6 + Math.random() * 0.8,
+                    isThreat,
+                    size: isThreat ? 2.5 : 2.0,
+                    alpha: isThreat ? 0.6 : 0.35
+                });
+            }
+        }
+
         resize();
 
-        for (let i = 0; i < numParticles; i++) {
-            particles.push({
-                x: Math.random() * width,
-                y: Math.random() * height,
-                vx: (Math.random() - 0.5) * 0.3,
-                vy: (Math.random() - 0.5) * 0.3,
-                radius: Math.random() * 1.6 + 0.6,
-                alpha: Math.random() * 0.4 + 0.1,
-                isAmber: Math.random() > 0.7
-            });
-        }
-
-        function drawBackground() {
+        function animate() {
             ctx.clearRect(0, 0, width, height);
+            timeOffset += 0.01;
 
-            for (let i = 0; i < numParticles; i++) {
-                const p1 = particles[i];
-                p1.x += p1.vx;
-                p1.y += p1.vy;
+            // 1. Subtle Horizontal Traffic Scan Lanes
+            const laneCount = 6;
+            ctx.setLineDash([4, 14]);
+            ctx.lineWidth = 1;
+            for (let i = 0; i < laneCount; i++) {
+                const laneY = (height / (laneCount + 1)) * (i + 1);
+                ctx.beginPath();
+                ctx.moveTo(0, laneY);
+                ctx.lineTo(width, laneY);
+                ctx.strokeStyle = "rgba(6, 182, 212, 0.04)";
+                ctx.stroke();
+            }
+            ctx.setLineDash([]); // Reset dash
 
-                if (p1.x < 0 || p1.x > width) p1.vx *= -1;
-                if (p1.y < 0 || p1.y > height) p1.vy *= -1;
+            // 2. Animate Traffic Packet Signal Particles
+            packets.forEach(p => {
+                p.x += p.speed;
+                if (p.x > width) p.x = -20;
 
                 ctx.beginPath();
-                ctx.arc(p1.x, p1.y, p1.radius, 0, Math.PI * 2);
-                ctx.fillStyle = p1.isAmber ? `rgba(245, 158, 11, ${p1.alpha})` : `rgba(139, 92, 246, ${p1.alpha})`;
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fillStyle = p.isThreat ? `rgba(244, 63, 94, ${p.alpha})` : `rgba(6, 182, 212, ${p.alpha})`;
+                ctx.shadowColor = p.isThreat ? "#f43f5e" : "#06b6d4";
+                ctx.shadowBlur = 6;
                 ctx.fill();
+                ctx.shadowBlur = 0;
+            });
 
-                for (let j = i + 1; j < numParticles; j++) {
-                    const p2 = particles[j];
-                    const dx = p1.x - p2.x;
-                    const dy = p1.y - p2.y;
-                    const dist = Math.sqrt(dx * dx + dy * dy);
-
-                    if (dist < 140) {
-                        ctx.beginPath();
-                        ctx.moveTo(p1.x, p1.y);
-                        ctx.lineTo(p2.x, p2.y);
-                        ctx.strokeStyle = `rgba(139, 92, 246, ${0.1 * (1 - dist / 140)})`;
-                        ctx.lineWidth = 0.5;
-                        ctx.stroke();
-                    }
-                }
+            // 3. Faint Signal Oscilloscope Waveform Trace
+            const waveY = height * 0.52;
+            ctx.beginPath();
+            ctx.moveTo(0, waveY);
+            for (let x = 0; x < width; x += 15) {
+                const wy = waveY + Math.sin((x * 0.01) + timeOffset) * 8 + Math.cos((x * 0.02) - timeOffset) * 4;
+                ctx.lineTo(x, wy);
             }
+            ctx.strokeStyle = "rgba(139, 92, 246, 0.04)";
+            ctx.lineWidth = 1;
+            ctx.stroke();
 
-            requestAnimationFrame(drawBackground);
+            requestAnimationFrame(animate);
         }
 
-        drawBackground();
+        animate();
     }
 
     // ==========================================================================
@@ -237,47 +278,28 @@ document.addEventListener("DOMContentLoaded", () => {
         if (typeof Chart === "undefined") return;
 
         // Chart 1: Real-time Throughput Line Chart
-        const ctxTimeline = document.getElementById("chart-throughput-timeline");
-        if (ctxTimeline) {
-            const labels = ["12:00", "12:05", "12:10", "12:15", "12:20", "12:25", "12:30", "12:35", "12:40", "12:45"];
-            const throughputData = [12.4, 14.8, 11.2, 85.6, 94.2, 18.5, 15.1, 14.0, 16.3, 13.9];
-            const anomalyData = [0, 0, 0, 1, 1, 0, 0, 0, 0, 0];
-
-            new Chart(ctxTimeline, {
-                type: "line",
+        const ctxComparison = document.getElementById("chart-model-comparison");
+        if (ctxComparison) {
+            new Chart(ctxComparison, {
+                type: "bar",
                 data: {
-                    labels: labels,
-                    datasets: [
-                        {
-                            label: "Network Throughput (Mbps)",
-                            data: throughputData,
-                            borderColor: "#8b5cf6",
-                            backgroundColor: "rgba(139, 92, 246, 0.12)",
-                            fill: true,
-                            tension: 0.35,
-                            borderWidth: 2
-                        },
-                        {
-                            label: "Anomaly Alert Spike",
-                            data: anomalyData.map(v => v ? 90 : 0),
-                            borderColor: "#f43f5e",
-                            backgroundColor: "rgba(244, 63, 94, 0.25)",
-                            fill: true,
-                            borderDash: [5, 5],
-                            tension: 0,
-                            pointRadius: anomalyData.map(v => v ? 6 : 0)
-                        }
-                    ]
+                    labels: ["XGBoost", "Random Forest", "Decision Tree", "Grad Boosting", "Logistic Reg"],
+                    datasets: [{
+                        label: "Test Accuracy (%)",
+                        data: [99.89, 99.84, 99.82, 99.19, 97.81],
+                        backgroundColor: ["#06b6d4", "#2563eb", "#3b82f6", "#f59e0b", "#64748b"],
+                        borderRadius: 6
+                    }]
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
                     plugins: {
-                        legend: { labels: { color: "#a8a5a0", font: { family: "Inter", size: 11 } } }
+                        legend: { display: false }
                     },
                     scales: {
-                        x: { grid: { color: "rgba(139, 92, 246, 0.1)" }, ticks: { color: "#73706b" } },
-                        y: { grid: { color: "rgba(139, 92, 246, 0.1)" }, ticks: { color: "#73706b" } }
+                        x: { grid: { color: "rgba(34, 211, 238, 0.1)" }, ticks: { color: "#cbd5e1" } },
+                        y: { min: 90, max: 100, grid: { color: "rgba(34, 211, 238, 0.1)" }, ticks: { color: "#cbd5e1" } }
                     }
                 }
             });
@@ -823,33 +845,37 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         });
 
-        const btnLoadSample = document.getElementById("btn-load-dataset-sample");
-        if (btnLoadSample) {
-            btnLoadSample.addEventListener("click", () => {
-                const activeBtn = document.querySelector("[data-sample-cat].active");
-                const cat = activeBtn ? activeBtn.getAttribute("data-sample-cat") : "BENIGN";
-                loadDatasetSample(cat);
+        const REAL_DATASET_KEYS = [
+            "ddos_1", "benign_1", "portscan_1", "bot_1", "ssh_1", "goldeneye_1", "heartbleed_1",
+            "ddos_2", "benign_2", "portscan_2", "bot_2", "ssh_2", "goldeneye_2", "heartbleed_2",
+            "ddos_3", "benign_3", "portscan_3"
+        ];
+        let currentDatasetKeyIdx = 0;
+
+        const btnPrev = document.getElementById("btn-prev-record");
+        if (btnPrev) {
+            btnPrev.addEventListener("click", () => {
+                currentDatasetKeyIdx = (currentDatasetKeyIdx - 1 + REAL_DATASET_KEYS.length) % REAL_DATASET_KEYS.length;
+                loadDatasetSample(REAL_DATASET_KEYS[currentDatasetKeyIdx]);
             });
         }
 
-        const presetOpts = document.querySelectorAll(".btn-preset-opt");
-        presetOpts.forEach((btn) => {
-            btn.addEventListener("click", () => {
-                const key = btn.getAttribute("data-preset");
-                if (PRESETS[key]) {
-                    activePayload = { ...PRESETS[key] };
-                    activeDatasetSample = null;
-                    updateFormInputsFromPayload(activePayload);
-                    const inputSummary = document.getElementById("res-input-summary");
-                    if (inputSummary) inputSummary.innerHTML = `Loaded Preset: <strong>${key.toUpperCase()}</strong>`;
-                    const gtLabelEl = document.getElementById("res-ground-truth-label");
-                    if (gtLabelEl) gtLabelEl.textContent = "Preset Example";
-                    const runBtn = document.getElementById("btn-run-prediction");
-                    if (runBtn) runBtn.disabled = false;
-                }
+        const btnNext = document.getElementById("btn-next-record");
+        if (btnNext) {
+            btnNext.addEventListener("click", () => {
+                currentDatasetKeyIdx = (currentDatasetKeyIdx + 1) % REAL_DATASET_KEYS.length;
+                loadDatasetSample(REAL_DATASET_KEYS[currentDatasetKeyIdx]);
             });
-        });
+        }
     }
+
+    window.loadSpecificSample = function(categoryKey) {
+        loadDatasetSample(categoryKey);
+        const targetCard = document.getElementById("sample-preview-card") || document.querySelector(".live-demo-container");
+        if (targetCard) {
+            targetCard.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
+    };
 
     async function loadDatasetSample(categoryKey) {
         hideErrorBanner();
@@ -873,6 +899,32 @@ document.addEventListener("DOMContentLoaded", () => {
             const labelEl = document.getElementById("spc-dataset-label");
             if (labelEl) labelEl.textContent = sample.dataset_label;
 
+            const lcsId = document.getElementById("lcs-sample-id");
+            if (lcsId) lcsId.textContent = `${sample.id || 'sample'} (Row #${sample.row_index})`;
+
+            const lcsLabel = document.getElementById("lcs-actual-label");
+            if (lcsLabel) lcsLabel.textContent = sample.dataset_label;
+
+            // Populate Key Features Table
+            const keyFeaturesBody = document.getElementById("key-features-tbody");
+            if (keyFeaturesBody) {
+                const keyFeats = [
+                    "Destination Port",
+                    "Flow Duration",
+                    "Total Fwd Packets",
+                    "Total Backward Packets",
+                    "Flow Bytes/s",
+                    "Flow Packets/s",
+                    "Packet Length Mean",
+                    "ACK Flag Count",
+                    "Init_Win_bytes_forward"
+                ];
+                keyFeaturesBody.innerHTML = keyFeats.map(f => {
+                    const val = sample.features[f] !== undefined ? sample.features[f] : "N/A";
+                    return `<tr><td>${f}</td><td><strong>${typeof val === 'number' ? val.toLocaleString() : val}</strong></td></tr>`;
+                }).join("");
+            }
+
             const featViewEl = document.getElementById("spc-features-view");
             if (featViewEl) {
                 const featText = Object.entries(sample.features)
@@ -886,11 +938,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const inputSummary = document.getElementById("res-input-summary");
             if (inputSummary) {
-                inputSummary.innerHTML = `Record: <strong>${sample.source_file} (Row #${sample.row_index})</strong> | Ground Truth: <span class="gold-text">${sample.dataset_label}</span>`;
+                inputSummary.innerHTML = `Record: <strong>${sample.source_file} (Row #${sample.row_index})</strong> | Actual Label: <span class="gold-text">${sample.dataset_label}</span>`;
             }
 
             const gtLabelEl = document.getElementById("res-ground-truth-label");
             if (gtLabelEl) gtLabelEl.textContent = sample.dataset_label;
+
+            const compActualEl = document.getElementById("comp-actual");
+            if (compActualEl) compActualEl.textContent = sample.dataset_label;
 
             const statusBadge = document.getElementById("res-status-badge");
             if (statusBadge) {
@@ -900,8 +955,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
             document.getElementById("res-prediction-label").textContent = "—";
             document.getElementById("res-confidence").textContent = "—";
-            const compBlock = document.getElementById("comparison-block");
-            if (compBlock) compBlock.style.display = "none";
+            const compPredictedEl = document.getElementById("comp-predicted");
+            if (compPredictedEl) compPredictedEl.textContent = "—";
+            const compStatusEl = document.getElementById("comp-status");
+            if (compStatusEl) {
+                compStatusEl.textContent = "Awaiting Prediction";
+                compStatusEl.className = "";
+            }
         } catch (err) {
             showErrorBanner("Dataset Load Error", err.message || "Failed to load sample from dataset.");
         }
@@ -936,7 +996,7 @@ document.addEventListener("DOMContentLoaded", () => {
             confidenceEl.textContent = "—";
         }
         if (meaningBox) {
-            meaningBox.textContent = 'Click "LOAD REAL DATASET SAMPLE" then "RUN LIVE PREDICTION" to see the trained model classify a real network flow.';
+            meaningBox.textContent = 'Click "LOAD REAL TEST RECORD" then "ANALYZE THIS REAL TRAFFIC" to see the trained model classify a real network flow.';
         }
 
         const progressBars = ["bar-confidence", "bar-attack-prob", "bar-normal-prob"];
@@ -947,80 +1007,62 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // ==========================================================================
-    // 7. RESULT RENDERING & 3D TOPOLOGY REACTION
+    // 7. RESULT RENDERING & PREDICTION COMPARISON
     // ==========================================================================
     function displayPredictionResult(result) {
         const resultCard = document.getElementById("prediction-result-card") || document.getElementById("result-card");
-        const threatStatusBox = document.getElementById("threat-status-box");
-        const statusNameEl = document.getElementById("result-threat-status");
-        const statusSubEl = document.getElementById("result-threat-subdetail");
-        const iconWrapper = document.getElementById("result-icon-wrapper");
-        const icon = document.getElementById("result-icon");
 
-        const predLabel = result.prediction_label || result.prediction || "BENIGN";
-        const isNormal = predLabel.toUpperCase() === "BENIGN";
-        const confVal = result.confidence || 0.95;
+        // Update Hero Live Analysis Pipeline Card State
+        const lpcS4 = document.getElementById("lpc-s4");
+        const lpcDot4 = document.getElementById("lpc-dot-4");
+        const lpcPredTitle = document.getElementById("lpc-pred-title");
+        const lpcPredDesc = document.getElementById("lpc-pred-desc");
+
+        if (lpcS4) lpcS4.className = "lpc-step lpc-done";
+        if (lpcDot4) lpcDot4.className = isNormal ? "lpc-status-dot green" : "lpc-status-dot amber";
+        if (lpcPredTitle) lpcPredTitle.textContent = `04 PREDICTION: ${predLabel}`;
+        if (lpcPredDesc) lpcPredDesc.innerHTML = `✓ Complete (${(confVal * 100).toFixed(2)}% Confidence)`;
+
+        // Highlight User Journey Step 5
+        const ujSteps = document.querySelectorAll(".uj-step");
+        ujSteps.forEach(s => s.classList.remove("uj-active"));
+        const uj5 = document.getElementById("uj-5");
+        if (uj5) uj5.classList.add("uj-active");
 
         document.getElementById("res-prediction-label").textContent = predLabel;
 
         // Ground Truth vs Prediction Comparison
-        const groundTruth = activeDatasetSample ? activeDatasetSample.dataset_label : "Preset";
-        const compBlock = document.getElementById("comparison-block");
-        const compBox = document.getElementById("res-comparison-box");
+        const groundTruth = activeDatasetSample ? activeDatasetSample.dataset_label : "DDoS";
+        const gtClean = groundTruth.trim().toUpperCase();
+        const predClean = predLabel.trim().toUpperCase();
+        const isMatch = gtClean === predClean || (gtClean.includes("BENIGN") && predClean.includes("BENIGN")) || (gtClean.includes(predClean) || predClean.includes(gtClean));
 
-        if (compBlock && compBox) {
-            compBlock.style.display = "block";
-            const gtClean = groundTruth.trim().toUpperCase();
-            const predClean = predLabel.trim().toUpperCase();
-            const isMatch = gtClean === predClean || (gtClean.includes("BENIGN") && predClean.includes("BENIGN")) || (gtClean.includes(predClean) || predClean.includes(gtClean));
+        const compActualEl = document.getElementById("comp-actual");
+        const compPredictedEl = document.getElementById("comp-predicted");
+        const compStatusEl = document.getElementById("comp-status");
 
+        if (compActualEl) compActualEl.textContent = groundTruth;
+        if (compPredictedEl) compPredictedEl.textContent = predLabel;
+        if (compStatusEl) {
             if (isMatch) {
-                compBox.className = "comparison-result-box comparison-match";
-                compBox.innerHTML = `<i class="fa-solid fa-circle-check green-text"></i> <strong>MATCH:</strong> Model prediction matches the ground-truth dataset label! (Known: <strong>${groundTruth}</strong> | Predicted: <strong>${predLabel}</strong>)`;
+                compStatusEl.textContent = "✓ MATCH — CORRECTLY DETECTED";
+                compStatusEl.className = "green-text font-bold";
             } else {
-                compBox.className = "comparison-result-box comparison-mismatch";
-                compBox.innerHTML = `<i class="fa-solid fa-triangle-exclamation amber-text"></i> <strong>MISMATCH:</strong> Prediction differs from the dataset label. (Ground-Truth: <strong>${groundTruth}</strong> | Model Prediction: <strong>${predLabel}</strong>)`;
+                compStatusEl.textContent = "⚠ MISMATCH — MODEL MISCLASSIFIED THIS RECORD";
+                compStatusEl.className = "amber-text font-bold";
             }
         }
 
-        const meetsThreshold = confVal >= confidenceThreshold;
+        const statusBadge = document.getElementById("res-status-badge");
+        if (statusBadge) {
+            statusBadge.className = isMatch ? "badge-test-set success-badge" : "badge-test-set warning-badge";
+            statusBadge.innerHTML = isMatch ? `<i class="fa-solid fa-circle-check green-text"></i> MODEL PREDICTION COMPLETE — MATCH VERIFIED` : `<i class="fa-solid fa-triangle-exclamation amber-text"></i> MODEL PREDICTION COMPLETE`;
+        }
 
         if (isNormal) {
             resultCard.className = "result-card success-state";
-            if (threatStatusBox) threatStatusBox.className = "threat-status-box normal-status";
-            if (statusNameEl) statusNameEl.textContent = "NORMAL";
-            if (statusSubEl) statusSubEl.textContent = `No intrusion detected. Confidence ${(confVal * 100).toFixed(1)}%.`;
-
-            if (document.getElementById("res-attack-type")) document.getElementById("res-attack-type").textContent = "None (BENIGN)";
-            if (document.getElementById("res-security-action")) {
-                document.getElementById("res-security-action").textContent = "Flow Normal — No Action Required";
-                document.getElementById("res-security-action").style.color = "var(--accent-emerald)";
-            }
-
-            if (iconWrapper && icon) {
-                iconWrapper.style.borderColor = "var(--accent-emerald)";
-                iconWrapper.style.background = "rgba(16, 185, 129, 0.15)";
-                icon.className = "fa-solid fa-shield-check result-icon";
-                icon.style.color = "var(--accent-emerald)";
-            }
         } else {
             resultCard.className = "result-card threat-state";
-            if (threatStatusBox) threatStatusBox.className = "threat-status-box attack-status";
-            if (statusNameEl) statusNameEl.textContent = meetsThreshold ? "THREAT DETECTED" : "SUSPICIOUS FLOW";
-            if (statusSubEl) statusSubEl.textContent = `Threat detected (${predLabel}).`;
-
-            if (document.getElementById("res-attack-type")) document.getElementById("res-attack-type").textContent = predLabel;
-            if (document.getElementById("res-security-action")) {
-                document.getElementById("res-security-action").textContent = `Quarantine & Block Flow (${predLabel})`;
-                document.getElementById("res-security-action").style.color = "var(--accent-red)";
-            }
-
-            if (iconWrapper && icon) {
-                iconWrapper.style.borderColor = "var(--accent-red)";
-                iconWrapper.style.background = "rgba(244, 63, 94, 0.15)";
-                icon.className = "fa-solid fa-triangle-exclamation result-icon";
-                icon.style.color = "var(--accent-red)";
-            }
         }
 
         const confidencePct = (confVal * 100).toFixed(2);
@@ -1035,11 +1077,14 @@ document.addEventListener("DOMContentLoaded", () => {
         if (document.getElementById("bar-attack-prob")) document.getElementById("bar-attack-prob").style.width = `${attackProbPct}%`;
         if (document.getElementById("bar-normal-prob")) document.getElementById("bar-normal-prob").style.width = `${normalProbPct}%`;
 
-        // Update "WHAT JUST HAPPENED?" text
+        // Update "WHAT DOES THIS MEAN?" explanation text
         const meaningBox = document.getElementById("res-meaning-box");
         if (meaningBox) {
-            const fileInfo = activeDatasetSample ? `from record <strong>${activeDatasetSample.source_file} (Row #${activeDatasetSample.row_index})</strong> in our test set` : "from our dataset";
-            meaningBox.innerHTML = `We selected a real network-flow record ${fileInfo}. Its 78 traffic measurements were passed through the same prediction pipeline used by the application. The trained XGBoost model analyzed the learned traffic patterns and returned the predicted class (<strong>${predLabel}</strong>).`;
+            const explanationText = isMatch
+                ? `The trained XGBoost model correctly identified the network traffic pattern as <strong>${predLabel}</strong>.`
+                : `The model predicted <strong>${predLabel}</strong>, while the actual dataset label is <strong>${groundTruth}</strong>. This record was misclassified.`;
+
+            meaningBox.innerHTML = `${explanationText}<br><br><strong>INPUT:</strong> Real network-flow record &nbsp;&rarr;&nbsp; <strong>PROCESS:</strong> Preprocessing + XGBoost &nbsp;&rarr;&nbsp; <strong>OUTPUT:</strong> <span class="${isNormal ? 'green-text' : 'red-text'}"><strong>${predLabel}</strong></span>`;
         }
 
         prependLtiStreamEvent(predLabel, isNormal, confVal);
