@@ -1181,8 +1181,8 @@ body {
 .live-demo-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 1.5rem;
-    align-items: start;
+    gap: 1.2rem;
+    align-items: stretch;
 }
 
 .chart-container-box {
@@ -1196,7 +1196,7 @@ body {
     background: var(--bg-card);
     border: 1px solid var(--border-bright);
     border-radius: var(--radius-lg);
-    padding: 1.8rem;
+    padding: 1.4rem;
 }
 
 .dc-header h3 {

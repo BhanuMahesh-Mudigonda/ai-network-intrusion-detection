@@ -156,7 +156,6 @@ document.addEventListener("DOMContentLoaded", () => {
     initThreatCategoriesUpgrade();
     setupScrollspy();
     initPipelineSequenceCycle();
-    resetPredictionCardState();
     setupScrollRevealObserver();
     loadDatasetSample("ddos_1");
 
@@ -1011,6 +1010,9 @@ document.addEventListener("DOMContentLoaded", () => {
     // ==========================================================================
     function displayPredictionResult(result) {
         const resultCard = document.getElementById("prediction-result-card") || document.getElementById("result-card");
+        const predLabel = result.prediction_label || result.predicted_label || "BENIGN";
+        const isNormal = predLabel.trim().toUpperCase() === "BENIGN";
+        const confVal = result.confidence !== undefined ? result.confidence : 0.99;
 
         // Update Hero Live Analysis Pipeline Card State
         const lpcS4 = document.getElementById("lpc-s4");
