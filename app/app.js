@@ -788,6 +788,11 @@ document.addEventListener("DOMContentLoaded", () => {
         hideErrorBanner();
         showAnalysisStepper();
 
+        const resultCard = document.getElementById("prediction-result-card") || document.getElementById("result-card");
+        if (resultCard) {
+            resultCard.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
+
         try {
             setStepperStep(1);
             highlightPipelineStep(1);
